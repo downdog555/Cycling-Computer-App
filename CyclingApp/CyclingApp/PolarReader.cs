@@ -12,15 +12,16 @@ namespace CyclingApp
     /// </summary>
     class PolarReader : IFileReader
     {
-        
-      
+
+        private Mode mode;
+        private Smode smode;
         /// <summary>
         /// The required lists for separating data
         /// </summary>
         private List<string> parametersList, noteList, intTimeList, intNotesList, extraDataList, lapNameList, summary123List, summaryThList, hrZoneList, swapTimeList, tripList, hrDataList;
-        private string filePath, version, monitor, mode, smode, date, startTime, length, timer1, timer2, timer3, activeLimit, unit;
+        private string filePath, monitor, date, startTime, length, timer1, timer2, timer3, activeLimit, unit;
         private float VO2max, weight;
-        private int interval, upper1, lower1, upper2, lower2, upper3, lower3, maxHR, restHR, startDelay;
+        private int interval, upper1, lower1, upper2, lower2, upper3, lower3, maxHR, restHR, startDelay, version;
         /// <summary>
         /// Constructor for Polar reader
         /// </summary>
@@ -298,17 +299,40 @@ namespace CyclingApp
             }
 
             //we need to separate the data out futher
-            version = parametersList.ElementAt(1);
+            
+            version = Convert.ToInt32(parametersList.ElementAt(1));
             monitor = GetMonitorType(parametersList.ElementAt(2));
-            mode = parametersList.ElementAt(3);
-            if (mode.Split('=')[1].ToCharArray()[2].Equals("0"))
+            if (version <= 105)
             {
-                unit = "euro";
+                mode = new Mode(parametersList.ElementAt(3).Split('=')[1]);
+                smode = null;
             }
-            else
+            else if (version >= 106)
             {
-                unit = "us";
+                smode = new Smode(version, parametersList.ElementAt(3).Split('=')[1]);
+                mode = null;
             }
+            date = parametersList.ElementAt(4).Split('=')[1];
+            startTime = parametersList.ElementAt(5).Split('=')[1];
+            length = parametersList.ElementAt(6).Split('=')[1];
+            interval = Convert.ToInt32(parametersList.ElementAt(7).Split('=')[1]);
+            upper1 = Convert.ToInt32(parametersList.ElementAt(8).Split('=')[1]);
+            lower1 = Convert.ToInt32(parametersList.ElementAt(9).Split('=')[1]);
+            upper2 = Convert.ToInt32(parametersList.ElementAt(10).Split('=')[1]);
+            lower2 = Convert.ToInt32(parametersList.ElementAt(11).Split('=')[1]); 
+            upper3 = Convert.ToInt32(parametersList.ElementAt(12).Split('=')[1]);
+            lower3 = Convert.ToInt32(parametersList.ElementAt(13).Split('=')[1]);
+            timer1 = parametersList.ElementAt(14).Split('=')[1]; ;
+            timer2 = parametersList.ElementAt(15).Split('=')[1]; ;
+            timer3 = parametersList.ElementAt(16).Split('=')[1]; ;
+            activeLimit = parametersList.ElementAt(17).Split('=')[1]; ;
+            maxHR = Convert.ToInt32(parametersList.ElementAt(18).Split('=')[1]);
+            restHR = Convert.ToInt32(parametersList.ElementAt(19).Split('=')[1]);
+            startDelay = Convert.ToInt32(parametersList.ElementAt(20).Split('=')[1]);
+            VO2max = Convert.ToInt32(parametersList.ElementAt(21).Split('=')[1]);
+            weight = Convert.ToInt32(parametersList.ElementAt(22).Split('=')[1]);
+
+
 
 
 
