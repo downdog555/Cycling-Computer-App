@@ -22,6 +22,8 @@ namespace CyclingApp
         private string filePath, monitor, date, startTime, length, timer1, timer2, timer3, activeLimit, unit;
         private float VO2max, weight;
         private int interval, upper1, lower1, upper2, lower2, upper3, lower3, maxHR, restHR, startDelay, version;
+        private bool unitBool;
+        private HrData hrDataExtended;
         /// <summary>
         /// Constructor for Polar reader
         /// </summary>
@@ -122,7 +124,7 @@ namespace CyclingApp
             }
 
         }
-
+#region Getters and setters
         /// <summary>
         /// Getter for data
         /// </summary>
@@ -171,7 +173,7 @@ namespace CyclingApp
         /// Getter for data
         /// </summary>
         public List<string> HrDataList { get => hrDataList; }
-
+#endregion
         public void ReadFile(string filePath)
         {
             this.filePath = filePath;
@@ -310,6 +312,7 @@ namespace CyclingApp
             else if (version >= 106)
             {
                 smode = new Smode(version, parametersList.ElementAt(3).Split('=')[1]);
+                
                 mode = null;
             }
             date = parametersList.ElementAt(4).Split('=')[1];
@@ -331,8 +334,17 @@ namespace CyclingApp
             startDelay = Convert.ToInt32(parametersList.ElementAt(20).Split('=')[1]);
             VO2max = Convert.ToInt32(parametersList.ElementAt(21).Split('=')[1]);
             weight = Convert.ToInt32(parametersList.ElementAt(22).Split('=')[1]);
-
-
+            //we remove the header that was used for detection [Hr Data]
+            hrDataList.RemoveAt(0);
+            if (version <= 105)
+            {
+                hrDataExtended = new HrData(unitBool, version, hrDataList, mode.CadAltInt);
+            }
+            else
+            {
+                hrDataExtended = new HrData(unitBool, version, hrDataList);
+            }
+            
 
 
 

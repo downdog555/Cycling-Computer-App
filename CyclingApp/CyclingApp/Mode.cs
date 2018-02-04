@@ -11,31 +11,34 @@ namespace CyclingApp
     /// </summary>
     class Mode
     {
-        string CadAlt;
-        bool unit, ccData;
+        private string cadAlt;
+        private bool unit, ccData;
+        private int cadAltInt;
 
         public Mode(string values)
         {
             char[] valueChar = values.ToCharArray();
+            cadAltInt = Convert.ToInt32(valueChar[0]);
             if (valueChar[0].Equals('0'))
             {
-                CadAlt = "Cad";
+                cadAlt = "Cad";
             }
             else if (valueChar[0].Equals('1'))
             {
-                CadAlt = "Alt";
+                cadAlt = "Alt";
             }
             else if (valueChar[0].Equals('3'))
             {
-                CadAlt = "None";
+                cadAlt = "None";
             }
 
             unit = !valueChar.Equals("0");
             ccData = !valueChar.Equals('0');
         }
         //getters and setters
-        public string CadAlt1 { get => CadAlt; set => CadAlt = value; }
-        public bool Unit { get => unit; set => unit = value; }
-        public bool CcData { get => ccData; set => ccData = value; }
+        public string CadAlt { get => cadAlt;}
+        public int CadAltInt { get => cadAltInt; }
+        public bool Unit { get => unit; }
+        public bool CcData { get => ccData;}
     }
 }
