@@ -9,18 +9,18 @@ namespace CyclingApp
     /// <summary>
     /// Class to represent and process the hr data section
     /// </summary>
-    class HrData
+    class HrData 
     {
-        private List<HrDataSingle> DataEuro;
-        private List<HrDataSingle> DataUS;
+        private List<HrDataSingle> dataEuro;
+        private List<HrDataSingle> dataUS;
 
         public HrData(Boolean dataType, int version, List<string> rawData, int cadAlt = 46)
         {
             //means euro data type
             if (!dataType)
             {
-                DataEuro = new List<HrDataSingle>();
-                DataUS = new List<HrDataSingle>();
+                dataEuro = new List<HrDataSingle>();
+                dataUS = new List<HrDataSingle>();
                 foreach (string line in rawData)
                 {
                     HrDataSingle tempEuro = new HrDataSingle(line.Split('\t').ToList<string>(), version, cadAlt);
@@ -45,16 +45,16 @@ namespace CyclingApp
                     lineConverted.Add("" + tempEuro.Power);
                     lineConverted.Add("" + tempEuro.PbPedInd);
                     lineConverted.Add("" + tempEuro.AirPressure);
-                    DataUS.Add(new HrDataSingle(lineConverted, version, cadAlt));
-                    DataEuro.Add(tempEuro);
+                    dataUS.Add(new HrDataSingle(lineConverted, version, cadAlt));
+                    dataEuro.Add(tempEuro);
                 }
             }
             else
             {
                 foreach (string line in rawData)
                 {
-                    DataUS = new List<HrDataSingle>();
-                    DataEuro = new List<HrDataSingle>();
+                    dataUS = new List<HrDataSingle>();
+                    dataEuro = new List<HrDataSingle>();
 
                     HrDataSingle tempUS = new HrDataSingle(line.Split('\t').ToList<string>(), version, cadAlt);
                     //we need to convert form us to 
@@ -77,11 +77,14 @@ namespace CyclingApp
                     lineConverted.Add(""+tempUS.Power);
                     lineConverted.Add(""+tempUS.PbPedInd);
                     lineConverted.Add(""+tempUS.AirPressure);
-                    DataEuro.Add(new HrDataSingle(lineConverted, version, cadAlt));
-                    DataUS.Add(tempUS);
+                    dataEuro.Add(new HrDataSingle(lineConverted, version, cadAlt));
+                    dataUS.Add(tempUS);
                 }
             }
 
         }
+
+        public List<HrDataSingle> DataUS { get => dataUS; set => dataUS = value; }
+        public List<HrDataSingle> DataEuro { get => dataEuro; set => dataEuro = value; }
     }
 }
