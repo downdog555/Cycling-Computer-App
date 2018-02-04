@@ -52,6 +52,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HrData.cs" />
+    <Compile Include="HrDataSingle.cs" />
     <Compile Include="Mode.cs" />
     <Compile Include="Polar.cs" />
     <Compile Include="PolarReader.cs" />
