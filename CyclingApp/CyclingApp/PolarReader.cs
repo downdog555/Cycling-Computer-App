@@ -444,7 +444,93 @@ namespace CyclingApp
             }
             else
             {
-                //us starting values values
+                //us starting values
+                //total distance not sure if for that trip or the odometer
+                summaryEuro.Add("TotalDistanceTrip", "" + (Convert.ToDouble(tripList.ElementAt(1)) / 10) * 1.60934);
+                summaryUS.Add("TotalDistanceTrip", "" + ((Convert.ToDouble(tripList.ElementAt(1)) / 10)));
+                //total distance recorded by odometer
+                summaryEuro.Add("TotalDistanceOdometer", "" + (Convert.ToDouble(tripList.ElementAt(8))* 1.60934));
+                summaryUS.Add("TotalDistanceOdometer", "" + (Convert.ToDouble(tripList.ElementAt(8))));
+                //Average Speed
+                summaryEuro.Add("AverageSpeed", "" + ((Convert.ToDouble(tripList.ElementAt(6)) / 128)* 1.60934));
+                summaryUS.Add("AverageSpeed", "" + (Convert.ToDouble(tripList.ElementAt(6)) / 128) );
+                //maximum speed
+                summaryEuro.Add("MaxSpeed", "" + ((Convert.ToDouble(tripList.ElementAt(7)) / 128)*1.60934));
+                summaryUS.Add("MaxSpeed", "" + (Convert.ToDouble(tripList.ElementAt(7)) / 128) );
+                //Average Heart Rate
+                int averageHeartRate = 0;
+                foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                {
+                    averageHeartRate = averageHeartRate + data.HeartRate;
+                }
+                averageHeartRate = averageHeartRate / hrDataExtended.DataEuro.Count;
+                summaryEuro.Add("AverageHeartRate", "" + averageHeartRate);
+                summaryUS.Add("AverageHeartRate", "" + averageHeartRate);
+                //Max Heart Rate
+                summaryEuro.Add("MaxHeartRate", "" + maxHR);
+                summaryUS.Add("MaxHeartRate", "" + maxHR);
+                //Min Heart Rate
+                int minHeartRate = restHR;
+                foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                {
+                    if (data.HeartRate < minHeartRate)
+                    {
+                        minHeartRate = data.HeartRate;
+                    }
+                }
+                summaryEuro.Add("MinHeartRate", "" + minHeartRate);
+                summaryUS.Add("MinHeartRate", "" + minHeartRate);
+                //Average power
+                int PowerAverage = 0;
+
+
+                foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                {
+                    PowerAverage = PowerAverage + data.Power;
+                }
+                PowerAverage = PowerAverage / hrDataExtended.DataEuro.Count;
+
+
+
+
+
+                summaryEuro.Add("AveragePower", "" + PowerAverage);
+                summaryUS.Add("AveragePower", "" + PowerAverage);
+                //Max Power
+                int maxpower = 0;
+                foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                {
+                    if (data.Power > maxpower)
+                    {
+                        maxpower = data.Power;
+                    }
+                }
+                summaryEuro.Add("MaxPower", "" + maxpower);
+                summaryUS.Add("MaxPower", "" + maxpower);
+                //Average Altitude
+                if (version == 102)
+                {
+                    summaryEuro.Add("AverageAltitude", "" + ((Convert.ToDouble(tripList.ElementAt(4)) / 10) * 0.3048));
+                    summaryUS.Add("AverageAltitude", "" + (Convert.ToDouble(tripList.ElementAt(4)) / 10) );
+                }
+                else
+                {
+                    summaryEuro.Add("AverageAltitude", "" + (Convert.ToDouble(tripList.ElementAt(4)) * 0.3048));
+                    summaryUS.Add("AverageAltitude", "" + (Convert.ToDouble(tripList.ElementAt(4))));
+                }
+
+                //Max Altitude
+                if (version == 102)
+                {
+                    summaryEuro.Add("MaxAltitude", "" +( (Convert.ToDouble(tripList.ElementAt(5)) / 10)* 0.3048));
+                    summaryUS.Add("MaxAltitude", "" + (Convert.ToDouble(tripList.ElementAt(5)) / 10));
+                }
+                else
+                {
+                    summaryEuro.Add("MaxAltitude", "" + ((Convert.ToDouble(tripList.ElementAt(5)))* 0.3048));
+                    summaryUS.Add("MaxAltitude", "" + (Convert.ToDouble(tripList.ElementAt(5))) );
+
+                }
             }
 
 
