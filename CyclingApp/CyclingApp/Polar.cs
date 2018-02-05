@@ -32,5 +32,22 @@ namespace CyclingApp
             dataStore.ReadFile(filePath);
         }
 
+        public Dictionary<string, string> GetSummaryData()
+        {
+            if (!GetUnit())
+            {
+                return dataStore.SummaryEuro;
+            }
+            else
+            {
+                return dataStore.SummaryUS;
+            }
+        }
+
+        public bool GetUnit()
+        {
+            return dataStore.UnitBool;
+        }
+
     }
 }

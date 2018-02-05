@@ -27,7 +27,8 @@ namespace CyclingApp
             int i = 0;
             foreach (char c in values.ToCharArray())
             {
-                valuesInt[i] = c;
+                string b = "" + c;
+                valuesInt[i] = Convert.ToInt32(b);
                 i++;
             }
             if (version == 106)

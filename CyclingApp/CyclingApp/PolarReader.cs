@@ -50,6 +50,7 @@ namespace CyclingApp
 
         private string GetMonitorType(string raw)
         {
+            raw = raw.Split('=')[1];
             switch (raw)
             {
                 case "1":
@@ -177,7 +178,10 @@ namespace CyclingApp
         /// Getter for data
         /// </summary>
         public List<string> HrDataList { get => hrDataList; }
-#endregion
+        public Dictionary<string, string> SummaryEuro { get => summaryEuro; set => summaryEuro = value; }
+        public Dictionary<string, string> SummaryUS { get => summaryUS; set => summaryUS = value; }
+        public bool UnitBool { get => unitBool; set => unitBool = value; }
+        #endregion
         public void ReadFile(string filePath)
         {
             this.filePath = filePath;
@@ -305,8 +309,8 @@ namespace CyclingApp
             }
 
             //we need to separate the data out futher
-            
-            version = Convert.ToInt32(parametersList.ElementAt(1));
+            Console.WriteLine(parametersList.ElementAt(1));
+            version = Convert.ToInt32(parametersList.ElementAt(1).Split('=')[1]);
             monitor = GetMonitorType(parametersList.ElementAt(2));
             if (version <= 105)
             {
@@ -321,6 +325,7 @@ namespace CyclingApp
             }
             date = parametersList.ElementAt(4).Split('=')[1];
             startTime = parametersList.ElementAt(5).Split('=')[1];
+            
             length = parametersList.ElementAt(6).Split('=')[1];
             interval = Convert.ToInt32(parametersList.ElementAt(7).Split('=')[1]);
             upper1 = Convert.ToInt32(parametersList.ElementAt(8).Split('=')[1]);
