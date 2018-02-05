@@ -18,6 +18,7 @@ namespace CyclingApp
             
             InitializeComponent();
             AddSummaryData(data, unitType);
+            summaryExpand.Dock = DockStyle.Top;
             
    
             

@@ -46,6 +46,8 @@ namespace CyclingApp
             swapTimeList = new List<string>();
             tripList = new List<string>();
             hrDataList = new List<string>();
+            summaryEuro = new Dictionary<string, string>();
+            summaryUS = new Dictionary<string, string>();
         }
 
         private string GetMonitorType(string raw)

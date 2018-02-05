@@ -25,7 +25,7 @@ namespace CyclingApp
             speed = 0.0;
             if (data.Count == 3)
             {
-                heartRate = Convert.ToInt32(data.ElementAt(0));
+                heartRate =(int)Convert.ToDouble(data.ElementAt(0));
                 speed = Convert.ToDouble(data.ElementAt(1))/10;
                 if (cadAlt == 0)
                 {
@@ -33,7 +33,7 @@ namespace CyclingApp
                 }
                 else if(cadAlt == 1)
                 {
-                    altitude = Convert.ToInt32(data.ElementAt(2)); ;
+                    altitude = (int)Convert.ToDouble(data.ElementAt(2)); ;
                 }
             }
             else if (data.Count == 6)
@@ -53,7 +53,7 @@ namespace CyclingApp
                 speed = Convert.ToDouble(data.ElementAt(1)) / 10;
                 cadence = Convert.ToInt32(data.ElementAt(2));
                 Console.WriteLine(data.ElementAt(3));
-                altitude = Convert.ToInt32(data.ElementAt(3));
+                altitude = (int)Convert.ToDouble(data.ElementAt(3));
                 power = Convert.ToInt32(data.ElementAt(4));
                 pbPedInd = Convert.ToInt32(data.ElementAt(5));
                 airPressure = Convert.ToInt32(data.ElementAt(6));
