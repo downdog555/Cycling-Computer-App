@@ -52,7 +52,7 @@ namespace CyclingApp
                 heartRate = Convert.ToInt32(data.ElementAt(0));
                 speed = Convert.ToDouble(data.ElementAt(1)) / 10;
                 cadence = Convert.ToInt32(data.ElementAt(2));
-                Console.WriteLine(data.ElementAt(3));
+                //Console.WriteLine(data.ElementAt(3));
                 altitude = (int)Convert.ToDouble(data.ElementAt(3));
                 power = Convert.ToInt32(data.ElementAt(4));
                 pbPedInd = Convert.ToInt32(data.ElementAt(5));
@@ -60,12 +60,12 @@ namespace CyclingApp
             }
         }
 
-        public int HeartRate { get => heartRate; }
-        public int Cadence { get => cadence;  }
-        public int Altitude { get => altitude;  }
-        public int Power { get => power;  }
-        public int AirPressure { get => airPressure;  }
-        public int PbPedInd { get => pbPedInd; }
-        public double Speed { get => speed; }
+        public int HeartRate { get { return heartRate; } }
+        public int Cadence { get { return cadence; } }
+        public int Altitude { get { return altitude; } }
+        public int Power { get { return power; } }
+        public int AirPressure { get { return airPressure; } }
+        public int PbPedInd { get { return pbPedInd; } }
+        public double Speed { get { return speed; } }
     }
 }

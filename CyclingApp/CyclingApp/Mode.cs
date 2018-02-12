@@ -36,9 +36,9 @@ namespace CyclingApp
             ccData = !valueChar.Equals('0');
         }
         //getters and setters
-        public string CadAlt { get => cadAlt;}
-        public int CadAltInt { get => cadAltInt; }
-        public bool Unit { get => unit; }
-        public bool CcData { get => ccData;}
+        public string CadAlt { get { return cadAlt; } }
+        public int CadAltInt { get { return cadAltInt; } }
+        public bool Unit { get { return unit; } }
+        public bool CcData { get { return ccData; } }
     }
 }

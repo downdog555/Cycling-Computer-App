@@ -18,7 +18,7 @@ namespace CyclingApp
             
             InitializeComponent();
             AddSummaryData(data, unitType);
-            summaryExpand.Dock = DockStyle.Top;
+           summaryExpand.Dock = DockStyle.Top;
             
    
             
@@ -30,16 +30,22 @@ namespace CyclingApp
         public void AddSummaryData(Dictionary<string, string> data, bool unitType)
         {
             string distanceUnit,speedUnit, distanceSmallUnit;
+            summaryExpand.Header = "Ride Summary";
             string[] units = GetUnits(unitType);
             distanceUnit = units[0];
             speedUnit = units[1];
             distanceSmallUnit = units[2];
             DataGridView grid = new DataGridView();
             grid.Dock = DockStyle.Fill;
-            grid.AllowUserToAddRows = true;
-            Label test = new Label();
-            test.Text = "emwoowdaw";
-            //summaryExpand.Content.Controls.Add(test);
+            grid.AllowUserToAddRows = false;
+            List<string> valuesToBeInserted = new List<string>();
+            foreach (KeyValuePair<string, string>  value in data)
+            {
+                grid.Columns.Add(value.Key, value.Key);
+                valuesToBeInserted.Add(value.Value);
+            }
+     
+            grid.Rows.Insert(0,valuesToBeInserted.ToArray());
             summaryExpand.Content.Controls.Add(grid);
 
 

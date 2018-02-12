@@ -49,14 +49,14 @@ namespace CyclingApp
             unit = valuesInt[7] != 0;
         }
 
-        public bool Speed { get => speed; set => speed = value; }
-        public bool Cadence { get => cadence; set => cadence = value; }
-        public bool Altitude { get => altitude; set => altitude = value; }
-        public bool Power { get => power; set => power = value; }
-        public bool PowerLeftRightBalance { get => powerLeftRightBalance; set => powerLeftRightBalance = value; }
-        public bool PowerPedallingIndex { get => powerPedallingIndex; set => powerPedallingIndex = value; }
-        public bool HRCC1 { get => HRCC; set => HRCC = value; }
-        public bool Unit { get => unit; set => unit = value; }
-        public bool AirPressure { get => airPressure; set => airPressure = value; }
+        public bool Speed { get { return speed; } set { speed = value; } }
+        public bool Cadence { get { return cadence; } set { cadence = value; } }
+        public bool Altitude { get { return altitude; } set { altitude = value; } }
+        public bool Power { get { return power; } set { power = value; } }
+        public bool PowerLeftRightBalance { get { return powerLeftRightBalance; } set { powerLeftRightBalance = value; } }
+        public bool PowerPedallingIndex { get { return powerPedallingIndex; } set { powerPedallingIndex = value; } }
+        public bool HRCC1 { get { return HRCC; } set { HRCC = value; } }
+        public bool Unit { get { return unit; } set { unit = value; } }
+        public bool AirPressure { get { return airPressure; } set { airPressure = value; } }
     }
 }

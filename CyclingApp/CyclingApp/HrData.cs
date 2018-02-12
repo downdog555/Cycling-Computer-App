@@ -84,7 +84,7 @@ namespace CyclingApp
 
         }
 
-        public List<HrDataSingle> DataUS { get => dataUS; set => dataUS = value; }
-        public List<HrDataSingle> DataEuro { get => dataEuro; set => dataEuro = value; }
+        public List<HrDataSingle> DataUS { get { return dataUS; } set { dataUS = value; } }
+        public List<HrDataSingle> DataEuro { get { return dataEuro; } set { dataEuro = value; } }
     }
 }

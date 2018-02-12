@@ -12,14 +12,40 @@ namespace CyclingApp
 {
     public partial class CyclingMain : Form
     {
-        Polar polar = new Polar();
+      
+        private Polar polar = new Polar();
         public CyclingMain()
         {
+          
 
-            polar.LoadData(@"C:\Users\Reec\Downloads\ASDBExampleCycleComputerData.hrm");
+         
             InitializeComponent();
-            DataView dw = new DataView(polar.GetSummaryData(), polar.GetUnit());
-            singleView.Controls.Add(dw);
+            
+        }
+
+        /// <summary>
+        /// Method called when inital button called to load file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void loadFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fileDialog.ShowDialog();
+            
+        }
+
+       
+
+        private void FileOk(object sender, CancelEventArgs e)
+        {
+            if (fileDialog.FileName != null || fileDialog.FileName.Equals(""))
+            {
+                polar.LoadData(fileDialog.FileName);
+                DataView dw = new DataView(polar.GetSummaryData(), polar.GetUnit());
+                dw.Dock = DockStyle.Fill;
+                singleView.Controls.Add(dw);
+                menuStrip3.Hide();
+            }
         }
     }
 }

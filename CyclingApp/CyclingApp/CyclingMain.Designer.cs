@@ -35,11 +35,16 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabSelector = new System.Windows.Forms.TabControl();
             this.singleView = new System.Windows.Forms.TabPage();
+            this.menuStrip3 = new System.Windows.Forms.MenuStrip();
+            this.loadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareTab = new System.Windows.Forms.TabPage();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.addNewComaprisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.tabSelector.SuspendLayout();
+            this.singleView.SuspendLayout();
+            this.menuStrip3.SuspendLayout();
             this.compareTab.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -99,6 +104,7 @@
             // 
             // singleView
             // 
+            this.singleView.Controls.Add(this.menuStrip3);
             this.singleView.Location = new System.Drawing.Point(4, 22);
             this.singleView.Name = "singleView";
             this.singleView.Padding = new System.Windows.Forms.Padding(3);
@@ -106,6 +112,23 @@
             this.singleView.TabIndex = 0;
             this.singleView.Text = "Single View";
             this.singleView.UseVisualStyleBackColor = true;
+            // 
+            // menuStrip3
+            // 
+            this.menuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadFileToolStripMenuItem});
+            this.menuStrip3.Location = new System.Drawing.Point(3, 3);
+            this.menuStrip3.Name = "menuStrip3";
+            this.menuStrip3.Size = new System.Drawing.Size(611, 24);
+            this.menuStrip3.TabIndex = 0;
+            this.menuStrip3.Text = "menuStrip3";
+            // 
+            // loadFileToolStripMenuItem
+            // 
+            this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
+            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.loadFileToolStripMenuItem.Text = "Load File";
+            this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
             // 
             // compareTab
             // 
@@ -134,6 +157,11 @@
             this.addNewComaprisionToolStripMenuItem.Size = new System.Drawing.Size(139, 20);
             this.addNewComaprisionToolStripMenuItem.Text = "Add New Comaprision";
             // 
+            // fileDialog
+            // 
+            this.fileDialog.FileName = "FileDialog";
+            this.fileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.FileOk);
+            // 
             // CyclingMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -141,11 +169,16 @@
             this.ClientSize = new System.Drawing.Size(650, 603);
             this.Controls.Add(this.tabSelector);
             this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip3;
             this.Name = "CyclingMain";
             this.Text = "Cycling App";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabSelector.ResumeLayout(false);
+            this.singleView.ResumeLayout(false);
+            this.singleView.PerformLayout();
+            this.menuStrip3.ResumeLayout(false);
+            this.menuStrip3.PerformLayout();
             this.compareTab.ResumeLayout(false);
             this.compareTab.PerformLayout();
             this.menuStrip2.ResumeLayout(false);
@@ -167,6 +200,9 @@
         private System.Windows.Forms.TabPage compareTab;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem addNewComaprisionToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip3;
+        private System.Windows.Forms.ToolStripMenuItem loadFileToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog fileDialog;
     }
 }
 

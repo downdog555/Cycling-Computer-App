@@ -135,54 +135,54 @@ namespace CyclingApp
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> ParametersList { get => parametersList;  }
+        public List<string> ParametersList { get { return parametersList; }  }
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> NoteList { get => noteList; }
+        public List<string> NoteList { get {return noteList; } }
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> IntTimeList { get => intTimeList;  }
+        public List<string> IntTimeList { get { return intTimeList;  } }
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> IntNotesList { get => intNotesList;  }
+        public List<string> IntNotesList { get { return intNotesList;  } }
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> ExtraDataList { get => extraDataList;  }
+        public List<string> ExtraDataList { get { return extraDataList;  } }
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> LapNameList { get => lapNameList; }
+        public List<string> LapNameList { get { return lapNameList; } }
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> Summary123List { get => summary123List;  }
+        public List<string> Summary123List { get { return summary123List;  } }
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> SummaryThList { get => summaryThList;  }
+        public List<string> SummaryThList { get { return summaryThList;  } }
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> HrZoneList { get => hrZoneList; }
+        public List<string> HrZoneList { get { return hrZoneList; } }
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> SwapTimeList { get => swapTimeList;  }
+        public List<string> SwapTimeList { get { return swapTimeList; } }
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> TripList { get => tripList;  }
+        public List<string> TripList { get { return tripList; } }
         /// <summary>
         /// Getter for data
         /// </summary>
-        public List<string> HrDataList { get => hrDataList; }
-        public Dictionary<string, string> SummaryEuro { get => summaryEuro; set => summaryEuro = value; }
-        public Dictionary<string, string> SummaryUS { get => summaryUS; set => summaryUS = value; }
-        public bool UnitBool { get => unitBool; set => unitBool = value; }
+        public List<string> HrDataList { get { return hrDataList; } }
+        public Dictionary<string, string> SummaryEuro { get { return summaryEuro; } }
+        public Dictionary<string, string> SummaryUS { get { return summaryUS; } }
+        public bool UnitBool { get { return unitBool; } }
         #endregion
         public void ReadFile(string filePath)
         {
@@ -311,7 +311,7 @@ namespace CyclingApp
             }
 
             //we need to separate the data out futher
-            Console.WriteLine(parametersList.ElementAt(1));
+            //Console.WriteLine(parametersList.ElementAt(1));
             version = Convert.ToInt32(parametersList.ElementAt(1).Split('=')[1]);
             monitor = GetMonitorType(parametersList.ElementAt(2));
             if (version <= 105)
@@ -359,18 +359,52 @@ namespace CyclingApp
             //Storing the summary data
             if (!unitBool)
             {
-                //total distance not sure if for that trip or the odometer
-                summaryEuro.Add("TotalDistanceTrip",""+(Convert.ToDouble(tripList.ElementAt(1))/10));
-                summaryUS.Add("TotalDistanceTrip",""+((Convert.ToDouble(tripList.ElementAt(1))/10)* 0.621371));
-                //total distance recorded by odometer
-                summaryEuro.Add("TotalDistanceOdometer", "" + Convert.ToDouble(tripList.ElementAt(8)));
-                summaryUS.Add("TotalDistanceOdometer", "" + (Convert.ToDouble(tripList.ElementAt(8)) * 0.621371));
+                //total distance 
+                double distance = 0;
+                foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                {
+                    double hoursSpeed = data.Speed / 10;
+                   // Console.WriteLine("Hours: "+hoursSpeed);
+                    double minsSpeed = hoursSpeed / 60;
+                    //Console.WriteLine("mins: " + minsSpeed);
+                    double secondSpeed = minsSpeed / 60;
+                    //Console.WriteLine("secondfs: " + secondSpeed);
+                    double intervalDistance = secondSpeed * interval;
+                   // Console.WriteLine("int distance: " + intervalDistance);
+                    distance = distance + intervalDistance;
+                   // Console.WriteLine("cumaltive distnacew: " + distance);
+                    //Console.WriteLine("########");
+                }
+                summaryEuro.Add("TotalDistanceTrip",""+distance);
+                summaryUS.Add("TotalDistanceTrip",""+(distance* 0.621371));
+              
                 //Average Speed
-                summaryEuro.Add("AverageSpeed",""+(Convert.ToDouble(tripList.ElementAt(6))/128));
-                summaryUS.Add("AverageSpeed", "" + ((Convert.ToDouble(tripList.ElementAt(6))/128)* 0.6213711922));
+                
+                double averageSpeed = 0;
+                foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                {
+                    averageSpeed = averageSpeed + data.Speed;
+                }
+                averageSpeed = averageSpeed / hrDataExtended.DataEuro.Count;
+                averageSpeed = averageSpeed / 10;
+                summaryEuro.Add("AverageSpeed",""+ averageSpeed);
+                summaryUS.Add("AverageSpeed", "" + (averageSpeed * 0.6213711922));
                 //maximum speed
-                summaryEuro.Add("MaxSpeed", "" + (Convert.ToDouble(tripList.ElementAt(7))/128));
-                summaryUS.Add("MaxSpeed", "" + ((Convert.ToDouble(tripList.ElementAt(7))/128) * 0.6213711922));
+                string hrdatastring = "";
+                double speed = 0;
+                foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                {
+                    if (speed < data.Speed)
+                    {
+                        speed = data.Speed;
+                    }
+                }
+                hrdatastring = "" + (speed / 10);
+                summaryEuro.Add("MaxSpeed", "" + Convert.ToDouble(hrdatastring));
+                summaryUS.Add("MaxSpeed", "" + ((Convert.ToDouble(hrdatastring) * 0.6213711922)));
+
+                
+                
                 //Average Heart Rate
                 int averageHeartRate = 0;
                 foreach (HrDataSingle data in hrDataExtended.DataEuro)
