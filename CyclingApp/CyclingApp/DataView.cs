@@ -17,6 +17,16 @@ namespace CyclingApp
         {
             
             InitializeComponent();
+            if (!unitType)
+            {
+                euroSelection.Checked = true;
+                Console.WriteLine("Euro Select");
+
+            }
+            else
+            {
+                usSelection.Checked = true;
+            }
             AddSummaryData(data, unitType);
            summaryExpand.Dock = DockStyle.Top;
             
@@ -29,6 +39,7 @@ namespace CyclingApp
 
         public void AddSummaryData(Dictionary<string, string> data, bool unitType)
         {
+            
             string distanceUnit,speedUnit, distanceSmallUnit;
             summaryExpand.Header = "Ride Summary";
             string[] units = GetUnits(unitType);
@@ -60,8 +71,28 @@ namespace CyclingApp
             }
             else
             {
-                return new string[] {"Miles","MPH","Ft" };
+                return new string[] {"M","MPH","F" };
             }
+        }
+
+        private void euroSelection_EnabledChanged(object sender, EventArgs e)
+        {
+            Console.Write("We have changed");
+        }
+
+        private void euroSelection_CheckedChanged(object sender, EventArgs e)
+        {
+            Console.Write("We have changed");
+        }
+
+        private void usSelection_CheckedChanged(object sender, EventArgs e)
+        {
+            Console.Write("We have changed");
+        }
+
+        private void usSelection_Click(object sender, EventArgs e)
+        {
+            Console.Write("We have changed");
         }
     }
 }

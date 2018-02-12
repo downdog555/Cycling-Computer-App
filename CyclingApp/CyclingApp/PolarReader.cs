@@ -367,7 +367,10 @@ namespace CyclingApp
             {
                 hrDataExtended = new HrData(unitBool, version, hrDataList);
             }
-            
+            if (!unitBool)
+            {
+                
+            }
             //Storing the summary data
             if (!unitBool)
             {
