@@ -186,129 +186,141 @@ namespace CyclingApp
         #endregion
         public void ReadFile(string filePath)
         {
+            Console.WriteLine("We are in polar reader for read file");
             this.filePath = filePath;
+            Console.WriteLine("We are after asigning file path");
             SeparateData();
         }
 
         public void SeparateData()
         {
-
-            using (StreamReader sr = new StreamReader(filePath))
-            {
-                bool parameters, note, intTime, intNotes, extraData, lapName, summary123, summaryTh, hrZone, swapTime, trip, hrData;
-                parameters = note = intTime = intNotes = extraData = lapName = summary123 = summaryTh = hrZone = swapTime = trip = hrData = false;
-                string line;
-
-
-                // Read and display lines from the file until 
-                // the end of the file is reached. 
-                while ((line = sr.ReadLine()) != null)
+            Console.WriteLine("We are in separeate data");
+            try {
+                Console.WriteLine("We are in try catch");
+                using (StreamReader sr = new StreamReader(filePath))
                 {
+                    Console.WriteLine("We are in reader");
+                    bool parameters, note, intTime, intNotes, extraData, lapName, summary123, summaryTh, hrZone, swapTime, trip, hrData;
+                    parameters = note = intTime = intNotes = extraData = lapName = summary123 = summaryTh = hrZone = swapTime = trip = hrData = false;
+                    string line;
 
-                    switch (line)
+
+                    // Read and display lines from the file until 
+                    // the end of the file is reached. 
+                    while ((line = sr.ReadLine()) != null)
                     {
-                        case "[Params]":
-                            parameters = true;
-                            break;
-                        case "[Note]":
-                            note = true;
-                            parameters = false;
-                            break;
-                        case "[IntTimes]":
-                            intTime = true;
-                            note = false;
-                            break;
-                        case "[IntNotes]":
-                            intNotes = true;
-                            intTime = false;
-                            break;
-                        case "[ExtraData]":
-                            extraData = true;
-                            intNotes = false;
-                            break;
-                        case "[LapNames]":
-                            lapName = true;
-                            extraData = false;
-                            break;
-                        case "[Summary-123]":
-                            summary123 = true;
-                            lapName = false;
-                            break;
-                        case "[Summary-TH]":
-                            summaryTh = true;
-                            summary123 = false;
-                            break;
-                        case "[HRZones]":
-                            hrZone = true;
-                            summaryTh = false;
-                            break;
-                        case "[SwapTimes]":
-                            swapTime = true;
-                            hrZone = false;
-                            break;
-                        case "[Trip]":
-                            trip = true;
-                            swapTime = false;
-                            break;
-                        case "[HRData]":
-                            hrData = true;
-                            trip = false;
-                            break;
+                        Console.WriteLine("We are reading data");
+
+                        switch (line)
+                        {
+                            case "[Params]":
+                                parameters = true;
+                                break;
+                            case "[Note]":
+                                note = true;
+                                parameters = false;
+                                break;
+                            case "[IntTimes]":
+                                intTime = true;
+                                note = false;
+                                break;
+                            case "[IntNotes]":
+                                intNotes = true;
+                                intTime = false;
+                                break;
+                            case "[ExtraData]":
+                                extraData = true;
+                                intNotes = false;
+                                break;
+                            case "[LapNames]":
+                                lapName = true;
+                                extraData = false;
+                                break;
+                            case "[Summary-123]":
+                                summary123 = true;
+                                lapName = false;
+                                break;
+                            case "[Summary-TH]":
+                                summaryTh = true;
+                                summary123 = false;
+                                break;
+                            case "[HRZones]":
+                                hrZone = true;
+                                summaryTh = false;
+                                break;
+                            case "[SwapTimes]":
+                                swapTime = true;
+                                hrZone = false;
+                                break;
+                            case "[Trip]":
+                                trip = true;
+                                swapTime = false;
+                                break;
+                            case "[HRData]":
+                                hrData = true;
+                                trip = false;
+                                break;
+                        }
+                        if (parameters)
+                        {
+                            parametersList.Add(line);
+                        }
+                        else if (note)
+                        {
+                            noteList.Add(line);
+                        }
+                        else if (intTime)
+                        {
+                            intTimeList.Add(line);
+                        }
+                        else if (intNotes)
+                        {
+                            intNotesList.Add(line);
+                        }
+                        else if (extraData)
+                        {
+                            extraDataList.Add(line);
+                        }
+                        else if (lapName)
+                        {
+                            lapNameList.Add(line);
+                        }
+                        else if (summary123)
+                        {
+                            summary123List.Add(line);
+                        }
+                        else if (summaryTh)
+                        {
+                            summaryThList.Add(line);
+                        }
+                        else if (hrZone)
+                        {
+                            hrZoneList.Add(line);
+                        }
+                        else if (swapTime)
+                        {
+                            swapTimeList.Add(line);
+                        }
+                        else if (trip)
+                        {
+                            tripList.Add(line);
+                        }
+                        else if (hrData)
+                        {
+                            hrDataList.Add(line);
+                        }
+
                     }
-                    if (parameters)
-                    {
-                        parametersList.Add(line);
-                    }
-                    else if (note)
-                    {
-                        noteList.Add(line);
-                    }
-                    else if (intTime)
-                    {
-                        intTimeList.Add(line);
-                    }
-                    else if (intNotes)
-                    {
-                        intNotesList.Add(line);
-                    }
-                    else if (extraData)
-                    {
-                        extraDataList.Add(line);
-                    }
-                    else if (lapName)
-                    {
-                        lapNameList.Add(line);
-                    }
-                    else if (summary123)
-                    {
-                        summary123List.Add(line);
-                    }
-                    else if (summaryTh)
-                    {
-                        summaryThList.Add(line);
-                    }
-                    else if (hrZone)
-                    {
-                        hrZoneList.Add(line);
-                    }
-                    else if (swapTime)
-                    {
-                        swapTimeList.Add(line);
-                    }
-                    else if (trip)
-                    {
-                        tripList.Add(line);
-                    }
-                    else if (hrData)
-                    {
-                        hrDataList.Add(line);
-                    }
+
+
 
                 }
-
-
-
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error In reading File: "+e.Message);
+            }
+           
 
             //we need to separate the data out futher
             //Console.WriteLine(parametersList.ElementAt(1));
@@ -355,10 +367,11 @@ namespace CyclingApp
             {
                 hrDataExtended = new HrData(unitBool, version, hrDataList);
             }
-
+            
             //Storing the summary data
             if (!unitBool)
             {
+                
                 //total distance 
                 double distance = 0;
                 foreach (HrDataSingle data in hrDataExtended.DataEuro)
@@ -375,11 +388,11 @@ namespace CyclingApp
                    // Console.WriteLine("cumaltive distnacew: " + distance);
                     //Console.WriteLine("########");
                 }
-                summaryEuro.Add("TotalDistanceTrip",""+distance);
-                summaryUS.Add("TotalDistanceTrip",""+(distance* 0.621371));
-              
-                //Average Speed
+                summaryEuro.Add("Total Distance",""+distance);
+                summaryUS.Add("Total Distance",""+(distance* 0.621371));
                 
+                //Average Speed
+
                 double averageSpeed = 0;
                 foreach (HrDataSingle data in hrDataExtended.DataEuro)
                 {
@@ -387,8 +400,9 @@ namespace CyclingApp
                 }
                 averageSpeed = averageSpeed / hrDataExtended.DataEuro.Count;
                 averageSpeed = averageSpeed / 10;
-                summaryEuro.Add("AverageSpeed",""+ averageSpeed);
-                summaryUS.Add("AverageSpeed", "" + (averageSpeed * 0.6213711922));
+                summaryEuro.Add("Average Speed",""+ averageSpeed);
+                summaryUS.Add("Average Speed", "" + (averageSpeed * 0.6213711922));
+               
                 //maximum speed
                 string hrdatastring = "";
                 double speed = 0;
@@ -400,11 +414,11 @@ namespace CyclingApp
                     }
                 }
                 hrdatastring = "" + (speed / 10);
-                summaryEuro.Add("MaxSpeed", "" + Convert.ToDouble(hrdatastring));
-                summaryUS.Add("MaxSpeed", "" + ((Convert.ToDouble(hrdatastring) * 0.6213711922)));
+                summaryEuro.Add("Maximum Speed", "" + Convert.ToDouble(hrdatastring));
+                summaryUS.Add("Maximum Speed", "" + ((Convert.ToDouble(hrdatastring) * 0.6213711922)));
 
                 
-                
+
                 //Average Heart Rate
                 int averageHeartRate = 0;
                 foreach (HrDataSingle data in hrDataExtended.DataEuro)
@@ -412,11 +426,13 @@ namespace CyclingApp
                     averageHeartRate = averageHeartRate + data.HeartRate;
                 }
                 averageHeartRate = averageHeartRate / hrDataExtended.DataEuro.Count;
-                summaryEuro.Add("AverageHeartRate",""+averageHeartRate);
-                summaryUS.Add("AverageHeartRate",""+averageHeartRate);
+                summaryEuro.Add("Average Heart Rate",""+averageHeartRate);
+                summaryUS.Add("Average Heart Rate",""+averageHeartRate);
+              
                 //Max Heart Rate
-                summaryEuro.Add("MaxHeartRate", "" + maxHR);
-                summaryUS.Add("MaxHeartRate",""+ maxHR);
+                summaryEuro.Add("Maximum Heart Rate", "" + maxHR);
+                summaryUS.Add("Maximum Heart Rate",""+ maxHR);
+               
                 //Min Heart Rate
                 int minHeartRate = restHR;
                 foreach (HrDataSingle data in hrDataExtended.DataEuro)
@@ -426,8 +442,9 @@ namespace CyclingApp
                         minHeartRate = data.HeartRate;
                     }
                 }
-                summaryEuro.Add("MinHeartRate",""+minHeartRate);
-                summaryUS.Add("MinHeartRate",""+minHeartRate);
+                summaryEuro.Add("Minimum Heart Rate",""+minHeartRate);
+                summaryUS.Add("Minimum Heart Rate",""+minHeartRate);
+                
                 //Average power
                 int PowerAverage = 0;
                 
@@ -442,8 +459,9 @@ namespace CyclingApp
                
 
                
-                summaryEuro.Add("AveragePower", ""+ PowerAverage);
-                summaryUS.Add("AveragePower", ""+ PowerAverage);
+                summaryEuro.Add("Average Power", ""+ PowerAverage);
+                summaryUS.Add("Average Power", ""+ PowerAverage);
+                
                 //Max Power
                 int maxpower = 0;
                 foreach (HrDataSingle data in hrDataExtended.DataEuro)
@@ -453,33 +471,83 @@ namespace CyclingApp
                         maxpower = data.Power;
                     }
                 }
-                summaryEuro.Add("MaxPower",""+maxpower);
-                summaryUS.Add("MaxPower",""+maxpower);
+                summaryEuro.Add("Maximum Power",""+maxpower);
+                summaryUS.Add("Maximum Power",""+maxpower);
+                
                 //Average Altitude
-                if (version == 102)
-                {
-                    summaryEuro.Add("AverageAltitude", "" + (Convert.ToDouble(tripList.ElementAt(4))/10));
-                    summaryUS.Add("AverageAltitude", "" + ((Convert.ToDouble(tripList.ElementAt(4))/10) * 3.280839895));
-                }
-                else
-                {
-                    summaryEuro.Add("AverageAltitude", "" + (Convert.ToDouble(tripList.ElementAt(4))));
-                    summaryUS.Add("AverageAltitude", "" + (Convert.ToDouble(tripList.ElementAt(4)) * 3.280839895));
-                }
+
+                if (version == 105)
+                    {
+                        //mode should exist
+                        if (mode.CadAltInt == 0)
+                        {
+                            //means cadence
+
+
+                        }
+                        else if (mode.CadAltInt == 1)
+                        {
+
+                        }
+
+                    }
+                    else
+                    {
+                        double averageAlt = 0;
+                        foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                        {
+                            
+                            averageAlt = averageAlt +  data.Altitude;
+                            
+                        }
+                    Console.WriteLine(averageAlt);
+                        averageAlt = averageAlt / hrDataExtended.DataEuro.Count;
+                        summaryEuro.Add("Average Altitude", "" + averageAlt);
+                        SummaryUS.Add("Average Altitude", "" + (averageAlt * 3.280839895));
+                    }
+
+                
+
+
 
                 //Max Altitude
-                if (version == 102)
-                {
-                    summaryEuro.Add("MaxAltitude", "" + (Convert.ToDouble(tripList.ElementAt(5))/10));
-                    summaryUS.Add("MaxAltitude", "" + ((Convert.ToDouble(tripList.ElementAt(5))/10) * 3.280839895));
-                }
-                else
-                {
-                    summaryEuro.Add("MaxAltitude", "" + (Convert.ToDouble(tripList.ElementAt(5))));
-                    summaryUS.Add("MaxAltitude", "" + (Convert.ToDouble(tripList.ElementAt(5)) * 3.280839895));
 
-                }
-                
+                if (version == 105)
+                    {
+                        //mode should exist
+                        if (mode.CadAltInt == 0)
+                        {
+                            //means cadence
+                            
+                            
+                        }
+                        else if (mode.CadAltInt == 1)
+                        {
+
+                        }
+                        
+                    }
+                    else
+                    {
+                    
+                    double maxAlt = 0;
+                        foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                        {
+                            if (maxAlt < data.Altitude)
+                            {
+                                maxAlt = data.Altitude;
+                            }
+                        }
+                  
+                    summaryEuro.Add("Maximum Altitude" , ""+(maxAlt));
+                    Console.WriteLine("We have finished reading");
+                    SummaryUS.Add("Maximum Altitude", ""+(maxAlt * 3.280839895));
+                    }
+
+
+               
+
+
 
 
             }
@@ -487,17 +555,52 @@ namespace CyclingApp
             {
                 //us starting values
                 //total distance not sure if for that trip or the odometer
-                summaryEuro.Add("TotalDistanceTrip", "" + (Convert.ToDouble(tripList.ElementAt(1)) / 10) * 1.60934);
-                summaryUS.Add("TotalDistanceTrip", "" + ((Convert.ToDouble(tripList.ElementAt(1)) / 10)));
-                //total distance recorded by odometer
-                summaryEuro.Add("TotalDistanceOdometer", "" + (Convert.ToDouble(tripList.ElementAt(8))* 1.60934));
-                summaryUS.Add("TotalDistanceOdometer", "" + (Convert.ToDouble(tripList.ElementAt(8))));
+                double distance = 0;
+                foreach (HrDataSingle data in hrDataExtended.DataUS)
+                {
+                    double hoursSpeed = data.Speed / 10;
+                    // Console.WriteLine("Hours: "+hoursSpeed);
+                    double minsSpeed = hoursSpeed / 60;
+                    //Console.WriteLine("mins: " + minsSpeed);
+                    double secondSpeed = minsSpeed / 60;
+                    //Console.WriteLine("secondfs: " + secondSpeed);
+                    double intervalDistance = secondSpeed * interval;
+                    // Console.WriteLine("int distance: " + intervalDistance);
+                    distance = distance + intervalDistance;
+                    // Console.WriteLine("cumaltive distnacew: " + distance);
+                    //Console.WriteLine("########");
+                }
+                summaryEuro.Add("Total Distance", "" + (distance * 1.60934));
+                summaryUS.Add("Total Distance", "" + distance);
+
                 //Average Speed
-                summaryEuro.Add("AverageSpeed", "" + ((Convert.ToDouble(tripList.ElementAt(6)) / 128)* 1.60934));
-                summaryUS.Add("AverageSpeed", "" + (Convert.ToDouble(tripList.ElementAt(6)) / 128) );
+
+                double averageSpeed = 0;
+                foreach (HrDataSingle data in hrDataExtended.DataUS)
+                {
+                    averageSpeed = averageSpeed + data.Speed;
+                }
+                averageSpeed = averageSpeed / hrDataExtended.DataEuro.Count;
+                averageSpeed = averageSpeed / 10;
+                summaryEuro.Add("Average Speed", "" + (averageSpeed * 1.60934));
+                summaryUS.Add("Average Speed", "" + (averageSpeed ));
+
                 //maximum speed
-                summaryEuro.Add("MaxSpeed", "" + ((Convert.ToDouble(tripList.ElementAt(7)) / 128)*1.60934));
-                summaryUS.Add("MaxSpeed", "" + (Convert.ToDouble(tripList.ElementAt(7)) / 128) );
+
+                string hrdatastring = "";
+                double speed = 0;
+                foreach (HrDataSingle data in hrDataExtended.DataUS)
+                {
+                    if (speed < data.Speed)
+                    {
+                        speed = data.Speed;
+                    }
+                }
+                hrdatastring = "" + (speed / 10);
+                summaryEuro.Add("Maximum Speed", "" + (Convert.ToDouble(hrdatastring) * 1.60934));
+                summaryUS.Add("Maximum Speed", "" + ((Convert.ToDouble(hrdatastring))));
+
+               
                 //Average Heart Rate
                 int averageHeartRate = 0;
                 foreach (HrDataSingle data in hrDataExtended.DataEuro)
@@ -505,11 +608,11 @@ namespace CyclingApp
                     averageHeartRate = averageHeartRate + data.HeartRate;
                 }
                 averageHeartRate = averageHeartRate / hrDataExtended.DataEuro.Count;
-                summaryEuro.Add("AverageHeartRate", "" + averageHeartRate);
-                summaryUS.Add("AverageHeartRate", "" + averageHeartRate);
+                summaryEuro.Add("Average Heart Rate", "" + averageHeartRate);
+                summaryUS.Add("Average Heart Rate", "" + averageHeartRate);
                 //Max Heart Rate
-                summaryEuro.Add("MaxHeartRate", "" + maxHR);
-                summaryUS.Add("MaxHeartRate", "" + maxHR);
+                summaryEuro.Add("Maximum Heart Rate", "" + maxHR);
+                summaryUS.Add("Maximum Heart Rate", "" + maxHR);
                 //Min Heart Rate
                 int minHeartRate = restHR;
                 foreach (HrDataSingle data in hrDataExtended.DataEuro)
@@ -519,8 +622,8 @@ namespace CyclingApp
                         minHeartRate = data.HeartRate;
                     }
                 }
-                summaryEuro.Add("MinHeartRate", "" + minHeartRate);
-                summaryUS.Add("MinHeartRate", "" + minHeartRate);
+                summaryEuro.Add("Minimum Heart Rate", "" + minHeartRate);
+                summaryUS.Add("Minimum Heart Rate", "" + minHeartRate);
                 //Average power
                 int PowerAverage = 0;
 
@@ -535,8 +638,8 @@ namespace CyclingApp
 
 
 
-                summaryEuro.Add("AveragePower", "" + PowerAverage);
-                summaryUS.Add("AveragePower", "" + PowerAverage);
+                summaryEuro.Add("Average Power", "" + PowerAverage);
+                summaryUS.Add("Average Power", "" + PowerAverage);
                 //Max Power
                 int maxpower = 0;
                 foreach (HrDataSingle data in hrDataExtended.DataEuro)
@@ -546,33 +649,71 @@ namespace CyclingApp
                         maxpower = data.Power;
                     }
                 }
-                summaryEuro.Add("MaxPower", "" + maxpower);
-                summaryUS.Add("MaxPower", "" + maxpower);
+                summaryEuro.Add("Max Power", "" + maxpower);
+                summaryUS.Add("Max Power", "" + maxpower);
                 //Average Altitude
-                if (version == 102)
+                if (version == 105)
                 {
-                    summaryEuro.Add("AverageAltitude", "" + ((Convert.ToDouble(tripList.ElementAt(4)) / 10) * 0.3048));
-                    summaryUS.Add("AverageAltitude", "" + (Convert.ToDouble(tripList.ElementAt(4)) / 10) );
+                    //mode should exist
+                    if (mode.CadAltInt == 0)
+                    {
+                        //means cadence
+
+
+                    }
+                    else if (mode.CadAltInt == 1)
+                    {
+
+                    }
+
                 }
                 else
                 {
-                    summaryEuro.Add("AverageAltitude", "" + (Convert.ToDouble(tripList.ElementAt(4)) * 0.3048));
-                    summaryUS.Add("AverageAltitude", "" + (Convert.ToDouble(tripList.ElementAt(4))));
+                    double averageAlt = 0;
+                    foreach (HrDataSingle data in hrDataExtended.DataUS)
+                    {
+                       
+                            averageAlt = averageAlt + data.Altitude;
+                        
+                    }
+                    averageAlt = averageAlt / hrDataExtended.DataEuro.Count;
+                    summaryEuro.Add("Average Altitude", "" + (averageAlt * 0.3048));
+                    SummaryUS.Add("Average Altitude", "" + (averageAlt));
                 }
+
 
                 //Max Altitude
-                if (version == 102)
+                if (version == 105)
                 {
-                    summaryEuro.Add("MaxAltitude", "" +( (Convert.ToDouble(tripList.ElementAt(5)) / 10)* 0.3048));
-                    summaryUS.Add("MaxAltitude", "" + (Convert.ToDouble(tripList.ElementAt(5)) / 10));
+                    //mode should exist
+                    if (mode.CadAltInt == 0)
+                    {
+                        //means cadence
+
+
+                    }
+                    else if (mode.CadAltInt == 1)
+                    {
+
+                    }
+
                 }
                 else
                 {
-                    summaryEuro.Add("MaxAltitude", "" + ((Convert.ToDouble(tripList.ElementAt(5)))* 0.3048));
-                    summaryUS.Add("MaxAltitude", "" + (Convert.ToDouble(tripList.ElementAt(5))) );
-
+                    double maxAlt = 0;
+                    foreach (HrDataSingle data in hrDataExtended.DataUS)
+                    {
+                        if (maxAlt < data.Altitude)
+                        {
+                            maxAlt = data.Altitude;
+                        }
+                    }
+                    summaryEuro.Add("Max Altitude", "" + (maxAlt * 0.3048));
+                    SummaryUS.Add("Max Altitude", "" + (maxAlt));
                 }
+               
             }
+            
 
 
 

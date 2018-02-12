@@ -38,13 +38,20 @@ namespace CyclingApp
 
         private void FileOk(object sender, CancelEventArgs e)
         {
+
             if (fileDialog.FileName != null || fileDialog.FileName.Equals(""))
             {
+                
                 polar.LoadData(fileDialog.FileName);
+               
                 DataView dw = new DataView(polar.GetSummaryData(), polar.GetUnit());
+
                 dw.Dock = DockStyle.Fill;
+
                 singleView.Controls.Add(dw);
+
                 menuStrip3.Hide();
+   
             }
         }
     }

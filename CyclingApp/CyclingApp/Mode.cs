@@ -18,7 +18,7 @@ namespace CyclingApp
         public Mode(string values)
         {
             char[] valueChar = values.ToCharArray();
-            cadAltInt = Convert.ToInt32(valueChar[0]);
+            cadAltInt = Convert.ToInt32(""+valueChar[0]);
             if (valueChar[0].Equals('0'))
             {
                 cadAlt = "Cad";
