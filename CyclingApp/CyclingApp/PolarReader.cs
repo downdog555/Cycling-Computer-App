@@ -391,8 +391,8 @@ namespace CyclingApp
                    // Console.WriteLine("cumaltive distnacew: " + distance);
                     //Console.WriteLine("########");
                 }
-                summaryEuro.Add("Total Distance",""+distance);
-                summaryUS.Add("Total Distance",""+(distance* 0.621371));
+                summaryEuro.Add("Total Distance",""+distance+"KM");
+                summaryUS.Add("Total Distance",""+(distance* 0.621371)+"Miles");
                 
                 //Average Speed
 
@@ -403,8 +403,8 @@ namespace CyclingApp
                 }
                 averageSpeed = averageSpeed / hrDataExtended.DataEuro.Count;
                 averageSpeed = averageSpeed / 10;
-                summaryEuro.Add("Average Speed",""+ averageSpeed);
-                summaryUS.Add("Average Speed", "" + (averageSpeed * 0.6213711922));
+                summaryEuro.Add("Average Speed",""+ averageSpeed+"KPH");
+                summaryUS.Add("Average Speed", "" + (averageSpeed * 0.6213711922)+"MPH");
                
                 //maximum speed
                 string hrdatastring = "";
@@ -417,8 +417,8 @@ namespace CyclingApp
                     }
                 }
                 hrdatastring = "" + (speed / 10);
-                summaryEuro.Add("Maximum Speed", "" + Convert.ToDouble(hrdatastring));
-                summaryUS.Add("Maximum Speed", "" + ((Convert.ToDouble(hrdatastring) * 0.6213711922)));
+                summaryEuro.Add("Maximum Speed", "" + Convert.ToDouble(hrdatastring)+"KPH");
+                summaryUS.Add("Maximum Speed", "" + ((Convert.ToDouble(hrdatastring) * 0.6213711922))+"MPH");
 
                 
 
@@ -429,12 +429,12 @@ namespace CyclingApp
                     averageHeartRate = averageHeartRate + data.HeartRate;
                 }
                 averageHeartRate = averageHeartRate / hrDataExtended.DataEuro.Count;
-                summaryEuro.Add("Average Heart Rate",""+averageHeartRate);
-                summaryUS.Add("Average Heart Rate",""+averageHeartRate);
+                summaryEuro.Add("Average Heart Rate",""+averageHeartRate+"BPM");
+                summaryUS.Add("Average Heart Rate",""+averageHeartRate+"BPM");
               
                 //Max Heart Rate
-                summaryEuro.Add("Maximum Heart Rate", "" + maxHR);
-                summaryUS.Add("Maximum Heart Rate",""+ maxHR);
+                summaryEuro.Add("Maximum Heart Rate", "" + maxHR + "BPM");
+                summaryUS.Add("Maximum Heart Rate",""+ maxHR + "BPM");
                
                 //Min Heart Rate
                 int minHeartRate = restHR;
@@ -445,8 +445,8 @@ namespace CyclingApp
                         minHeartRate = data.HeartRate;
                     }
                 }
-                summaryEuro.Add("Minimum Heart Rate",""+minHeartRate);
-                summaryUS.Add("Minimum Heart Rate",""+minHeartRate);
+                summaryEuro.Add("Minimum Heart Rate",""+minHeartRate + "BPM");
+                summaryUS.Add("Minimum Heart Rate",""+minHeartRate + "BPM");
                 
                 //Average power
                 int PowerAverage = 0;
@@ -462,8 +462,8 @@ namespace CyclingApp
                
 
                
-                summaryEuro.Add("Average Power", ""+ PowerAverage);
-                summaryUS.Add("Average Power", ""+ PowerAverage);
+                summaryEuro.Add("Average Power", ""+ PowerAverage+" W");
+                summaryUS.Add("Average Power", ""+ PowerAverage+" W");
                 
                 //Max Power
                 int maxpower = 0;
@@ -474,8 +474,8 @@ namespace CyclingApp
                         maxpower = data.Power;
                     }
                 }
-                summaryEuro.Add("Maximum Power",""+maxpower);
-                summaryUS.Add("Maximum Power",""+maxpower);
+                summaryEuro.Add("Maximum Power",""+maxpower+" W");
+                summaryUS.Add("Maximum Power",""+maxpower+" W");
                 
                 //Average Altitude
 
@@ -505,8 +505,8 @@ namespace CyclingApp
                         }
                     Console.WriteLine(averageAlt);
                         averageAlt = averageAlt / hrDataExtended.DataEuro.Count;
-                        summaryEuro.Add("Average Altitude", "" + averageAlt);
-                        SummaryUS.Add("Average Altitude", "" + (averageAlt * 3.280839895));
+                        summaryEuro.Add("Average Altitude", "" + averageAlt+" Meters");
+                        SummaryUS.Add("Average Altitude", "" + (averageAlt * 3.280839895)+" Feet");
                     }
 
                 
@@ -542,9 +542,9 @@ namespace CyclingApp
                             }
                         }
                   
-                    summaryEuro.Add("Maximum Altitude" , ""+(maxAlt));
+                    summaryEuro.Add("Maximum Altitude" , ""+(maxAlt) +" Meters");
                     Console.WriteLine("We have finished reading");
-                    SummaryUS.Add("Maximum Altitude", ""+(maxAlt * 3.280839895));
+                    SummaryUS.Add("Maximum Altitude", ""+(maxAlt * 3.280839895) +" Feet");
                     }
 
 
@@ -573,8 +573,8 @@ namespace CyclingApp
                     // Console.WriteLine("cumaltive distnacew: " + distance);
                     //Console.WriteLine("########");
                 }
-                summaryEuro.Add("Total Distance", "" + (distance * 1.60934));
-                summaryUS.Add("Total Distance", "" + distance);
+                summaryEuro.Add("Total Distance", "" + (distance * 1.60934)+"KM");
+                summaryUS.Add("Total Distance", "" + distance+"Miles");
 
                 //Average Speed
 
@@ -585,8 +585,8 @@ namespace CyclingApp
                 }
                 averageSpeed = averageSpeed / hrDataExtended.DataEuro.Count;
                 averageSpeed = averageSpeed / 10;
-                summaryEuro.Add("Average Speed", "" + (averageSpeed * 1.60934));
-                summaryUS.Add("Average Speed", "" + (averageSpeed ));
+                summaryEuro.Add("Average Speed", "" + (averageSpeed * 1.60934)+" KPH");
+                summaryUS.Add("Average Speed", "" + (averageSpeed ) +" MPH");
 
                 //maximum speed
 
@@ -600,8 +600,8 @@ namespace CyclingApp
                     }
                 }
                 hrdatastring = "" + (speed / 10);
-                summaryEuro.Add("Maximum Speed", "" + (Convert.ToDouble(hrdatastring) * 1.60934));
-                summaryUS.Add("Maximum Speed", "" + ((Convert.ToDouble(hrdatastring))));
+                summaryEuro.Add("Maximum Speed", "" + (Convert.ToDouble(hrdatastring) * 1.60934) +" KPH");
+                summaryUS.Add("Maximum Speed", "" + ((Convert.ToDouble(hrdatastring))) + " MPH");
 
                
                 //Average Heart Rate
@@ -611,11 +611,11 @@ namespace CyclingApp
                     averageHeartRate = averageHeartRate + data.HeartRate;
                 }
                 averageHeartRate = averageHeartRate / hrDataExtended.DataEuro.Count;
-                summaryEuro.Add("Average Heart Rate", "" + averageHeartRate);
-                summaryUS.Add("Average Heart Rate", "" + averageHeartRate);
+                summaryEuro.Add("Average Heart Rate", "" + averageHeartRate +" BPM");
+                summaryUS.Add("Average Heart Rate", "" + averageHeartRate + " BPM");
                 //Max Heart Rate
-                summaryEuro.Add("Maximum Heart Rate", "" + maxHR);
-                summaryUS.Add("Maximum Heart Rate", "" + maxHR);
+                summaryEuro.Add("Maximum Heart Rate", "" + maxHR + " BPM");
+                summaryUS.Add("Maximum Heart Rate", "" + maxHR + " BPM");
                 //Min Heart Rate
                 int minHeartRate = restHR;
                 foreach (HrDataSingle data in hrDataExtended.DataEuro)
@@ -625,8 +625,8 @@ namespace CyclingApp
                         minHeartRate = data.HeartRate;
                     }
                 }
-                summaryEuro.Add("Minimum Heart Rate", "" + minHeartRate);
-                summaryUS.Add("Minimum Heart Rate", "" + minHeartRate);
+                summaryEuro.Add("Minimum Heart Rate", "" + minHeartRate + " BPM");
+                summaryUS.Add("Minimum Heart Rate", "" + minHeartRate + " BPM");
                 //Average power
                 int PowerAverage = 0;
 
@@ -641,8 +641,8 @@ namespace CyclingApp
 
 
 
-                summaryEuro.Add("Average Power", "" + PowerAverage);
-                summaryUS.Add("Average Power", "" + PowerAverage);
+                summaryEuro.Add("Average Power", "" + PowerAverage+" Watts");
+                summaryUS.Add("Average Power", "" + PowerAverage + " Watts");
                 //Max Power
                 int maxpower = 0;
                 foreach (HrDataSingle data in hrDataExtended.DataEuro)
@@ -652,8 +652,8 @@ namespace CyclingApp
                         maxpower = data.Power;
                     }
                 }
-                summaryEuro.Add("Max Power", "" + maxpower);
-                summaryUS.Add("Max Power", "" + maxpower);
+                summaryEuro.Add("Max Power", "" + maxpower + " Watts");
+                summaryUS.Add("Max Power", "" + maxpower + " Watts");
                 //Average Altitude
                 if (version == 105)
                 {
@@ -680,8 +680,8 @@ namespace CyclingApp
                         
                     }
                     averageAlt = averageAlt / hrDataExtended.DataEuro.Count;
-                    summaryEuro.Add("Average Altitude", "" + (averageAlt * 0.3048));
-                    SummaryUS.Add("Average Altitude", "" + (averageAlt));
+                    summaryEuro.Add("Average Altitude", "" + (averageAlt * 0.3048)+" Meters");
+                    SummaryUS.Add("Average Altitude", "" + (averageAlt) +" Feet");
                 }
 
 
@@ -711,8 +711,8 @@ namespace CyclingApp
                             maxAlt = data.Altitude;
                         }
                     }
-                    summaryEuro.Add("Max Altitude", "" + (maxAlt * 0.3048));
-                    SummaryUS.Add("Max Altitude", "" + (maxAlt));
+                    summaryEuro.Add("Max Altitude", "" + (maxAlt * 0.3048) +"Meters");
+                    SummaryUS.Add("Max Altitude", "" + (maxAlt) + "Feet");
                 }
                
             }

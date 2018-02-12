@@ -63,6 +63,15 @@ namespace CyclingApp
 
         }
 
+        public void AddHeaderData()
+        {
+
+        }
+        public void AddFullData()
+        {
+
+        }
+
         private string[] GetUnits(bool unitType)
         {
             if (!unitType)

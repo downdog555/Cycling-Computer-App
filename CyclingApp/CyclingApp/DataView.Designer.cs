@@ -36,6 +36,8 @@
             this.summaryExpand = new WinFormsExpander.Expander();
             this.euroSelection = new System.Windows.Forms.RadioButton();
             this.usSelection = new System.Windows.Forms.RadioButton();
+            this.headerData = new WinFormsExpander.Expander();
+            this.hrDataFull = new WinFormsExpander.Expander();
             this.menuStrip1.SuspendLayout();
             this.Panel1.SuspendLayout();
             this.SuspendLayout();
@@ -70,6 +72,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.Panel1.Controls.Add(this.summaryExpand);
+            this.Panel1.Controls.Add(this.headerData);
+            this.Panel1.Controls.Add(this.hrDataFull);
             this.Panel1.Location = new System.Drawing.Point(4, 28);
             this.Panel1.Name = "Panel1";
             this.Panel1.Size = new System.Drawing.Size(434, 573);
@@ -77,8 +81,6 @@
             // 
             // summaryExpand
             // 
-            this.summaryExpand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.summaryExpand.AutoScroll = true;
             this.summaryExpand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.summaryExpand.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -88,6 +90,7 @@
             // 
             this.summaryExpand.Content.AutoScroll = true;
             this.summaryExpand.Content.AutoScrollMinSize = new System.Drawing.Size(150, 50);
+            this.summaryExpand.Dock = System.Windows.Forms.DockStyle.Top;
             this.summaryExpand.ExpandImage = ((System.Drawing.Image)(resources.GetObject("summaryExpand.ExpandImage")));
             this.summaryExpand.Location = new System.Drawing.Point(3, 3);
             this.summaryExpand.MinimumSize = new System.Drawing.Size(0, 53);
@@ -121,6 +124,42 @@
             this.usSelection.CheckedChanged += new System.EventHandler(this.usSelection_CheckedChanged);
             this.usSelection.Click += new System.EventHandler(this.usSelection_Click);
             // 
+            // headerData
+            // 
+            this.headerData.AutoScroll = true;
+            this.headerData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.headerData.CollapseImage = ((System.Drawing.Image)(resources.GetObject("headerData.CollapseImage")));
+            // 
+            // headerData.Content
+            // 
+            this.headerData.Content.AutoScroll = true;
+            this.headerData.Content.AutoScrollMinSize = new System.Drawing.Size(150, 50);
+            this.headerData.Dock = System.Windows.Forms.DockStyle.Top;
+            this.headerData.ExpandImage = ((System.Drawing.Image)(resources.GetObject("headerData.ExpandImage")));
+            this.headerData.Location = new System.Drawing.Point(3, 244);
+            this.headerData.MinimumSize = new System.Drawing.Size(0, 53);
+            this.headerData.Name = "headerData";
+            this.headerData.Size = new System.Drawing.Size(431, 188);
+            this.headerData.TabIndex = 3;
+            // 
+            // hrDataFull
+            // 
+            this.hrDataFull.AutoScroll = true;
+            this.hrDataFull.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.hrDataFull.CollapseImage = ((System.Drawing.Image)(resources.GetObject("hrDataFull.CollapseImage")));
+            // 
+            // hrDataFull.Content
+            // 
+            this.hrDataFull.Content.AutoScroll = true;
+            this.hrDataFull.Content.AutoScrollMinSize = new System.Drawing.Size(150, 50);
+            this.hrDataFull.Dock = System.Windows.Forms.DockStyle.Top;
+            this.hrDataFull.ExpandImage = ((System.Drawing.Image)(resources.GetObject("hrDataFull.ExpandImage")));
+            this.hrDataFull.Location = new System.Drawing.Point(3, 438);
+            this.hrDataFull.MinimumSize = new System.Drawing.Size(0, 53);
+            this.hrDataFull.Name = "hrDataFull";
+            this.hrDataFull.Size = new System.Drawing.Size(431, 107);
+            this.hrDataFull.TabIndex = 4;
+            // 
             // DataView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -149,5 +188,7 @@
         private WinFormsExpander.Expander summaryExpand;
         private System.Windows.Forms.RadioButton euroSelection;
         private System.Windows.Forms.RadioButton usSelection;
+        private WinFormsExpander.Expander headerData;
+        private WinFormsExpander.Expander hrDataFull;
     }
 }
