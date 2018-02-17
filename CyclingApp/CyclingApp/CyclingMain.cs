@@ -44,8 +44,9 @@ namespace CyclingApp
                 
                 polar.LoadData(fileDialog.FileName);
                
-                DataView dw = new DataView(polar.GetSummaryData(), polar.GetUnit());
-
+                DataView dw = new DataView(polar.GetSummaryData(), polar.GetUnit(),polar.GetHrData(), polar.GetSMODE());
+                dw.AddRideInfo(polar.GetRideInfo());
+                dw.AddFullData();
                 dw.Dock = DockStyle.Fill;
 
                 singleView.Controls.Add(dw);

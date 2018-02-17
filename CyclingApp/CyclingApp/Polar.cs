@@ -29,7 +29,7 @@ namespace CyclingApp
 
         public void LoadData(string filePath)
         {
-             
+
             dataStore.ReadFile(filePath);
         }
 
@@ -50,5 +50,18 @@ namespace CyclingApp
             return dataStore.UnitBool;
         }
 
+        public List<string> GetRideInfo()
+        {
+            return dataStore.GetRideInfo();
+        }
+        public HrData GetHrData()
+        {
+            return dataStore.HrDataExtended;
+        }
+
+        public Smode GetSMODE()
+        {
+            return dataStore.Smode;
+        }
     }
 }

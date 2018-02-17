@@ -9,7 +9,7 @@ namespace CyclingApp
     /// <summary>
     /// Struct to represent a single line in the hr data
     /// </summary>
-    struct HrDataSingle
+   public  struct HrDataSingle
     {
         private int heartRate, cadence, altitude, power, airPressure;
         /// <summary>

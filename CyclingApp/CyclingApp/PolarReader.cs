@@ -22,7 +22,7 @@ namespace CyclingApp
         /// <summary>
         /// The required lists for separating data
         /// </summary>
-        private List<string> parametersList, noteList, intTimeList, intNotesList, extraDataList, lapNameList, summary123List, summaryThList, hrZoneList, swapTimeList, tripList, hrDataList;
+        private List<string> parametersList, noteList, intTimeList, intNotesList, extraDataList, lapNameList, summary123List, summaryThList, hrZoneList, swapTimeList, tripList, hrDataList, rideInfo;
         private string filePath, monitor, date, startTime, length, timer1, timer2, timer3, activeLimit, unit;
         private float VO2max, weight;
         private int interval, upper1, lower1, upper2, lower2, upper3, lower3, maxHR, restHR, startDelay, version;
@@ -48,6 +48,12 @@ namespace CyclingApp
             hrDataList = new List<string>();
             summaryEuro = new Dictionary<string, string>();
             summaryUS = new Dictionary<string, string>();
+            rideInfo = new List<string>();
+        }
+
+        public List<string> GetRideInfo()
+        {
+            return rideInfo;
         }
 
         private string GetMonitorType(string raw)
@@ -183,6 +189,32 @@ namespace CyclingApp
         public Dictionary<string, string> SummaryEuro { get { return summaryEuro; } }
         public Dictionary<string, string> SummaryUS { get { return summaryUS; } }
         public bool UnitBool { get { return unitBool; } }
+
+        public HrData HrDataExtended
+        {
+            get
+            {
+                return hrDataExtended;
+            }
+
+            set
+            {
+                hrDataExtended = value;
+            }
+        }
+
+        public Smode Smode
+        {
+            get
+            {
+                return smode;
+            }
+
+            set
+            {
+                smode = value;
+            }
+        }
         #endregion
         public void ReadFile(string filePath)
         {
@@ -192,14 +224,27 @@ namespace CyclingApp
             SeparateData();
         }
 
+        public string FlipDate()
+        {
+            string newDate = "";
+
+            newDate = date.Substring(6,2);
+            newDate = newDate + "/" + date.Substring(4,2);
+            newDate = newDate + "/" + date.Substring(0,4);
+
+
+
+            return newDate;
+        }
+
         public void SeparateData()
         {
-            Console.WriteLine("We are in separeate data");
+           // Console.WriteLine("We are in separeate data");
             try {
                 Console.WriteLine("We are in try catch");
                 using (StreamReader sr = new StreamReader(filePath))
                 {
-                    Console.WriteLine("We are in reader");
+                    //Console.WriteLine("We are in reader");
                     bool parameters, note, intTime, intNotes, extraData, lapName, summary123, summaryTh, hrZone, swapTime, trip, hrData;
                     parameters = note = intTime = intNotes = extraData = lapName = summary123 = summaryTh = hrZone = swapTime = trip = hrData = false;
                     string line;
@@ -209,7 +254,7 @@ namespace CyclingApp
                     // the end of the file is reached. 
                     while ((line = sr.ReadLine()) != null)
                     {
-                        Console.WriteLine("We are reading data");
+                       // Console.WriteLine("We are reading data");
 
                         switch (line)
                         {
@@ -357,6 +402,11 @@ namespace CyclingApp
             startDelay = Convert.ToInt32(parametersList.ElementAt(20).Split('=')[1]);
             VO2max = Convert.ToInt32(parametersList.ElementAt(21).Split('=')[1]);
             weight = Convert.ToInt32(parametersList.ElementAt(22).Split('=')[1]);
+            date = FlipDate();
+            rideInfo.Add(date);
+            rideInfo.Add(startTime);
+            rideInfo.Add(length);
+            rideInfo.Add(""+interval);
             //we remove the header that was used for detection [Hr Data]
             hrDataList.RemoveAt(0);
             if (version <= 105)

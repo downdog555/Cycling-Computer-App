@@ -9,7 +9,7 @@ namespace CyclingApp
     /// <summary>
     /// Class to represent and process the hr data section
     /// </summary>
-    class HrData 
+    public class HrData 
     {
         private List<HrDataSingle> dataEuro;
         private List<HrDataSingle> dataUS;
@@ -28,7 +28,8 @@ namespace CyclingApp
                     //we need to convert form euro to us 
                     List<string> lineConverted = new List<string>();
                     lineConverted.Add("" + tempEuro.HeartRate);
-                    lineConverted.Add("" + (tempEuro.Speed * 0.6213711922));
+                    //we times by 10 to compensate for the divide in hr data single
+                    lineConverted.Add("" + ((tempEuro.Speed * 0.621371)*10));
                     if (cadAlt == 0)
                     {
                         lineConverted.Add("" + tempEuro.Cadence);
