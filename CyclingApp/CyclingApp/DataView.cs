@@ -15,22 +15,23 @@ namespace CyclingApp
     {
         private bool summaryHidden = false;
         private bool selectedUnit;
+        private Polar polar;
         private HrData hrdata;
         private Smode smode;
+        private bool percentFTP, percentHR;
         private Dictionary<string, string> summaryDataUS, summaryDataEuro;
+        private double ftp;
+        private int MaxHR;
         
-        public DataView(Dictionary<string, string> data, bool unitType, HrData hrdata, Smode smode)
+        public DataView( bool unitType, HrData hrdata, Smode smode, Polar polar)
         {
-            summaryDataUS = new Dictionary<string, string>();
-            summaryDataEuro = new Dictionary<string, string>();
-            if (smode.Unit)
-            {
-                summaryDataUS = data;
-            }
-            else
-            {
-                summaryDataEuro = data;
-            }
+            this.ftp = 0;
+            MaxHR = 0;
+            percentFTP = percentHR = false;
+            this.polar = polar;
+            summaryDataUS = polar.GetSummaryUS();
+            summaryDataEuro = polar.GetSummaryEuro();
+            
             this.hrdata = hrdata;
             this.smode = smode;
             selectedUnit = unitType;
@@ -45,7 +46,14 @@ namespace CyclingApp
             {
                 usSelection.Checked = true;
             }
-            AddSummaryData(data, unitType);
+            if (!unitType)
+            {
+                AddSummaryData(summaryDataEuro, unitType);
+            }
+            else
+            {
+                AddSummaryData(summaryDataUS, unitType);
+            }
             AddFullData();
            //summaryExpand.Dock = DockStyle.Top;
             
@@ -55,12 +63,19 @@ namespace CyclingApp
 
  
         }
+
         public void AddRideInfo(List<string> data)
         {
             dateOfRide.Text = data.ElementAt(0);
             timeOfRide.Text = data.ElementAt(1);
             lengthOfRide.Text = data.ElementAt(2);
             recordingInterval.Text = data.ElementAt(3)+" S";
+        }
+        public void SetFTP(double ftp)
+        {
+            this.ftpValue.Text = "" + ftp;
+            this.ftp = ftp;
+            AddFullData();
         }
         public void AddSummaryData(Dictionary<string, string> data, bool unitType)
         {
@@ -141,7 +156,15 @@ namespace CyclingApp
             }
             if (smode.Power)
             {
-                fullData.Columns.Add("power", "Power(W)");
+                if (percentFTP)
+                {
+                    fullData.Columns.Add("power", "Power(% of FTP)");
+                }
+                else
+                {
+                   fullData.Columns.Add("power", "Power(W)");
+                }
+                
 
             }
             if (smode.PowerLeftRightBalance)
@@ -189,8 +212,17 @@ namespace CyclingApp
                 }
                 if (smode.Power)
                 {
-                    dataToBeInserted.Add("" + dataLine.Power);
-
+                    if (percentFTP)
+                    {
+                        
+                        double percent = (Convert.ToDouble(dataLine.Power)/ftp)*100;
+                        Console.WriteLine(percent);
+                        dataToBeInserted.Add(""+percent);
+                    }
+                    else
+                    {
+                        dataToBeInserted.Add("" + dataLine.Power);
+                    }
                 }
                 if (smode.PowerLeftRightBalance)
                 {
@@ -234,6 +266,7 @@ namespace CyclingApp
             Console.WriteLine("US Click");
             selectedUnit = true;
             AddFullData();
+            AddSummaryData(summaryDataUS, selectedUnit);
         }
 
         private void summaryButton_Click(object sender, EventArgs e)
@@ -255,11 +288,41 @@ namespace CyclingApp
             }
         }
 
+        private void ftpCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("We have changed");
+            if (percentFTP)
+            {
+                percentFTP = false;
+            }
+            else
+            {
+                percentFTP = true;
+            }
+            AddFullData();
+        }
+
+        private void hrCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("We have change 2");
+            if (percentHR)
+            {
+                percentHR = false;
+            }
+            else
+            {
+                percentHR = true;
+            }
+            AddFullData();
+
+        }
+
         private void euroSelection_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Euro Selected");
             selectedUnit = false;
             AddFullData();
+            AddSummaryData(summaryDataEuro, selectedUnit);
             //load
         }
     }

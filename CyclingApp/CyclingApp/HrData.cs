@@ -13,9 +13,11 @@ namespace CyclingApp
     {
         private List<HrDataSingle> dataEuro;
         private List<HrDataSingle> dataUS;
+        private Smode smode;
 
-        public HrData(Boolean dataType, int version, List<string> rawData, int cadAlt = 46)
+        public HrData(Boolean dataType, int version, List<string> rawData, Smode smode ,int cadAlt = 46)
         {
+            this.smode = smode;
             //means euro data type
             if (!dataType)
             {
@@ -23,7 +25,7 @@ namespace CyclingApp
                 dataUS = new List<HrDataSingle>();
                 foreach (string line in rawData)
                 {
-                    HrDataSingle tempEuro = new HrDataSingle(line.Split('\t').ToList<string>(), version, cadAlt);
+                    HrDataSingle tempEuro = new HrDataSingle(line.Split('\t').ToList<string>(), version, smode,cadAlt);
 
                     //we need to convert form euro to us 
                     List<string> lineConverted = new List<string>();
@@ -46,7 +48,7 @@ namespace CyclingApp
                     lineConverted.Add("" + tempEuro.Power);
                     lineConverted.Add("" + tempEuro.PbPedInd);
                     lineConverted.Add("" + tempEuro.AirPressure);
-                    dataUS.Add(new HrDataSingle(lineConverted, version, cadAlt));
+                    dataUS.Add(new HrDataSingle(lineConverted, version,smode ,cadAlt));
                     dataEuro.Add(tempEuro);
                 }
             }
@@ -57,7 +59,7 @@ namespace CyclingApp
                     dataUS = new List<HrDataSingle>();
                     dataEuro = new List<HrDataSingle>();
 
-                    HrDataSingle tempUS = new HrDataSingle(line.Split('\t').ToList<string>(), version, cadAlt);
+                    HrDataSingle tempUS = new HrDataSingle(line.Split('\t').ToList<string>(), version,smode, cadAlt);
                     //we need to convert form us to 
                     List<string> lineConverted = new List<string>();
                     lineConverted.Add(""+tempUS.HeartRate);
@@ -78,7 +80,7 @@ namespace CyclingApp
                     lineConverted.Add(""+tempUS.Power);
                     lineConverted.Add(""+tempUS.PbPedInd);
                     lineConverted.Add(""+tempUS.AirPressure);
-                    dataEuro.Add(new HrDataSingle(lineConverted, version, cadAlt));
+                    dataEuro.Add(new HrDataSingle(lineConverted, version, smode,cadAlt));
                     dataUS.Add(tempUS);
                 }
             }

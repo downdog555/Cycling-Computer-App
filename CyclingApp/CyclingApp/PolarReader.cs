@@ -51,11 +51,142 @@ namespace CyclingApp
             rideInfo = new List<string>();
         }
 
+        private double GetTotalDistance(List<HrDataSingle> dataList)
+        {
+            double distance = 0;
+            foreach (HrDataSingle data in dataList)
+            {
+                
+                double hoursSpeed = data.Speed / 10;
+                // Console.WriteLine("Hours: "+hoursSpeed);
+                double minsSpeed = hoursSpeed / 60;
+                //Console.WriteLine("mins: " + minsSpeed);
+                double secondSpeed = minsSpeed / 60;
+                //Console.WriteLine("secondfs: " + secondSpeed);
+                double intervalDistance = secondSpeed * interval;
+                // Console.WriteLine("int distance: " + intervalDistance);
+                distance = distance + intervalDistance;
+                // Console.WriteLine("cumaltive distnacew: " + distance);
+                //Console.WriteLine("########");
+            }
+            return distance;
+        }
+
+        private double GetAverageSpeed(List<HrDataSingle> dataList)
+        {
+            double averageSpeed = 0;
+            foreach (HrDataSingle data in dataList)
+            {
+                averageSpeed = averageSpeed + data.Speed;
+            }
+            averageSpeed = averageSpeed / dataList.Count;
+            averageSpeed = averageSpeed / 10;
+            return averageSpeed;
+
+        }
+
+        private double GetMaxSpeed(List<HrDataSingle> dataList)
+        {
+            double speed = 0;
+            foreach (HrDataSingle data in dataList)
+            {
+                if (speed < data.Speed)
+                {
+                    speed = data.Speed;
+                }
+            }
+            speed = speed / 10;
+
+            return speed;
+        }
+
+        private int GetAverageHeartRate(List<HrDataSingle> dataList)
+        {
+            int averageHeartRate = 0;
+            foreach (HrDataSingle data in dataList)
+            {
+                averageHeartRate = averageHeartRate + data.HeartRate;
+            }
+            averageHeartRate = averageHeartRate / dataList.Count;
+          
+            return averageHeartRate;
+        }
+
+        private int GetMinHeartRate(List<HrDataSingle> dataList)
+        {
+            int minHeartRate = restHR;
+            foreach (HrDataSingle data in dataList)
+            {
+                if (data.HeartRate < minHeartRate)
+                {
+                    minHeartRate = data.HeartRate;
+                }
+            }
+
+            return minHeartRate;
+        }
+
+        private int GetAveragePower(List<HrDataSingle> dataList)
+        {
+            int PowerAverage = 0;
+            foreach (HrDataSingle data in hrDataExtended.DataEuro)
+            {
+                PowerAverage = PowerAverage + data.Power;
+            }
+            PowerAverage = PowerAverage / dataList.Count;
+
+            return PowerAverage;
+        }
+
+        private int GetMaxPower(List<HrDataSingle> dataList)
+        {
+            int maxpower = 0;
+            foreach (HrDataSingle data in hrDataExtended.DataEuro)
+            {
+                if (data.Power > maxpower)
+                {
+                    maxpower = data.Power;
+                }
+
+               
+            }
+            return maxpower;
+        }
+
+        private double GetAverageAltitude(List<HrDataSingle> dataList)
+        {
+            double averageAlt = 0;
+            foreach (HrDataSingle data in dataList)
+            {
+
+                averageAlt = averageAlt + data.Altitude;
+
+            }
+         
+            averageAlt = averageAlt / dataList.Count;
+
+            return averageAlt;
+        }
+
+        private double GetMaxAltitude(List<HrDataSingle> dataList)
+        {
+            double maxAlt = 0;
+            foreach (HrDataSingle data in hrDataExtended.DataEuro)
+            {
+                if (maxAlt < data.Altitude)
+                {
+                    maxAlt = data.Altitude;
+                }
+            }
+
+            return maxAlt;
+        }
         public List<string> GetRideInfo()
         {
             return rideInfo;
         }
 
+       
         private string GetMonitorType(string raw)
         {
             raw = raw.Split('=')[1];
@@ -411,194 +542,109 @@ namespace CyclingApp
             hrDataList.RemoveAt(0);
             if (version <= 105)
             {
-                hrDataExtended = new HrData(unitBool, version, hrDataList, mode.CadAltInt);
+                hrDataExtended = new HrData(unitBool, version, hrDataList, smode,mode.CadAltInt);
             }
             else
             {
-                hrDataExtended = new HrData(unitBool, version, hrDataList);
+                hrDataExtended = new HrData(unitBool, version, hrDataList, smode);
             }
-            if (!unitBool)
-            {
-                
-            }
+            
             //Storing the summary data
             if (!unitBool)
             {
-                
-                //total distance 
-                double distance = 0;
-                foreach (HrDataSingle data in hrDataExtended.DataEuro)
-                {
-                    double hoursSpeed = data.Speed / 10;
-                   // Console.WriteLine("Hours: "+hoursSpeed);
-                    double minsSpeed = hoursSpeed / 60;
-                    //Console.WriteLine("mins: " + minsSpeed);
-                    double secondSpeed = minsSpeed / 60;
-                    //Console.WriteLine("secondfs: " + secondSpeed);
-                    double intervalDistance = secondSpeed * interval;
-                   // Console.WriteLine("int distance: " + intervalDistance);
-                    distance = distance + intervalDistance;
-                   // Console.WriteLine("cumaltive distnacew: " + distance);
-                    //Console.WriteLine("########");
-                }
-                summaryEuro.Add("Total Distance",""+distance+"KM");
-                summaryUS.Add("Total Distance",""+(distance* 0.621371)+"Miles");
-                
-                //Average Speed
 
-                double averageSpeed = 0;
-                foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                
+                if (smode.Speed)
                 {
-                    averageSpeed = averageSpeed + data.Speed;
+                    //total distance 
+                    double distance = 0;
+                    distance = GetTotalDistance(HrDataExtended.DataEuro);
+                    summaryEuro.Add("Total Distance", "" + distance + "KM");
+                    summaryUS.Add("Total Distance", "" + (distance * 0.621371) + "Miles");
+
+                    //Average Speed
+
+                    double averageSpeed = GetAverageSpeed(hrDataExtended.DataEuro);
+
+                    summaryEuro.Add("Average Speed", "" + averageSpeed + "KPH");
+                    summaryUS.Add("Average Speed", "" + (averageSpeed * 0.6213711922) + "MPH");
+
+                    //maximum speed
+                    double speed = GetMaxSpeed(hrDataExtended.DataEuro);
+
+                    summaryEuro.Add("Maximum Speed", "" + speed + "KPH");
+                    summaryUS.Add("Maximum Speed", "" + ((speed * 0.6213711922)) + "MPH");
+
                 }
-                averageSpeed = averageSpeed / hrDataExtended.DataEuro.Count;
-                averageSpeed = averageSpeed / 10;
-                summaryEuro.Add("Average Speed",""+ averageSpeed+"KPH");
-                summaryUS.Add("Average Speed", "" + (averageSpeed * 0.6213711922)+"MPH");
-               
-                //maximum speed
-                string hrdatastring = "";
-                double speed = 0;
-                foreach (HrDataSingle data in hrDataExtended.DataEuro)
-                {
-                    if (speed < data.Speed)
-                    {
-                        speed = data.Speed;
-                    }
-                }
-                hrdatastring = "" + (speed / 10);
-                summaryEuro.Add("Maximum Speed", "" + Convert.ToDouble(hrdatastring)+"KPH");
-                summaryUS.Add("Maximum Speed", "" + ((Convert.ToDouble(hrdatastring) * 0.6213711922))+"MPH");
+
+                
+              
 
                 
 
                 //Average Heart Rate
-                int averageHeartRate = 0;
-                foreach (HrDataSingle data in hrDataExtended.DataEuro)
-                {
-                    averageHeartRate = averageHeartRate + data.HeartRate;
-                }
-                averageHeartRate = averageHeartRate / hrDataExtended.DataEuro.Count;
+                int averageHeartRate = GetAverageHeartRate(HrDataExtended.DataEuro);
+               
                 summaryEuro.Add("Average Heart Rate",""+averageHeartRate+"BPM");
                 summaryUS.Add("Average Heart Rate",""+averageHeartRate+"BPM");
               
                 //Max Heart Rate
                 summaryEuro.Add("Maximum Heart Rate", "" + maxHR + "BPM");
                 summaryUS.Add("Maximum Heart Rate",""+ maxHR + "BPM");
-               
+
                 //Min Heart Rate
-                int minHeartRate = restHR;
-                foreach (HrDataSingle data in hrDataExtended.DataEuro)
-                {
-                    if (data.HeartRate < minHeartRate)
-                    {
-                        minHeartRate = data.HeartRate;
-                    }
-                }
+                int minHeartRate = GetMinHeartRate(hrDataExtended.DataEuro); ;
+                
                 summaryEuro.Add("Minimum Heart Rate",""+minHeartRate + "BPM");
                 summaryUS.Add("Minimum Heart Rate",""+minHeartRate + "BPM");
-                
-                //Average power
-                int PowerAverage = 0;
-                
-                
-                foreach (HrDataSingle data in hrDataExtended.DataEuro)
+
+                if (smode.Power)
                 {
-                    PowerAverage = PowerAverage + data.Power;
+                    //Average power
+                    int PowerAverage = GetAveragePower(hrDataExtended.DataEuro);
+                    summaryEuro.Add("Average Power", "" + PowerAverage + " W");
+                    summaryUS.Add("Average Power", "" + PowerAverage + " W");
+
+                    //Max Power
+                    int maxpower = GetMaxPower(hrDataExtended.DataEuro);
+
+                    summaryEuro.Add("Maximum Power", "" + maxpower + " W");
+                    summaryUS.Add("Maximum Power", "" + maxpower + " W");
                 }
-               PowerAverage = PowerAverage / hrDataExtended.DataEuro.Count;
 
 
-               
-
-               
-                summaryEuro.Add("Average Power", ""+ PowerAverage+" W");
-                summaryUS.Add("Average Power", ""+ PowerAverage+" W");
-                
-                //Max Power
-                int maxpower = 0;
-                foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                if (smode.Altitude)
                 {
-                    if (data.Power > maxpower)
-                    {
-                        maxpower = data.Power;
-                    }
+                    //Average Altitude
+
+                    double averageAlt = GetAverageAltitude(hrDataExtended.DataEuro); ;
+
+                    summaryEuro.Add("Average Altitude", "" + averageAlt + " Meters");
+                    SummaryUS.Add("Average Altitude", "" + (averageAlt * 3.280839895) + " Feet");
+
+
+
+
+
+
+                    //Max Altitude
+
+
+
+                    double maxAlt = GetMaxAltitude(hrDataExtended.DataEuro);
+
+
+                    summaryEuro.Add("Maximum Altitude", "" + (maxAlt) + " Meters");
+
+                    SummaryUS.Add("Maximum Altitude", "" + (maxAlt * 3.280839895) + " Feet");
+
                 }
-                summaryEuro.Add("Maximum Power",""+maxpower+" W");
-                summaryUS.Add("Maximum Power",""+maxpower+" W");
-                
-                //Average Altitude
-
-                if (version == 105)
-                    {
-                        //mode should exist
-                        if (mode.CadAltInt == 0)
-                        {
-                            //means cadence
-
-
-                        }
-                        else if (mode.CadAltInt == 1)
-                        {
-
-                        }
-
-                    }
-                    else
-                    {
-                        double averageAlt = 0;
-                        foreach (HrDataSingle data in hrDataExtended.DataEuro)
-                        {
-                            
-                            averageAlt = averageAlt +  data.Altitude;
-                            
-                        }
-                    Console.WriteLine(averageAlt);
-                        averageAlt = averageAlt / hrDataExtended.DataEuro.Count;
-                        summaryEuro.Add("Average Altitude", "" + averageAlt+" Meters");
-                        SummaryUS.Add("Average Altitude", "" + (averageAlt * 3.280839895)+" Feet");
-                    }
-
-                
 
 
 
-                //Max Altitude
-
-                if (version == 105)
-                    {
-                        //mode should exist
-                        if (mode.CadAltInt == 0)
-                        {
-                            //means cadence
-                            
-                            
-                        }
-                        else if (mode.CadAltInt == 1)
-                        {
-
-                        }
-                        
-                    }
-                    else
-                    {
-                    
-                    double maxAlt = 0;
-                        foreach (HrDataSingle data in hrDataExtended.DataEuro)
-                        {
-                            if (maxAlt < data.Altitude)
-                            {
-                                maxAlt = data.Altitude;
-                            }
-                        }
-                  
-                    summaryEuro.Add("Maximum Altitude" , ""+(maxAlt) +" Meters");
-                    Console.WriteLine("We have finished reading");
-                    SummaryUS.Add("Maximum Altitude", ""+(maxAlt * 3.280839895) +" Feet");
-                    }
 
 
-               
+
 
 
 
@@ -606,164 +652,80 @@ namespace CyclingApp
             }
             else
             {
+
+                if (smode.Speed)
+                {
+                    //total distance not sure if for that trip or the odometer
+                    double distance = GetTotalDistance(hrDataExtended.DataUS);
+
+                    summaryEuro.Add("Total Distance", "" + (distance * 1.60934) + "KM");
+                    summaryUS.Add("Total Distance", "" + distance + "Miles");
+
+                    //Average Speed
+
+                    double averageSpeed = GetAverageSpeed(hrDataExtended.DataUS); ;
+
+                    summaryEuro.Add("Average Speed", "" + (averageSpeed * 1.60934) + " KPH");
+                    summaryUS.Add("Average Speed", "" + (averageSpeed) + " MPH");
+
+                    //maximum speed
+
+                    double speed = GetMaxSpeed(hrDataExtended.DataUS);
+                    summaryEuro.Add("Maximum Speed", "" + (speed * 1.60934) + " KMPH");
+                    summaryUS.Add("Maximum Speed", "" + speed + " MPH");
+                }
                 //us starting values
-                //total distance not sure if for that trip or the odometer
-                double distance = 0;
-                foreach (HrDataSingle data in hrDataExtended.DataUS)
-                {
-                    double hoursSpeed = data.Speed / 10;
-                    // Console.WriteLine("Hours: "+hoursSpeed);
-                    double minsSpeed = hoursSpeed / 60;
-                    //Console.WriteLine("mins: " + minsSpeed);
-                    double secondSpeed = minsSpeed / 60;
-                    //Console.WriteLine("secondfs: " + secondSpeed);
-                    double intervalDistance = secondSpeed * interval;
-                    // Console.WriteLine("int distance: " + intervalDistance);
-                    distance = distance + intervalDistance;
-                    // Console.WriteLine("cumaltive distnacew: " + distance);
-                    //Console.WriteLine("########");
-                }
-                summaryEuro.Add("Total Distance", "" + (distance * 1.60934)+"KM");
-                summaryUS.Add("Total Distance", "" + distance+"Miles");
-
-                //Average Speed
-
-                double averageSpeed = 0;
-                foreach (HrDataSingle data in hrDataExtended.DataUS)
-                {
-                    averageSpeed = averageSpeed + data.Speed;
-                }
-                averageSpeed = averageSpeed / hrDataExtended.DataEuro.Count;
-                averageSpeed = averageSpeed / 10;
-                summaryEuro.Add("Average Speed", "" + (averageSpeed * 1.60934)+" KPH");
-                summaryUS.Add("Average Speed", "" + (averageSpeed ) +" MPH");
-
-                //maximum speed
-
-                string hrdatastring = "";
-                double speed = 0;
-                foreach (HrDataSingle data in hrDataExtended.DataUS)
-                {
-                    if (speed < data.Speed)
-                    {
-                        speed = data.Speed;
-                    }
-                }
-                hrdatastring = "" + (speed / 10);
-                summaryEuro.Add("Maximum Speed", "" + (Convert.ToDouble(hrdatastring) * 1.60934) +" KMPH");
-                summaryUS.Add("Maximum Speed", "" + ((Convert.ToDouble(hrdatastring))) + " MPH");
+                
 
                
                 //Average Heart Rate
-                int averageHeartRate = 0;
-                foreach (HrDataSingle data in hrDataExtended.DataEuro)
-                {
-                    averageHeartRate = averageHeartRate + data.HeartRate;
-                }
-                averageHeartRate = averageHeartRate / hrDataExtended.DataEuro.Count;
+                int averageHeartRate = GetAverageHeartRate(hrDataExtended.DataUS);
+                
                 summaryEuro.Add("Average Heart Rate", "" + averageHeartRate +" BPM");
                 summaryUS.Add("Average Heart Rate", "" + averageHeartRate + " BPM");
                 //Max Heart Rate
                 summaryEuro.Add("Maximum Heart Rate", "" + maxHR + " BPM");
                 summaryUS.Add("Maximum Heart Rate", "" + maxHR + " BPM");
                 //Min Heart Rate
-                int minHeartRate = restHR;
-                foreach (HrDataSingle data in hrDataExtended.DataEuro)
-                {
-                    if (data.HeartRate < minHeartRate)
-                    {
-                        minHeartRate = data.HeartRate;
-                    }
-                }
+                int minHeartRate = GetMinHeartRate(hrDataExtended.DataUS);
+               
                 summaryEuro.Add("Minimum Heart Rate", "" + minHeartRate + " BPM");
                 summaryUS.Add("Minimum Heart Rate", "" + minHeartRate + " BPM");
-                //Average power
-                int PowerAverage = 0;
 
-
-                foreach (HrDataSingle data in hrDataExtended.DataEuro)
+                if (smode.Power)
                 {
-                    PowerAverage = PowerAverage + data.Power;
-                }
-                PowerAverage = PowerAverage / hrDataExtended.DataEuro.Count;
+                    //Average power
+                    int PowerAverage = GetAveragePower(hrDataExtended.DataUS);
+                    summaryEuro.Add("Average Power", "" + PowerAverage + " Watts");
+                    summaryUS.Add("Average Power", "" + PowerAverage + " Watts");
+                    //Max Power
+                    int maxpower = GetMaxPower(hrDataExtended.DataUS);
 
-
-
-
-
-                summaryEuro.Add("Average Power", "" + PowerAverage+" Watts");
-                summaryUS.Add("Average Power", "" + PowerAverage + " Watts");
-                //Max Power
-                int maxpower = 0;
-                foreach (HrDataSingle data in hrDataExtended.DataEuro)
-                {
-                    if (data.Power > maxpower)
-                    {
-                        maxpower = data.Power;
-                    }
-                }
-                summaryEuro.Add("Max Power", "" + maxpower + " Watts");
-                summaryUS.Add("Max Power", "" + maxpower + " Watts");
-                //Average Altitude
-                if (version == 105)
-                {
-                    //mode should exist
-                    if (mode.CadAltInt == 0)
-                    {
-                        //means cadence
-
-
-                    }
-                    else if (mode.CadAltInt == 1)
-                    {
-
-                    }
-
-                }
-                else
-                {
-                    double averageAlt = 0;
-                    foreach (HrDataSingle data in hrDataExtended.DataUS)
-                    {
-                       
-                            averageAlt = averageAlt + data.Altitude;
-                        
-                    }
-                    averageAlt = averageAlt / hrDataExtended.DataEuro.Count;
-                    summaryEuro.Add("Average Altitude", "" + (averageAlt * 0.3048)+" Meters");
-                    SummaryUS.Add("Average Altitude", "" + (averageAlt) +" Feet");
+                    summaryEuro.Add("Max Power", "" + maxpower + " Watts");
+                    summaryUS.Add("Max Power", "" + maxpower + " Watts");
                 }
 
-
-                //Max Altitude
-                if (version == 105)
+                if (smode.Altitude)
                 {
-                    //mode should exist
-                    if (mode.CadAltInt == 0)
-                    {
-                        //means cadence
+                    //Average Altitude
+
+                    double averageAlt = GetAverageAltitude(hrDataExtended.DataUS);
+
+                    summaryEuro.Add("Average Altitude", "" + (averageAlt * 0.3048) + " Meters");
+                    SummaryUS.Add("Average Altitude", "" + (averageAlt) + " Feet");
 
 
-                    }
-                    else if (mode.CadAltInt == 1)
-                    {
 
-                    }
+                    //Max Altitude
 
-                }
-                else
-                {
-                    double maxAlt = 0;
-                    foreach (HrDataSingle data in hrDataExtended.DataUS)
-                    {
-                        if (maxAlt < data.Altitude)
-                        {
-                            maxAlt = data.Altitude;
-                        }
-                    }
-                    summaryEuro.Add("Max Altitude", "" + (maxAlt * 0.3048) +"Meters");
+                    double maxAlt = GetMaxAltitude(hrDataExtended.DataUS);
+
+                    summaryEuro.Add("Max Altitude", "" + (maxAlt * 0.3048) + "Meters");
                     SummaryUS.Add("Max Altitude", "" + (maxAlt) + "Feet");
                 }
+               
+               
+                
                
             }
             

@@ -11,7 +11,7 @@ namespace CyclingApp
     /// Contains a polar reader
     /// 
     /// </summary>
-    class Polar
+    public class Polar
     {
         /// <summary>
         /// Polar reader loads and separaates the data, also  acts as a data store
@@ -33,17 +33,20 @@ namespace CyclingApp
             dataStore.ReadFile(filePath);
         }
 
-        public Dictionary<string, string> GetSummaryData()
+        public Dictionary<string, string> GetSummaryUS()
         {
-            if (!GetUnit())
-            {
-                return dataStore.SummaryEuro;
-            }
-            else
-            {
+            
                 return dataStore.SummaryUS;
-            }
+            
         }
+
+        public Dictionary<string, string> GetSummaryEuro()
+        {
+            return dataStore.SummaryEuro;
+           
+        }
+
+
 
         public bool GetUnit()
         {

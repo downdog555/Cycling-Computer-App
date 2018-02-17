@@ -17,13 +17,15 @@ namespace CyclingApp
         /// </summary>
         private int pbPedInd;
         private double speed;
-        
+        private Smode smode;
 
-        public HrDataSingle(List<string> data, int version, int cadAlt = 46)
+        public HrDataSingle(List<string> data, int version, Smode smode ,int cadAlt = 46)
         {
+            
+            this.smode = smode;
             heartRate = cadence = altitude = power = airPressure = pbPedInd = 0;
             speed = 0.0;
-            if (data.Count == 3)
+            if (version == 105)
             {
                 heartRate =(int)Convert.ToDouble(data.ElementAt(0));
                 speed = Convert.ToDouble(data.ElementAt(1))/10;
@@ -36,26 +38,209 @@ namespace CyclingApp
                     altitude = (int)Convert.ToDouble(data.ElementAt(2)); ;
                 }
             }
-            else if (data.Count == 6)
+            else if (version == 106)
             {
                 heartRate = Convert.ToInt32(data.ElementAt(0));
-                speed = Convert.ToDouble(data.ElementAt(1)) / 10;
-                cadence = Convert.ToInt32(data.ElementAt(2));
-                altitude = Convert.ToInt32(data.ElementAt(3));
-                power = Convert.ToInt32(data.ElementAt(4));
-                pbPedInd = Convert.ToInt32(data.ElementAt(5));
+              
+
+                if (smode.Speed)
+                {
+                    speed = Convert.ToDouble(data.ElementAt(1)) / 10;
+                }
+
+                if (smode.Cadence && smode.Speed)
+                {
+                    cadence = Convert.ToInt32(data.ElementAt(2));
+                }
+                else if (!smode.Speed)
+                {
+                    cadence = Convert.ToInt32(data.ElementAt(1));
+                }
+
+                if (smode.Altitude && smode.Cadence && smode.Speed)
+                {
+                    altitude = Convert.ToInt32(data.ElementAt(3).Split('.')[0]);
+                }
+                else if (!smode.Cadence && !smode.Speed && smode.Altitude)
+                {
+                    altitude = Convert.ToInt32(data.ElementAt(1).Split('.')[0]);
+                }
+                else if (!smode.Cadence && smode.Speed && smode.Altitude)
+                {
+                    altitude = Convert.ToInt32(data.ElementAt(2).Split('.')[0]);
+                }
+                else if (smode.Cadence && !smode.Speed && smode.Altitude)
+                {
+                    altitude = Convert.ToInt32(data.ElementAt(2).Split('.')[0]);
+                }
+
+
+                if (smode.Power && smode.Speed && smode.Altitude && smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(4));
+                }
+                else if(smode.Power && !smode.Speed && !smode.Altitude && !smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(1));
+                }
+                else if (smode.Power && smode.Speed && smode.Altitude && !smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(3));
+                }
+                else if (smode.Power && smode.Speed && !smode.Altitude && smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(3));
+                }
+                else if (smode.Power && !smode.Speed && smode.Altitude && !smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(3));
+                }
+                else if (smode.Power && !smode.Speed && !smode.Altitude && smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(3));
+                }
+                else if (smode.Power && !smode.Speed && smode.Altitude && smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(3));
+                }
+
+
+
+                if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && smode.Altitude && smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(5));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && !smode.Altitude && !smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(2));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && smode.Altitude && !smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && !smode.Altitude && smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && smode.Altitude && !smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && !smode.Altitude && smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && smode.Altitude && smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                }
+
+
+
+
+                
 
 
             }
-            else if (data.Count == 7)
+            else if (version == 107)
             {
                 heartRate = Convert.ToInt32(data.ElementAt(0));
-                speed = Convert.ToDouble(data.ElementAt(1)) / 10;
-                cadence = Convert.ToInt32(data.ElementAt(2));
-                //Console.WriteLine(data.ElementAt(3));
-                altitude = (int)Convert.ToDouble(data.ElementAt(3));
-                power = Convert.ToInt32(data.ElementAt(4));
-                pbPedInd = Convert.ToInt32(data.ElementAt(5));
+
+
+                if (smode.Speed)
+                {
+                    speed = Convert.ToDouble(data.ElementAt(1)) / 10;
+                }
+
+                if (smode.Cadence && smode.Speed)
+                {
+                    cadence = Convert.ToInt32(data.ElementAt(2));
+                }
+                else if (!smode.Speed)
+                {
+                    cadence = Convert.ToInt32(data.ElementAt(1));
+                }
+
+                if (smode.Altitude && smode.Cadence && smode.Speed)
+                {
+                    altitude = Convert.ToInt32(data.ElementAt(3).Split('.')[0]);
+                }
+                else if (!smode.Cadence && !smode.Speed && smode.Altitude)
+                {
+                    altitude = Convert.ToInt32(data.ElementAt(1).Split('.')[0]);
+                }
+                else if (!smode.Cadence && smode.Speed && smode.Altitude)
+                {
+                    altitude = Convert.ToInt32(data.ElementAt(2).Split('.')[0]);
+                }
+                else if (smode.Cadence && !smode.Speed && smode.Altitude)
+                {
+                    altitude = Convert.ToInt32(data.ElementAt(2).Split('.')[0]);
+                }
+
+
+                if (smode.Power && smode.Speed && smode.Altitude && smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(4));
+                }
+                else if (smode.Power && !smode.Speed && !smode.Altitude && !smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(1));
+                }
+                else if (smode.Power && smode.Speed && smode.Altitude && !smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(3));
+                }
+                else if (smode.Power && smode.Speed && !smode.Altitude && smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(3));
+                }
+                else if (smode.Power && !smode.Speed && smode.Altitude && !smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(3));
+                }
+                else if (smode.Power && !smode.Speed && !smode.Altitude && smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(3));
+                }
+                else if (smode.Power && !smode.Speed && smode.Altitude && smode.Cadence)
+                {
+                    power = Convert.ToInt32(data.ElementAt(3));
+                }
+
+
+
+                if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && smode.Altitude && smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(5));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && !smode.Altitude && !smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(2));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && smode.Altitude && !smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && !smode.Altitude && smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && smode.Altitude && !smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && !smode.Altitude && smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                }
+                else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && smode.Altitude && smode.Cadence)
+                {
+                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                }
+
+
+
                 airPressure = Convert.ToInt32(data.ElementAt(6));
             }
         }

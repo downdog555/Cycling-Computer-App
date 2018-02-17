@@ -41,6 +41,8 @@
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.addNewComaprisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.ftpMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.enterMaximumHeartRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabSelector.SuspendLayout();
             this.singleView.SuspendLayout();
@@ -51,17 +53,17 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.aboutToolStripMenuItem,
-            this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(1, 1);
+            this.helpToolStripMenuItem,
+            this.ftpMenu,
+            this.enterMaximumHeartRateToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(17, 2);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(202, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(524, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -162,6 +164,19 @@
             this.fileDialog.FileName = "FileDialog";
             this.fileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.FileOk);
             // 
+            // ftpMenu
+            // 
+            this.ftpMenu.Name = "ftpMenu";
+            this.ftpMenu.Size = new System.Drawing.Size(69, 20);
+            this.ftpMenu.Text = "Enter FTP";
+            this.ftpMenu.Click += new System.EventHandler(this.ftpMenu_Click);
+            // 
+            // enterMaximumHeartRateToolStripMenuItem
+            // 
+            this.enterMaximumHeartRateToolStripMenuItem.Name = "enterMaximumHeartRateToolStripMenuItem";
+            this.enterMaximumHeartRateToolStripMenuItem.Size = new System.Drawing.Size(161, 20);
+            this.enterMaximumHeartRateToolStripMenuItem.Text = "Enter Maximum Heart Rate";
+            // 
             // CyclingMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,6 +218,8 @@
         private System.Windows.Forms.MenuStrip menuStrip3;
         private System.Windows.Forms.ToolStripMenuItem loadFileToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog fileDialog;
+        private System.Windows.Forms.ToolStripMenuItem ftpMenu;
+        private System.Windows.Forms.ToolStripMenuItem enterMaximumHeartRateToolStripMenuItem;
     }
 }
 
