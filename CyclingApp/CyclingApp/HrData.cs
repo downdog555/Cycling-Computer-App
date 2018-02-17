@@ -61,7 +61,7 @@ namespace CyclingApp
                     //we need to convert form us to 
                     List<string> lineConverted = new List<string>();
                     lineConverted.Add(""+tempUS.HeartRate);
-                    lineConverted.Add(""+(tempUS.Speed* 1.609344));
+                    lineConverted.Add(""+((tempUS.Speed* 1.609344)*10));
                     if (cadAlt == 0)
                     {
                         lineConverted.Add("" + tempUS.Cadence);
