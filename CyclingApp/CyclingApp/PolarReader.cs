@@ -650,7 +650,7 @@ namespace CyclingApp
                     }
                 }
                 hrdatastring = "" + (speed / 10);
-                summaryEuro.Add("Maximum Speed", "" + (Convert.ToDouble(hrdatastring) * 1.60934) +" KPH");
+                summaryEuro.Add("Maximum Speed", "" + (Convert.ToDouble(hrdatastring) * 1.60934) +" KMPH");
                 summaryUS.Add("Maximum Speed", "" + ((Convert.ToDouble(hrdatastring))) + " MPH");
 
                
