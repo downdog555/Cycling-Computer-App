@@ -585,31 +585,31 @@ namespace CyclingApp
                 //Average Heart Rate
                 int averageHeartRate = GetAverageHeartRate(HrDataExtended.DataEuro);
                
-                summaryEuro.Add("Average Heart Rate",""+averageHeartRate+"BPM");
-                summaryUS.Add("Average Heart Rate",""+averageHeartRate+"BPM");
+                summaryEuro.Add("Average Heart Rate",""+averageHeartRate);
+                summaryUS.Add("Average Heart Rate",""+averageHeartRate);
               
                 //Max Heart Rate
-                summaryEuro.Add("Maximum Heart Rate", "" + maxHR + "BPM");
-                summaryUS.Add("Maximum Heart Rate",""+ maxHR + "BPM");
+                summaryEuro.Add("Maximum Heart Rate", "" + maxHR );
+                summaryUS.Add("Maximum Heart Rate",""+ maxHR );
 
                 //Min Heart Rate
                 int minHeartRate = GetMinHeartRate(hrDataExtended.DataEuro); ;
                 
-                summaryEuro.Add("Minimum Heart Rate",""+minHeartRate + "BPM");
-                summaryUS.Add("Minimum Heart Rate",""+minHeartRate + "BPM");
+                summaryEuro.Add("Minimum Heart Rate",""+minHeartRate );
+                summaryUS.Add("Minimum Heart Rate",""+minHeartRate);
 
                 if (smode.Power)
                 {
                     //Average power
                     int PowerAverage = GetAveragePower(hrDataExtended.DataEuro);
-                    summaryEuro.Add("Average Power", "" + PowerAverage + " W");
-                    summaryUS.Add("Average Power", "" + PowerAverage + " W");
+                    summaryEuro.Add("Average Power", "" + PowerAverage);
+                    summaryUS.Add("Average Power", "" + PowerAverage);
 
                     //Max Power
                     int maxpower = GetMaxPower(hrDataExtended.DataEuro);
 
-                    summaryEuro.Add("Maximum Power", "" + maxpower + " W");
-                    summaryUS.Add("Maximum Power", "" + maxpower + " W");
+                    summaryEuro.Add("Maximum Power", "" + maxpower);
+                    summaryUS.Add("Maximum Power", "" + maxpower );
                 }
 
 

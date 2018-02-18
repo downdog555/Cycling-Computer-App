@@ -78,5 +78,11 @@ namespace CyclingApp
             enter.Show();
 
         }
+
+        private void enterMaximumHeartRateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EnterHR enterHR = new EnterHR(this, maxHr);
+            enterHR.Show();
+        }
     }
 }

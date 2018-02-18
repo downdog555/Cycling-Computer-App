@@ -27,7 +27,7 @@ namespace CyclingApp
             try
             {
                 hr = Convert.ToInt32(hrBox.Text);
-                cyclingMain.SetMaxHR(hr);
+                cyclingMain.SetHR(hr);
                 this.Close();
 
             }

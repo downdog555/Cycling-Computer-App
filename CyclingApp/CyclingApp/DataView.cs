@@ -25,8 +25,8 @@ namespace CyclingApp
         
         public DataView( bool unitType, HrData hrdata, Smode smode, Polar polar)
         {
-            this.ftp = 0;
-            MaxHR = 0;
+            this.ftp = 1;
+            MaxHR = 1;
             percentFTP = percentHR = false;
             this.polar = polar;
             summaryDataUS = polar.GetSummaryUS();
@@ -77,6 +77,11 @@ namespace CyclingApp
             this.ftp = ftp;
             AddFullData();
         }
+        public void SetMaxHR(int maxHr)
+        {
+            this.MaxHR = maxHr;
+            this.maxHRValue.Text = ""+maxHr;
+        }
         public void AddSummaryData(Dictionary<string, string> data, bool unitType)
         {
             summaryPanel.Controls.Clear();
@@ -92,8 +97,83 @@ namespace CyclingApp
             List<string> valuesToBeInserted = new List<string>();
             foreach (KeyValuePair<string, string>  value in data)
             {
-                grid.Columns.Add(value.Key, value.Key);
-                valuesToBeInserted.Add(value.Value);
+               
+                if (value.Key.Equals("Average Heart Rate"))
+                {
+                    if (percentHR)
+                    {
+                        grid.Columns.Add(value.Key, value.Key+"(% of max hr)");
+                        double percent = (Convert.ToDouble(value.Value) / MaxHR) * 100;
+                        valuesToBeInserted.Add(""+percent);
+                    }
+                    else
+                    {
+                        grid.Columns.Add(value.Key, value.Key+"(BPM)");
+                        valuesToBeInserted.Add(value.Value);
+                    }
+                }
+                else if (value.Key.Equals("Maximum Heart Rate"))
+                {
+                    if (percentHR)
+                    {
+                        grid.Columns.Add(value.Key, value.Key + "(% of max hr)");
+                        double percent = (Convert.ToDouble(value.Value) / MaxHR) * 100;
+                        valuesToBeInserted.Add("" + percent);
+                    }
+                    else
+                    {
+                        grid.Columns.Add(value.Key, value.Key + "(BPM)");
+                        valuesToBeInserted.Add(value.Value);
+                    }
+                }
+                else if (value.Key.Equals("Minimum Heart Rate"))
+                {
+                    if (percentHR)
+                    {
+                        grid.Columns.Add(value.Key, value.Key + "(% of max hr)");
+                        double percent = (Convert.ToDouble(value.Value) / MaxHR) * 100;
+                        valuesToBeInserted.Add("" + percent);
+                    }
+                    else
+                    {
+                        grid.Columns.Add(value.Key, value.Key + "(BPM)");
+                        valuesToBeInserted.Add(value.Value);
+                    }
+                }
+                else if (value.Key.Equals("Average Power"))
+                {
+                    if (percentFTP)
+                    {
+                        grid.Columns.Add(value.Key, value.Key + "(% of FTP)");
+                        double percent = (Convert.ToDouble(value.Value) / ftp) * 100;
+                        valuesToBeInserted.Add("" + percent);
+                    }
+                    else
+                    {
+                        grid.Columns.Add(value.Key, value.Key + "(W)");
+                        valuesToBeInserted.Add(value.Value);
+                    }
+                }
+                else if (value.Key.Equals("Maximum Power"))
+                {
+                    if (percentFTP)
+                    {
+                        grid.Columns.Add(value.Key, value.Key + "(% of FTP)");
+                        double percent = (Convert.ToDouble(value.Value) / ftp) * 100;
+                        valuesToBeInserted.Add("" + percent);
+                    }
+                    else
+                    {
+                        grid.Columns.Add(value.Key, value.Key + "(W)");
+                        valuesToBeInserted.Add(value.Value);
+                    }
+                }
+                else
+                {
+                    grid.Columns.Add(value.Key, value.Key);
+                    valuesToBeInserted.Add(value.Value);
+                }
+                
             }
      
             grid.Rows.Insert(0,valuesToBeInserted.ToArray());
@@ -126,6 +206,14 @@ namespace CyclingApp
             hrDataPanel.Controls.Clear();
             DataGridView fullData = new DataGridView();
             fullData.Dock = DockStyle.Fill;
+            if (percentHR)
+            {
+                fullData.Columns.Add("hr", "Heart Rate % of Max");
+            }
+            else
+            {
+                fullData.Columns.Add("hr", "Heart Rate");
+            }
             //we need to add headers
             if (smode.Speed)
             {
@@ -198,6 +286,15 @@ namespace CyclingApp
             foreach (HrDataSingle dataLine in dataSmall)
             {
                 List<string> dataToBeInserted = new List<string>();
+                if (percentHR)
+                {
+                    double percent = (Convert.ToDouble(dataLine.HeartRate) / MaxHR) * 100;
+                    dataToBeInserted.Add("" +percent);
+                }
+                else
+                {
+                    dataToBeInserted.Add("" + dataLine.HeartRate);
+                }
                 if (smode.Speed)
                 {
                     dataToBeInserted.Add(""+dataLine.Speed);
@@ -300,6 +397,15 @@ namespace CyclingApp
                 percentFTP = true;
             }
             AddFullData();
+            if (selectedUnit)
+            {
+                AddSummaryData(summaryDataUS, selectedUnit);
+            }
+            else
+            {
+                AddSummaryData(summaryDataEuro, selectedUnit);
+            }
+            
         }
 
         private void hrCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -314,6 +420,14 @@ namespace CyclingApp
                 percentHR = true;
             }
             AddFullData();
+            if (selectedUnit)
+            {
+                AddSummaryData(summaryDataUS, selectedUnit);
+            }
+            else
+            {
+                AddSummaryData(summaryDataEuro, selectedUnit);
+            }
 
         }
 

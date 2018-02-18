@@ -176,6 +176,7 @@
             this.enterMaximumHeartRateToolStripMenuItem.Name = "enterMaximumHeartRateToolStripMenuItem";
             this.enterMaximumHeartRateToolStripMenuItem.Size = new System.Drawing.Size(161, 20);
             this.enterMaximumHeartRateToolStripMenuItem.Text = "Enter Maximum Heart Rate";
+            this.enterMaximumHeartRateToolStripMenuItem.Click += new System.EventHandler(this.enterMaximumHeartRateToolStripMenuItem_Click);
             // 
             // CyclingMain
             // 
