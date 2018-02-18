@@ -22,9 +22,11 @@ namespace CyclingApp
         private Dictionary<string, string> summaryDataUS, summaryDataEuro;
         private double ftp;
         private int MaxHR;
+        private CyclingMain cyclingMain;
         
-        public DataView( bool unitType, HrData hrdata, Smode smode, Polar polar)
+        public DataView( bool unitType, HrData hrdata, Smode smode, Polar polar, CyclingMain cym)
         {
+            this.cyclingMain = cym;
             this.ftp = 1;
             MaxHR = 1;
             percentFTP = percentHR = false;
@@ -406,6 +408,11 @@ namespace CyclingApp
                 AddSummaryData(summaryDataEuro, selectedUnit);
             }
             
+        }
+
+        private void loadFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cyclingMain.loadFileToolStripMenuItem_Click(sender, e);
         }
 
         private void hrCheckBox_CheckedChanged(object sender, EventArgs e)

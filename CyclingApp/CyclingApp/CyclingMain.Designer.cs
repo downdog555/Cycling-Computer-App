@@ -33,6 +33,8 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ftpMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.enterMaximumHeartRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabSelector = new System.Windows.Forms.TabControl();
             this.singleView = new System.Windows.Forms.TabPage();
             this.menuStrip3 = new System.Windows.Forms.MenuStrip();
@@ -41,8 +43,7 @@
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.addNewComaprisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.ftpMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.enterMaximumHeartRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadSingleFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabSelector.SuspendLayout();
             this.singleView.SuspendLayout();
@@ -69,6 +70,8 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadSingleFileToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -90,6 +93,20 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // ftpMenu
+            // 
+            this.ftpMenu.Name = "ftpMenu";
+            this.ftpMenu.Size = new System.Drawing.Size(69, 20);
+            this.ftpMenu.Text = "Enter FTP";
+            this.ftpMenu.Click += new System.EventHandler(this.ftpMenu_Click);
+            // 
+            // enterMaximumHeartRateToolStripMenuItem
+            // 
+            this.enterMaximumHeartRateToolStripMenuItem.Name = "enterMaximumHeartRateToolStripMenuItem";
+            this.enterMaximumHeartRateToolStripMenuItem.Size = new System.Drawing.Size(161, 20);
+            this.enterMaximumHeartRateToolStripMenuItem.Text = "Enter Maximum Heart Rate";
+            this.enterMaximumHeartRateToolStripMenuItem.Click += new System.EventHandler(this.enterMaximumHeartRateToolStripMenuItem_Click);
             // 
             // tabSelector
             // 
@@ -164,19 +181,12 @@
             this.fileDialog.FileName = "FileDialog";
             this.fileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.FileOk);
             // 
-            // ftpMenu
+            // loadSingleFileToolStripMenuItem
             // 
-            this.ftpMenu.Name = "ftpMenu";
-            this.ftpMenu.Size = new System.Drawing.Size(69, 20);
-            this.ftpMenu.Text = "Enter FTP";
-            this.ftpMenu.Click += new System.EventHandler(this.ftpMenu_Click);
-            // 
-            // enterMaximumHeartRateToolStripMenuItem
-            // 
-            this.enterMaximumHeartRateToolStripMenuItem.Name = "enterMaximumHeartRateToolStripMenuItem";
-            this.enterMaximumHeartRateToolStripMenuItem.Size = new System.Drawing.Size(161, 20);
-            this.enterMaximumHeartRateToolStripMenuItem.Text = "Enter Maximum Heart Rate";
-            this.enterMaximumHeartRateToolStripMenuItem.Click += new System.EventHandler(this.enterMaximumHeartRateToolStripMenuItem_Click);
+            this.loadSingleFileToolStripMenuItem.Name = "loadSingleFileToolStripMenuItem";
+            this.loadSingleFileToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.loadSingleFileToolStripMenuItem.Text = "Load Single File";
+            this.loadSingleFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
             // 
             // CyclingMain
             // 
@@ -221,6 +231,7 @@
         private System.Windows.Forms.OpenFileDialog fileDialog;
         private System.Windows.Forms.ToolStripMenuItem ftpMenu;
         private System.Windows.Forms.ToolStripMenuItem enterMaximumHeartRateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadSingleFileToolStripMenuItem;
     }
 }
 

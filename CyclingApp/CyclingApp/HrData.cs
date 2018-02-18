@@ -21,17 +21,19 @@ namespace CyclingApp
             //means euro data type
             if (!dataType)
             {
+                //Console.WriteLine("We are meme 3.512");
                 dataEuro = new List<HrDataSingle>();
                 dataUS = new List<HrDataSingle>();
                 foreach (string line in rawData)
                 {
                     HrDataSingle tempEuro = new HrDataSingle(line.Split('\t').ToList<string>(), version, smode,cadAlt);
-
+                    //Console.WriteLine("We are meme 3.513");
                     //we need to convert form euro to us 
                     List<string> lineConverted = new List<string>();
                     lineConverted.Add("" + tempEuro.HeartRate);
                     //we times by 10 to compensate for the divide in hr data single
                     lineConverted.Add("" + ((tempEuro.Speed * 0.621371)*10));
+                    //Console.WriteLine("We are meme 3.513");
                     if (cadAlt == 0)
                     {
                         lineConverted.Add("" + tempEuro.Cadence);
@@ -44,13 +46,17 @@ namespace CyclingApp
                     {
                         lineConverted.Add("" + tempEuro.Cadence);
                         lineConverted.Add("" + (tempEuro.Altitude * 3.280839895));
+                        //Console.WriteLine("We are meme 3.5134");
                     }
                     lineConverted.Add("" + tempEuro.Power);
                     lineConverted.Add("" + tempEuro.PbPedInd);
                     lineConverted.Add("" + tempEuro.AirPressure);
                     dataUS.Add(new HrDataSingle(lineConverted, version,smode ,cadAlt));
+                    //Console.WriteLine("We are meme 3.5135");
                     dataEuro.Add(tempEuro);
+                    //Console.WriteLine("We are meme 3.5136");
                 }
+                //Console.WriteLine("We are meme 3.512");
             }
             else
             {

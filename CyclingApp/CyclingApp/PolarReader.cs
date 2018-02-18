@@ -51,6 +51,25 @@ namespace CyclingApp
             rideInfo = new List<string>();
         }
 
+        private void resetLists()
+        {
+            //reset the lists
+            parametersList = new List<string>();
+            noteList = new List<string>();
+            intTimeList = new List<string>();
+            intNotesList = new List<string>();
+            extraDataList = new List<string>();
+            lapNameList = new List<string>();
+            summary123List = new List<string>();
+            summaryThList = new List<string>();
+            hrZoneList = new List<string>();
+            swapTimeList = new List<string>();
+            tripList = new List<string>();
+            hrDataList = new List<string>();
+            summaryEuro = new Dictionary<string, string>();
+            summaryUS = new Dictionary<string, string>();
+            rideInfo = new List<string>();
+        }
         private double GetTotalDistance(List<HrDataSingle> dataList)
         {
             double distance = 0;
@@ -380,7 +399,7 @@ namespace CyclingApp
                     parameters = note = intTime = intNotes = extraData = lapName = summary123 = summaryTh = hrZone = swapTime = trip = hrData = false;
                     string line;
 
-
+                    Console.WriteLine("We are meme 1");
                     // Read and display lines from the file until 
                     // the end of the file is reached. 
                     while ((line = sr.ReadLine()) != null)
@@ -496,8 +515,8 @@ namespace CyclingApp
             {
                 Console.WriteLine("Error In reading File: "+e.Message);
             }
-           
 
+            Console.WriteLine("We are meme 2");
             //we need to separate the data out futher
             //Console.WriteLine(parametersList.ElementAt(1));
             version = Convert.ToInt32(parametersList.ElementAt(1).Split('=')[1]);
@@ -515,7 +534,7 @@ namespace CyclingApp
             }
             date = parametersList.ElementAt(4).Split('=')[1];
             startTime = parametersList.ElementAt(5).Split('=')[1];
-            
+            Console.WriteLine("We are meme 3");
             length = parametersList.ElementAt(6).Split('=')[1];
             interval = Convert.ToInt32(parametersList.ElementAt(7).Split('=')[1]);
             upper1 = Convert.ToInt32(parametersList.ElementAt(8).Split('=')[1]);
@@ -538,17 +557,21 @@ namespace CyclingApp
             rideInfo.Add(startTime);
             rideInfo.Add(length);
             rideInfo.Add(""+interval);
+           // Console.WriteLine("We are meme 5");
             //we remove the header that was used for detection [Hr Data]
             hrDataList.RemoveAt(0);
             if (version <= 105)
             {
+                
                 hrDataExtended = new HrData(unitBool, version, hrDataList, smode,mode.CadAltInt);
+                //Console.WriteLine("We are meme 3.5");
             }
             else
             {
                 hrDataExtended = new HrData(unitBool, version, hrDataList, smode);
+                //Console.WriteLine("We are meme 3.51");
             }
-            
+            //Console.WriteLine("We are meme 3");
             //Storing the summary data
             if (!unitBool)
             {
@@ -728,7 +751,7 @@ namespace CyclingApp
                 
                
             }
-            
+            //Console.WriteLine("We are meme end");
 
 
 

@@ -34,6 +34,11 @@
             this.euroSelection = new System.Windows.Forms.RadioButton();
             this.usSelection = new System.Windows.Forms.RadioButton();
             this.basePanel = new System.Windows.Forms.Panel();
+            this.enterValues = new System.Windows.Forms.GroupBox();
+            this.maxHRValue = new System.Windows.Forms.Label();
+            this.maxHRLabel = new System.Windows.Forms.Label();
+            this.ftpValue = new System.Windows.Forms.Label();
+            this.ftpLabel = new System.Windows.Forms.Label();
             this.rideDetailsBox = new System.Windows.Forms.GroupBox();
             this.activeSensorsBox = new System.Windows.Forms.GroupBox();
             this.dateOfRide = new System.Windows.Forms.Label();
@@ -50,17 +55,12 @@
             this.graphsButton = new System.Windows.Forms.Button();
             this.summaryPanel = new System.Windows.Forms.Panel();
             this.summaryButton = new System.Windows.Forms.Button();
-            this.enterValues = new System.Windows.Forms.GroupBox();
-            this.ftpLabel = new System.Windows.Forms.Label();
-            this.ftpValue = new System.Windows.Forms.Label();
-            this.maxHRLabel = new System.Windows.Forms.Label();
-            this.maxHRValue = new System.Windows.Forms.Label();
             this.ftpCheckBox = new System.Windows.Forms.CheckBox();
             this.hrCheckBox = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.basePanel.SuspendLayout();
-            this.rideDetailsBox.SuspendLayout();
             this.enterValues.SuspendLayout();
+            this.rideDetailsBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -79,6 +79,7 @@
             this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
             this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.loadFileToolStripMenuItem.Text = "Load File";
+            this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
             // 
             // removeFileToolStripMenuItem
             // 
@@ -128,6 +129,57 @@
             this.basePanel.Name = "basePanel";
             this.basePanel.Size = new System.Drawing.Size(694, 762);
             this.basePanel.TabIndex = 4;
+            // 
+            // enterValues
+            // 
+            this.enterValues.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.enterValues.Controls.Add(this.maxHRValue);
+            this.enterValues.Controls.Add(this.maxHRLabel);
+            this.enterValues.Controls.Add(this.ftpValue);
+            this.enterValues.Controls.Add(this.ftpLabel);
+            this.enterValues.Location = new System.Drawing.Point(16, 4);
+            this.enterValues.Name = "enterValues";
+            this.enterValues.Size = new System.Drawing.Size(667, 39);
+            this.enterValues.TabIndex = 10;
+            this.enterValues.TabStop = false;
+            this.enterValues.Text = "FTP & Max HR";
+            // 
+            // maxHRValue
+            // 
+            this.maxHRValue.AutoSize = true;
+            this.maxHRValue.Location = new System.Drawing.Point(184, 20);
+            this.maxHRValue.Name = "maxHRValue";
+            this.maxHRValue.Size = new System.Drawing.Size(13, 13);
+            this.maxHRValue.TabIndex = 3;
+            this.maxHRValue.Text = "0";
+            // 
+            // maxHRLabel
+            // 
+            this.maxHRLabel.AutoSize = true;
+            this.maxHRLabel.Location = new System.Drawing.Point(132, 20);
+            this.maxHRLabel.Name = "maxHRLabel";
+            this.maxHRLabel.Size = new System.Drawing.Size(46, 13);
+            this.maxHRLabel.TabIndex = 2;
+            this.maxHRLabel.Text = "Max HR";
+            // 
+            // ftpValue
+            // 
+            this.ftpValue.AutoSize = true;
+            this.ftpValue.Location = new System.Drawing.Point(43, 20);
+            this.ftpValue.Name = "ftpValue";
+            this.ftpValue.Size = new System.Drawing.Size(35, 13);
+            this.ftpValue.TabIndex = 1;
+            this.ftpValue.Text = "label2";
+            // 
+            // ftpLabel
+            // 
+            this.ftpLabel.AutoSize = true;
+            this.ftpLabel.Location = new System.Drawing.Point(7, 20);
+            this.ftpLabel.Name = "ftpLabel";
+            this.ftpLabel.Size = new System.Drawing.Size(30, 13);
+            this.ftpLabel.TabIndex = 0;
+            this.ftpLabel.Text = "FTP:";
             // 
             // rideDetailsBox
             // 
@@ -296,57 +348,6 @@
             this.summaryButton.UseVisualStyleBackColor = true;
             this.summaryButton.Click += new System.EventHandler(this.summaryButton_Click_1);
             // 
-            // enterValues
-            // 
-            this.enterValues.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.enterValues.Controls.Add(this.maxHRValue);
-            this.enterValues.Controls.Add(this.maxHRLabel);
-            this.enterValues.Controls.Add(this.ftpValue);
-            this.enterValues.Controls.Add(this.ftpLabel);
-            this.enterValues.Location = new System.Drawing.Point(16, 4);
-            this.enterValues.Name = "enterValues";
-            this.enterValues.Size = new System.Drawing.Size(667, 39);
-            this.enterValues.TabIndex = 10;
-            this.enterValues.TabStop = false;
-            this.enterValues.Text = "FTP & Max HR";
-            // 
-            // ftpLabel
-            // 
-            this.ftpLabel.AutoSize = true;
-            this.ftpLabel.Location = new System.Drawing.Point(7, 20);
-            this.ftpLabel.Name = "ftpLabel";
-            this.ftpLabel.Size = new System.Drawing.Size(30, 13);
-            this.ftpLabel.TabIndex = 0;
-            this.ftpLabel.Text = "FTP:";
-            // 
-            // ftpValue
-            // 
-            this.ftpValue.AutoSize = true;
-            this.ftpValue.Location = new System.Drawing.Point(43, 20);
-            this.ftpValue.Name = "ftpValue";
-            this.ftpValue.Size = new System.Drawing.Size(35, 13);
-            this.ftpValue.TabIndex = 1;
-            this.ftpValue.Text = "label2";
-            // 
-            // maxHRLabel
-            // 
-            this.maxHRLabel.AutoSize = true;
-            this.maxHRLabel.Location = new System.Drawing.Point(132, 20);
-            this.maxHRLabel.Name = "maxHRLabel";
-            this.maxHRLabel.Size = new System.Drawing.Size(46, 13);
-            this.maxHRLabel.TabIndex = 2;
-            this.maxHRLabel.Text = "Max HR";
-            // 
-            // maxHRValue
-            // 
-            this.maxHRValue.AutoSize = true;
-            this.maxHRValue.Location = new System.Drawing.Point(184, 20);
-            this.maxHRValue.Name = "maxHRValue";
-            this.maxHRValue.Size = new System.Drawing.Size(13, 13);
-            this.maxHRValue.TabIndex = 3;
-            this.maxHRValue.Text = "0";
-            // 
             // ftpCheckBox
             // 
             this.ftpCheckBox.AutoSize = true;
@@ -385,10 +386,10 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.basePanel.ResumeLayout(false);
-            this.rideDetailsBox.ResumeLayout(false);
-            this.rideDetailsBox.PerformLayout();
             this.enterValues.ResumeLayout(false);
             this.enterValues.PerformLayout();
+            this.rideDetailsBox.ResumeLayout(false);
+            this.rideDetailsBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
