@@ -48,6 +48,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WinFormsExpander.0.1.0\lib\net45\WinFormsExpander.dll</HintPath>
     </Reference>
+    <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataView.cs">
@@ -119,6 +122,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="License-LGPL.txt" />
     <Content Include="WinFormsExpander.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

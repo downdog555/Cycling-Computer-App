@@ -51,12 +51,12 @@
             this.dateLabel = new System.Windows.Forms.Label();
             this.hrDataPanel = new System.Windows.Forms.Panel();
             this.allHrData = new System.Windows.Forms.Button();
-            this.graphPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.graphsButton = new System.Windows.Forms.Button();
             this.summaryPanel = new System.Windows.Forms.Panel();
             this.summaryButton = new System.Windows.Forms.Button();
             this.ftpCheckBox = new System.Windows.Forms.CheckBox();
             this.hrCheckBox = new System.Windows.Forms.CheckBox();
+            this.graphPanel = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.basePanel.SuspendLayout();
             this.enterValues.SuspendLayout();
@@ -117,11 +117,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.basePanel.AutoScroll = true;
+            this.basePanel.Controls.Add(this.graphPanel);
             this.basePanel.Controls.Add(this.enterValues);
             this.basePanel.Controls.Add(this.rideDetailsBox);
             this.basePanel.Controls.Add(this.hrDataPanel);
             this.basePanel.Controls.Add(this.allHrData);
-            this.basePanel.Controls.Add(this.graphPanel);
             this.basePanel.Controls.Add(this.graphsButton);
             this.basePanel.Controls.Add(this.summaryPanel);
             this.basePanel.Controls.Add(this.summaryButton);
@@ -305,16 +305,6 @@
             this.allHrData.Text = "Show/Hide Full Data";
             this.allHrData.UseVisualStyleBackColor = true;
             // 
-            // graphPanel
-            // 
-            this.graphPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.graphPanel.Location = new System.Drawing.Point(4, 575);
-            this.graphPanel.Name = "graphPanel";
-            this.graphPanel.Size = new System.Drawing.Size(687, 184);
-            this.graphPanel.TabIndex = 5;
-            // 
             // graphsButton
             // 
             this.graphsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -370,6 +360,13 @@
             this.hrCheckBox.UseVisualStyleBackColor = true;
             this.hrCheckBox.CheckedChanged += new System.EventHandler(this.hrCheckBox_CheckedChanged);
             // 
+            // graphPanel
+            // 
+            this.graphPanel.Location = new System.Drawing.Point(7, 576);
+            this.graphPanel.Name = "graphPanel";
+            this.graphPanel.Size = new System.Drawing.Size(676, 183);
+            this.graphPanel.TabIndex = 11;
+            // 
             // DataView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -405,7 +402,6 @@
         private System.Windows.Forms.Panel basePanel;
         private System.Windows.Forms.Button summaryButton;
         private System.Windows.Forms.Panel summaryPanel;
-        private System.Windows.Forms.FlowLayoutPanel graphPanel;
         private System.Windows.Forms.Button graphsButton;
         private System.Windows.Forms.Panel hrDataPanel;
         private System.Windows.Forms.Button allHrData;
@@ -426,5 +422,6 @@
         private System.Windows.Forms.Label maxHRLabel;
         private System.Windows.Forms.CheckBox ftpCheckBox;
         private System.Windows.Forms.CheckBox hrCheckBox;
+        private System.Windows.Forms.Panel graphPanel;
     }
 }

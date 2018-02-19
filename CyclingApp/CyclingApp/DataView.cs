@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZedGraph;
 
 
 namespace CyclingApp
@@ -57,13 +58,14 @@ namespace CyclingApp
                 AddSummaryData(summaryDataUS, unitType);
             }
             AddFullData();
-           //summaryExpand.Dock = DockStyle.Top;
-            
-   
-            
-           
+            AddGraphs();
+            //summaryExpand.Dock = DockStyle.Top;
 
- 
+
+
+
+
+
         }
 
         public void AddRideInfo(List<string> data)
@@ -186,22 +188,28 @@ namespace CyclingApp
 
         }
 
-        public void AddHeaderData()
+        public void AddGraphs()
         {
-            /**
-             *      For header data we need to display
-             *      time and data
-             *       
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * */
+            ZedGraphControl hrControl = new ZedGraphControl();
+            
+            Console.WriteLine("We are adding graphs");
+            //we first load hr graph over time
+            //we know the interval etc so we need to build the data set
+            GraphPane hrGraph = new GraphPane(new RectangleF(10f, 10f, 1000f, 1000f), "Heart Rate", "Time(S)", "Heart Rate");
+            PointPairList hr = new PointPairList();
+            int x = 0;
+            foreach (HrDataSingle data in hrdata.DataEuro)
+            {
+                PointPair point = new PointPair(x,data.HeartRate);
+                x = x + 1;
+                hr.Add(point);
+            }
+            hrGraph.AddCurve("meow",hr,Color.Red, SymbolType.Diamond);
+            hrControl.GraphPane = hrGraph;
+            hrControl.Size = graphPanel.Size;
+            hrControl.Show();
+            graphPanel.Controls.Add(hrControl);
+
         }
         public void AddFullData()
         {
@@ -342,10 +350,12 @@ namespace CyclingApp
             hrDataPanel.Controls.Add(fullData);
 
         }
-        public void AddGraphs()
-        {
-        }
-
+       
+/// <summary>
+/// Function to get the units text for a specifc bool
+/// </summary>
+/// <param name="unitType">false means euro units true means us units</param>
+/// <returns></returns>
         private string[] GetUnits(bool unitType)
         {
             if (!unitType)
@@ -366,6 +376,7 @@ namespace CyclingApp
             selectedUnit = true;
             AddFullData();
             AddSummaryData(summaryDataUS, selectedUnit);
+            AddGraphs();
         }
 
         private void summaryButton_Click(object sender, EventArgs e)
@@ -445,6 +456,7 @@ namespace CyclingApp
             AddFullData();
             AddSummaryData(summaryDataEuro, selectedUnit);
             //load
+            AddGraphs();
         }
     }
 }
