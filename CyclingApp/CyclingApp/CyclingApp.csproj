@@ -59,6 +59,12 @@
     <Compile Include="DataView.Designer.cs">
       <DependentUpon>DataView.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataViewImproved.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataViewImproved.Designer.cs">
+      <DependentUpon>DataViewImproved.cs</DependentUpon>
+    </Compile>
     <Compile Include="EnterFTP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,12 @@
     </Compile>
     <Compile Include="HrData.cs" />
     <Compile Include="HrDataSingle.cs" />
+    <Compile Include="GraphDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphDetail.Designer.cs">
+      <DependentUpon>GraphDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mode.cs" />
     <Compile Include="Polar.cs" />
     <Compile Include="PolarReader.cs" />
@@ -92,11 +104,17 @@
     <EmbeddedResource Include="DataView.resx">
       <DependentUpon>DataView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DataViewImproved.resx">
+      <DependentUpon>DataViewImproved.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EnterFTP.resx">
       <DependentUpon>EnterFTP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EnterHR.resx">
       <DependentUpon>EnterHR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphDetail.resx">
+      <DependentUpon>GraphDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

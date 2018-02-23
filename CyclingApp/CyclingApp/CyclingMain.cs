@@ -17,6 +17,7 @@ namespace CyclingApp
         private double ftp;
         private int maxHr;
         DataView dw;
+        DataViewImproved dw1;
 
 
         public CyclingMain()
@@ -48,14 +49,14 @@ namespace CyclingApp
             {
                 polar = new Polar();
                 polar.LoadData(fileDialog.FileName);
-               
-                dw = new DataView( polar.GetUnit(),polar.GetHrData(), polar.GetSMODE(), this.polar, this);
-                dw.AddRideInfo(polar.GetRideInfo());
-                dw.AddFullData();
-                dw.SetFTP(ftp);
-                dw.Dock = DockStyle.Fill;
+
+                dw1 = new DataViewImproved( polar.GetUnit(),polar.GetHrData(), polar.GetSMODE(), this.polar, this);
+                dw1.AddRideInfo(polar.GetRideInfo());
+                dw1.AddFullData();
+                dw1.SetFTP(ftp);
+                dw1.Dock = DockStyle.Fill;
                 singleView.Controls.Clear();
-                singleView.Controls.Add(dw);
+                singleView.Controls.Add(dw1);
 
                 //menuStrip3.Hide();
    
@@ -64,13 +65,13 @@ namespace CyclingApp
         public void SetFTP(double ftp)
         {
             this.ftp = ftp;
-            dw.SetFTP(ftp);
+            dw1.SetFTP(ftp);
             
         }
         public void SetHR(int hr)
         {
             this.maxHr = hr;
-            dw.SetMaxHR(hr);
+            dw1.SetMaxHR(hr);
         }
         public void ftpMenu_Click(object sender, EventArgs e)
         {

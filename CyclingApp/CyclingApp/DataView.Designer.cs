@@ -34,6 +34,7 @@
             this.euroSelection = new System.Windows.Forms.RadioButton();
             this.usSelection = new System.Windows.Forms.RadioButton();
             this.basePanel = new System.Windows.Forms.Panel();
+            this.graphPanel = new System.Windows.Forms.Panel();
             this.enterValues = new System.Windows.Forms.GroupBox();
             this.maxHRValue = new System.Windows.Forms.Label();
             this.maxHRLabel = new System.Windows.Forms.Label();
@@ -56,7 +57,6 @@
             this.summaryButton = new System.Windows.Forms.Button();
             this.ftpCheckBox = new System.Windows.Forms.CheckBox();
             this.hrCheckBox = new System.Windows.Forms.CheckBox();
-            this.graphPanel = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.basePanel.SuspendLayout();
             this.enterValues.SuspendLayout();
@@ -130,6 +130,13 @@
             this.basePanel.Size = new System.Drawing.Size(694, 762);
             this.basePanel.TabIndex = 4;
             // 
+            // graphPanel
+            // 
+            this.graphPanel.Location = new System.Drawing.Point(7, 576);
+            this.graphPanel.Name = "graphPanel";
+            this.graphPanel.Size = new System.Drawing.Size(676, 183);
+            this.graphPanel.TabIndex = 11;
+            // 
             // enterValues
             // 
             this.enterValues.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -159,9 +166,9 @@
             this.maxHRLabel.AutoSize = true;
             this.maxHRLabel.Location = new System.Drawing.Point(132, 20);
             this.maxHRLabel.Name = "maxHRLabel";
-            this.maxHRLabel.Size = new System.Drawing.Size(46, 13);
+            this.maxHRLabel.Size = new System.Drawing.Size(49, 13);
             this.maxHRLabel.TabIndex = 2;
-            this.maxHRLabel.Text = "Max HR";
+            this.maxHRLabel.Text = "Max HR:";
             // 
             // ftpValue
             // 
@@ -207,7 +214,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.activeSensorsBox.Location = new System.Drawing.Point(9, 75);
             this.activeSensorsBox.Name = "activeSensorsBox";
-            this.activeSensorsBox.Size = new System.Drawing.Size(667, 99);
+            this.activeSensorsBox.Size = new System.Drawing.Size(667, 54);
             this.activeSensorsBox.TabIndex = 8;
             this.activeSensorsBox.TabStop = false;
             this.activeSensorsBox.Text = "Active Sensors";
@@ -359,13 +366,6 @@
             this.hrCheckBox.Text = "Show HR in % of Max HR";
             this.hrCheckBox.UseVisualStyleBackColor = true;
             this.hrCheckBox.CheckedChanged += new System.EventHandler(this.hrCheckBox_CheckedChanged);
-            // 
-            // graphPanel
-            // 
-            this.graphPanel.Location = new System.Drawing.Point(7, 576);
-            this.graphPanel.Name = "graphPanel";
-            this.graphPanel.Size = new System.Drawing.Size(676, 183);
-            this.graphPanel.TabIndex = 11;
             // 
             // DataView
             // 
