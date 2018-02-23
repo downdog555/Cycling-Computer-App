@@ -50,8 +50,8 @@ namespace CyclingApp
                 polar = new Polar();
                 polar.LoadData(fileDialog.FileName);
 
-                dw1 = new DataViewImproved( polar.GetUnit(),polar.GetHrData(), polar.GetSMODE(), this.polar, this);
-                dw1.AddRideInfo(polar.GetRideInfo());
+                dw1 = new DataViewImproved( polar.GetUnit(),polar.GetHrData(), polar.GetSMODE(), this.polar, this, polar.GetRideInfo());
+                //dw1.AddRideInfo(polar.GetRideInfo());
                 dw1.AddFullData();
                 dw1.SetFTP(ftp);
                 dw1.Dock = DockStyle.Fill;

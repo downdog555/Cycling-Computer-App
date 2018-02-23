@@ -28,8 +28,9 @@ namespace CyclingApp
         private GraphDetail hrDetail;
         private bool graphHr, graphPower, graphCadence, graphSpeed, graphAltitude;
 
-        public DataViewImproved(bool unitType, HrData hrdata, Smode smode, Polar polar, CyclingMain cym)
+        public DataViewImproved(bool unitType, HrData hrdata, Smode smode, Polar polar, CyclingMain cym, List<string> rideInfo)
         {
+            
             graphHr = true;
 
             if (smode.Power)
@@ -83,6 +84,7 @@ namespace CyclingApp
             this.smode = smode;
             selectedUnit = unitType;
             InitializeComponent();
+            AddRideInfo(rideInfo);
             if (!unitType)
             {
                 euroSelection.Checked = true;
@@ -126,7 +128,8 @@ namespace CyclingApp
         }
         public void AddSummaryData(Dictionary<string, string> data, bool unitType)
         {
-            summaryPanel.Controls.Clear();
+            //summaryPanel.Controls.Clear();
+            summaryDataBox.Text = "";
             string distanceUnit, speedUnit, distanceSmallUnit;
             //summaryExpand.Header = "Ride Summary";
             string[] units = GetUnits(unitType);
@@ -139,13 +142,14 @@ namespace CyclingApp
             List<string> valuesToBeInserted = new List<string>();
             foreach (KeyValuePair<string, string> value in data)
             {
-
+                summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + value.Value + "\n";
+                
                 if (value.Key.Equals("Average Heart Rate"))
                 {
                     if (percentHR)
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of max hr)");
-                        double percent = (Convert.ToDouble(value.Value) / MaxHR) * 100;
+                        double percent = Math.Round((Convert.ToDouble(value.Value) / MaxHR) * 100,2);
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
@@ -159,7 +163,7 @@ namespace CyclingApp
                     if (percentHR)
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of max hr)");
-                        double percent = (Convert.ToDouble(value.Value) / MaxHR) * 100;
+                        double percent = Math.Round((Convert.ToDouble(value.Value) / MaxHR) * 100,2);
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
@@ -176,7 +180,7 @@ namespace CyclingApp
                     if (percentHR)
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of max hr)");
-                        double percent = (Convert.ToDouble(value.Value) / MaxHR) * 100;
+                        double percent = Math.Round((Convert.ToDouble(value.Value) / MaxHR) * 100,2);
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
@@ -190,7 +194,7 @@ namespace CyclingApp
                     if (percentFTP)
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of FTP)");
-                        double percent = (Convert.ToDouble(value.Value) / ftp) * 100;
+                        double percent = Math.Round((Convert.ToDouble(value.Value) / ftp) * 100,2);
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
@@ -204,7 +208,7 @@ namespace CyclingApp
                     if (percentFTP)
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of FTP)");
-                        double percent = (Convert.ToDouble(value.Value) / ftp) * 100;
+                        double percent = Math.Round((Convert.ToDouble(value.Value) / ftp) * 100,2);
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
@@ -222,7 +226,7 @@ namespace CyclingApp
             }
 
             grid.Rows.Insert(0, valuesToBeInserted.ToArray());
-            summaryPanel.Controls.Add(grid);
+           // summaryPanel.Controls.Add(grid);
             //  summaryExpand.Content.Controls.Add(grid);
 
 
@@ -234,11 +238,20 @@ namespace CyclingApp
             //we need to update the graph to show  all values
             graphPanel.Controls.Clear();
             ZedGraphControl graphControl = new ZedGraphControl();
-            graphControl.Click += HrControl_Click;
+           // graphControl.Click += HrControl_Click;
             Console.WriteLine("We are adding graphs");
+            List<HrDataSingle> graphDataRaw;
+            if (!selectedUnit)
+            {
+                graphDataRaw = hrdata.DataEuro;
+            }
+            else
+            {
+                graphDataRaw = hrdata.DataUS;
+            }
             //we first load hr graph over time
             //we know the interval etc so we need to build the data set
-            GraphPane graph = new GraphPane(new RectangleF(10f, 10f, 1000f, 1000f), "Heart Rate", "Time(S)", "Heart Rate");
+            GraphPane graph = new GraphPane(new RectangleF(10f, 10f, 1000f, 1000f), "", "Time(S)", "Ride Visualisation");
 
             PointPairList hr = new PointPairList();
             PointPairList power = new PointPairList();
@@ -248,7 +261,7 @@ namespace CyclingApp
 
 
             int x = 0;
-            foreach (HrDataSingle data in hrdata.DataEuro)
+            foreach (HrDataSingle data in graphDataRaw)
             {
                 PointPair powerPoint;
 
@@ -321,7 +334,7 @@ namespace CyclingApp
 
             if (graphSpeed)
             {
-                graph.AddCurve("SPeed", speed, Color.Green, SymbolType.Circle);
+                graph.AddCurve("Speed", speed, Color.Green, SymbolType.Circle);
             }
 
             if (graphAltitude)
@@ -344,7 +357,8 @@ namespace CyclingApp
             graphControl.Show();
             graphControl.RestoreScale(graph);
             //disable zoom
-            graphControl.IsEnableZoom = false;
+            graphControl.IsEnableZoom = true;
+            graphControl.IsEnableVZoom = false;
             graphPanel.Controls.Add(graphControl);
 
         }
@@ -367,6 +381,7 @@ namespace CyclingApp
             fullDataFlow.Controls.Clear();
             DataGridView fullData = new DataGridView();
             fullData.Dock = DockStyle.Fill;
+            fullData.Columns.Add("time","Time");
             if (percentHR)
             {
                 fullData.Columns.Add("hr", "Heart Rate % of Max");
@@ -431,7 +446,7 @@ namespace CyclingApp
 
             if (smode.AirPressure)
             {
-                fullData.Columns.Add("airPressure", "Air PRessure");
+                fullData.Columns.Add("airPressure", "Air Pressure");
             }
 
             //we then need to loop through all data
@@ -444,12 +459,20 @@ namespace CyclingApp
             {
                 dataSmall = hrdata.DataEuro;
             }
+            DateTime dateTimeRide = new DateTime(Convert.ToInt32(dateOfRide.Text.Split('/')[2]),Convert.ToInt32(dateOfRide.Text.Split('/')[1]),Convert.ToInt32(dateOfRide.Text.Split('/')[0]), Convert.ToInt32(timeOfRide.Text.Split(':')[0]),Convert.ToInt32(timeOfRide.Text.Split(':')[1]), Convert.ToInt32(timeOfRide.Text.Split(':')[2].Split('.')[0]));
+       
+            int recordingIntervalInt = Convert.ToInt32(recordingInterval.Text.Split(' ')[0]); 
             foreach (HrDataSingle dataLine in dataSmall)
             {
                 List<string> dataToBeInserted = new List<string>();
+                //first add the time column
+                //we need to add the interval
+                dateTimeRide = dateTimeRide.AddSeconds(recordingIntervalInt);
+  
+                dataToBeInserted.Add(dateTimeRide.ToLongTimeString());
                 if (percentHR)
                 {
-                    double percent = (Convert.ToDouble(dataLine.HeartRate) / MaxHR) * 100;
+                    double percent = Math.Round((Convert.ToDouble(dataLine.HeartRate) / MaxHR) * 100,2);
                     dataToBeInserted.Add("" + percent);
                 }
                 else
@@ -458,7 +481,7 @@ namespace CyclingApp
                 }
                 if (smode.Speed)
                 {
-                    dataToBeInserted.Add("" + dataLine.Speed);
+                    dataToBeInserted.Add("" + Math.Round(dataLine.Speed,2));
                 }
                 if (smode.Cadence)
                 {
@@ -466,7 +489,7 @@ namespace CyclingApp
                 }
                 if (smode.Altitude)
                 {
-                    dataToBeInserted.Add("" + dataLine.Altitude);
+                    dataToBeInserted.Add("" +  dataLine.Altitude);
                 }
                 if (smode.Power)
                 {
@@ -475,6 +498,7 @@ namespace CyclingApp
 
                         double percent = (Convert.ToDouble(dataLine.Power) / ftp) * 100;
                         //Console.WriteLine(percent);
+                        percent = Math.Round(percent, 2);
                         dataToBeInserted.Add("" + percent);
                     }
                     else
@@ -619,6 +643,11 @@ namespace CyclingApp
             }
         }
 
+        private void summaryDataBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void ftpCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Console.WriteLine("We have changed");
@@ -639,6 +668,7 @@ namespace CyclingApp
             {
                 AddSummaryData(summaryDataEuro, selectedUnit);
             }
+            AddGraphs();
 
         }
 

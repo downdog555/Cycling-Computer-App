@@ -114,7 +114,7 @@ namespace CyclingApp
                     speed = data.Speed;
                 }
             }
-            speed = speed / 10;
+           
 
             return speed;
         }
@@ -391,7 +391,7 @@ namespace CyclingApp
         {
            // Console.WriteLine("We are in separeate data");
             try {
-                Console.WriteLine("We are in try catch");
+                //Console.WriteLine("We are in try catch");
                 using (StreamReader sr = new StreamReader(filePath))
                 {
                     //Console.WriteLine("We are in reader");
@@ -399,7 +399,7 @@ namespace CyclingApp
                     parameters = note = intTime = intNotes = extraData = lapName = summary123 = summaryTh = hrZone = swapTime = trip = hrData = false;
                     string line;
 
-                    Console.WriteLine("We are meme 1");
+                    //Console.WriteLine("We are meme 1");
                     // Read and display lines from the file until 
                     // the end of the file is reached. 
                     while ((line = sr.ReadLine()) != null)
@@ -516,7 +516,7 @@ namespace CyclingApp
                 Console.WriteLine("Error In reading File: "+e.Message);
             }
 
-            Console.WriteLine("We are meme 2");
+            //Console.WriteLine("We are meme 2");
             //we need to separate the data out futher
             //Console.WriteLine(parametersList.ElementAt(1));
             version = Convert.ToInt32(parametersList.ElementAt(1).Split('=')[1]);
@@ -534,7 +534,7 @@ namespace CyclingApp
             }
             date = parametersList.ElementAt(4).Split('=')[1];
             startTime = parametersList.ElementAt(5).Split('=')[1];
-            Console.WriteLine("We are meme 3");
+            //Console.WriteLine("We are meme 3");
             length = parametersList.ElementAt(6).Split('=')[1];
             interval = Convert.ToInt32(parametersList.ElementAt(7).Split('=')[1]);
             upper1 = Convert.ToInt32(parametersList.ElementAt(8).Split('=')[1]);
@@ -582,21 +582,21 @@ namespace CyclingApp
                     //total distance 
                     double distance = 0;
                     distance = GetTotalDistance(HrDataExtended.DataEuro);
-                    summaryEuro.Add("Total Distance", "" + distance + "KM");
-                    summaryUS.Add("Total Distance", "" + (distance * 0.621371) + "Miles");
+                    summaryEuro.Add("Total Distance", "" + Math.Round(distance,2) + "KM");
+                    summaryUS.Add("Total Distance", "" + Math.Round((distance * 0.621371),2 )+ "Miles");
 
                     //Average Speed
 
                     double averageSpeed = GetAverageSpeed(hrDataExtended.DataEuro);
 
-                    summaryEuro.Add("Average Speed", "" + averageSpeed + "KPH");
-                    summaryUS.Add("Average Speed", "" + (averageSpeed * 0.6213711922) + "MPH");
+                    summaryEuro.Add("Average Speed", "" + Math.Round(averageSpeed) + "KPH");
+                    summaryUS.Add("Average Speed", "" + Math.Round((averageSpeed * 0.6213711922),2) + "MPH");
 
                     //maximum speed
                     double speed = GetMaxSpeed(hrDataExtended.DataEuro);
 
                     summaryEuro.Add("Maximum Speed", "" + speed + "KPH");
-                    summaryUS.Add("Maximum Speed", "" + ((speed * 0.6213711922)) + "MPH");
+                    summaryUS.Add("Maximum Speed", "" + Math.Round((speed * 0.6213711922),2) + "MPH");
 
                 }
 
@@ -642,8 +642,8 @@ namespace CyclingApp
 
                     double averageAlt = GetAverageAltitude(hrDataExtended.DataEuro); ;
 
-                    summaryEuro.Add("Average Altitude", "" + averageAlt + " Meters");
-                    SummaryUS.Add("Average Altitude", "" + (averageAlt * 3.280839895) + " Feet");
+                    summaryEuro.Add("Average Altitude", "" + Math.Round(averageAlt,2) + " Meters");
+                    SummaryUS.Add("Average Altitude", "" + Math.Round((averageAlt * 3.280839895),2 )+ " Feet");
 
 
 
@@ -659,7 +659,7 @@ namespace CyclingApp
 
                     summaryEuro.Add("Maximum Altitude", "" + (maxAlt) + " Meters");
 
-                    SummaryUS.Add("Maximum Altitude", "" + (maxAlt * 3.280839895) + " Feet");
+                    SummaryUS.Add("Maximum Altitude", "" + Math.Round((maxAlt * 3.280839895),2) + " Feet");
 
                 }
 
@@ -681,20 +681,20 @@ namespace CyclingApp
                     //total distance not sure if for that trip or the odometer
                     double distance = GetTotalDistance(hrDataExtended.DataUS);
 
-                    summaryEuro.Add("Total Distance", "" + (distance * 1.60934) + "KM");
-                    summaryUS.Add("Total Distance", "" + distance + "Miles");
+                    summaryEuro.Add("Total Distance", "" + Math.Round((distance * 1.60934),2) + "KM");
+                    summaryUS.Add("Total Distance", "" + Math.Round(distance,2) + "Miles");
 
                     //Average Speed
 
                     double averageSpeed = GetAverageSpeed(hrDataExtended.DataUS); ;
 
-                    summaryEuro.Add("Average Speed", "" + (averageSpeed * 1.60934) + " KPH");
-                    summaryUS.Add("Average Speed", "" + (averageSpeed) + " MPH");
+                    summaryEuro.Add("Average Speed", "" + Math.Round((averageSpeed * 1.60934),2) + " KPH");
+                    summaryUS.Add("Average Speed", "" + Math.Round(averageSpeed,2) + " MPH");
 
                     //maximum speed
 
                     double speed = GetMaxSpeed(hrDataExtended.DataUS);
-                    summaryEuro.Add("Maximum Speed", "" + (speed * 1.60934) + " KMPH");
+                    summaryEuro.Add("Maximum Speed", "" + Math.Round((speed * 1.60934),2) + " KMPH");
                     summaryUS.Add("Maximum Speed", "" + speed + " MPH");
                 }
                 //us starting values
@@ -734,8 +734,8 @@ namespace CyclingApp
 
                     double averageAlt = GetAverageAltitude(hrDataExtended.DataUS);
 
-                    summaryEuro.Add("Average Altitude", "" + (averageAlt * 0.3048) + " Meters");
-                    SummaryUS.Add("Average Altitude", "" + (averageAlt) + " Feet");
+                    summaryEuro.Add("Average Altitude", "" + Math.Round((averageAlt * 0.3048),2) + " Meters");
+                    SummaryUS.Add("Average Altitude", "" + Math.Round(averageAlt,2) + " Feet");
 
 
 
@@ -743,15 +743,15 @@ namespace CyclingApp
 
                     double maxAlt = GetMaxAltitude(hrDataExtended.DataUS);
 
-                    summaryEuro.Add("Max Altitude", "" + (maxAlt * 0.3048) + "Meters");
-                    SummaryUS.Add("Max Altitude", "" + (maxAlt) + "Feet");
+                    summaryEuro.Add("Max Altitude", "" + Math.Round((maxAlt * 0.3048),2) + "Meters");
+                    SummaryUS.Add("Max Altitude", "" + Math.Round(maxAlt,2) + "Feet");
                 }
                
                
                 
                
             }
-            //Console.WriteLine("We are meme end");
+
 
 
 

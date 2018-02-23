@@ -201,12 +201,21 @@ namespace CyclingApp
             ZedGraphControl hrControl = new ZedGraphControl();
             hrControl.Click += HrControl_Click;
             Console.WriteLine("We are adding graphs");
+            List<HrDataSingle> graphDataRaw;
+            if (!selectedUnit)
+            {
+                graphDataRaw = hrdata.DataEuro;
+            }
+            else
+            {
+                graphDataRaw = hrdata.DataUS;
+            }
             //we first load hr graph over time
             //we know the interval etc so we need to build the data set
-            GraphPane hrGraph = new GraphPane(new RectangleF(10f, 10f, 1000f, 1000f), "Heart Rate", "Time(S)", "Heart Rate");
+            GraphPane hrGraph = new GraphPane(new RectangleF(10f, 10f, 1000f, 1000f), "", "Time(S)", "Ride Data");
             PointPairList hr = new PointPairList();
             int x = 0;
-            foreach (HrDataSingle data in hrdata.DataEuro)
+            foreach (HrDataSingle data in graphDataRaw)
             {
                 PointPair point;
                 //if we dont have percentage
