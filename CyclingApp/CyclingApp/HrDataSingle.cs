@@ -273,15 +273,18 @@ namespace CyclingApp
         private void GetPBIndex()
         {
             string binary = "";
-            //convert the hex string into a long integer apparently int 32 isnt big enough
-            //convert using base 16 
-            //it is not always 4 nibbles
-            //so half the pb index and convert from here
-            int half = pbPedInd.Length / 2;
-            var m = pbPedInd.Substring(0, half);
-            var n = pbPedInd.Substring(half);
-            int first = Convert.ToInt32(pbPedInd.Substring(0,half),16);
-            int second = Convert.ToInt32(pbPedInd.Substring(half),16);
+            //we dont know the length of the bits as it is not constant
+            //so convert the number as it is an integer, then get a string with the bit representation
+            //split that into two halves to give the value
+            int temp = Convert.ToInt32(pbPedInd);
+            string tempBits = Convert.ToString(temp,2);
+           
+            //Console.WriteLine(Convert.ToString(temp, 2));
+            int half = tempBits.Length / 2;
+           // var m = pbPedInd.Substring(0, half);
+            //var n = pbPedInd.Substring(half);
+            int first = Convert.ToInt32(tempBits.Substring(0,half),2);
+            int second = Convert.ToInt32(tempBits.Substring(half),2);
            
            
             

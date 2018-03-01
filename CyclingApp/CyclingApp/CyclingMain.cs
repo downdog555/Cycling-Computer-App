@@ -25,6 +25,9 @@ namespace CyclingApp
             InitializeComponent();
             ftp = 0.0;
             maxHr = 0;
+            enterMaximumHeartRateToolStripMenuItem.HideDropDown();
+            ftpMenu.HideDropDown();
+            this.Invalidate();
             
         }
 
@@ -57,6 +60,8 @@ namespace CyclingApp
                 dw1.Dock = DockStyle.Fill;
                 singleView.Controls.Clear();
                 singleView.Controls.Add(dw1);
+                enterMaximumHeartRateToolStripMenuItem.ShowDropDown();
+                ftpMenu.ShowDropDown();
 
                 //menuStrip3.Hide();
    
