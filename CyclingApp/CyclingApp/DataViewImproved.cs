@@ -508,11 +508,11 @@ namespace CyclingApp
                 }
                 if (smode.PowerLeftRightBalance)
                 {
-                    dataToBeInserted.Add("" + dataLine.PbPedInd);
+                    dataToBeInserted.Add("" + dataLine.PB);
                 }
                 if (smode.PowerPedallingIndex)
                 {
-                    dataToBeInserted.Add("" + dataLine.PbPedInd);
+                    dataToBeInserted.Add("" + dataLine.PI);
                 }
 
 

@@ -15,15 +15,21 @@ namespace CyclingApp
         /// <summary>
         /// Power balance and pedaling index
         /// </summary>
-        private int pbPedInd;
+        private string pbPedInd;
+
+        private string powerBalance;
+        private string powerIndex;
         private double speed;
         private Smode smode;
 
-        public HrDataSingle(List<string> data, int version, Smode smode ,int cadAlt = 46)
+        public HrDataSingle(List<string> data, int version, Smode smode ,int cadAlt = 46, string pbPed = null)
         {
+            this.powerBalance = "";
+            this.powerIndex = "";
             
             this.smode = smode;
-            heartRate = cadence = altitude = power = airPressure = pbPedInd = 0;
+            heartRate = cadence = altitude = power = airPressure  = 0;
+            pbPedInd = "";
             speed = 0.0;
             if (version == 105)
             {
@@ -108,31 +114,41 @@ namespace CyclingApp
 
                 if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && smode.Altitude && smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(5));
+                    pbPedInd = data.ElementAt(5);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && !smode.Altitude && !smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(2));
+                    pbPedInd = data.ElementAt(2);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && smode.Altitude && !smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                    pbPedInd = data.ElementAt(4);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && !smode.Altitude && smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                    pbPedInd = data.ElementAt(4);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && smode.Altitude && !smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                    pbPedInd = data.ElementAt(4);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && !smode.Altitude && smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                    pbPedInd = data.ElementAt(4);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && smode.Altitude && smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                    pbPedInd = data.ElementAt(4);
+                    
+                        GetPBIndex();
+                   
+                    
                 }
 
 
@@ -212,37 +228,71 @@ namespace CyclingApp
 
                 if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && smode.Altitude && smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(5));
+                    pbPedInd = data.ElementAt(5);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && !smode.Altitude && !smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(2));
+                    pbPedInd = data.ElementAt(2);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && smode.Altitude && !smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                    pbPedInd =data.ElementAt(4);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && !smode.Altitude && smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                    pbPedInd = data.ElementAt(4);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && smode.Altitude && !smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                    pbPedInd = data.ElementAt(4);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && !smode.Altitude && smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                    pbPedInd = data.ElementAt(4);
+                    GetPBIndex();
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && smode.Altitude && smode.Cadence)
                 {
-                    pbPedInd = Convert.ToInt32(data.ElementAt(4));
+                    pbPedInd = data.ElementAt(4);
+                    GetPBIndex();
                 }
 
 
 
                 airPressure = Convert.ToInt32(data.ElementAt(6));
+
+                
             }
+        }
+
+        private void GetPBIndex()
+        {
+            string binary = "";
+            //convert the hex string into a long integer apparently int 32 isnt big enough
+            //convert using base 16 
+            //it is not always 4 nibbles
+            //so half the pb index and convert from here
+            int half = pbPedInd.Length / 2;
+            var m = pbPedInd.Substring(0, half);
+            var n = pbPedInd.Substring(half);
+            int first = Convert.ToInt32(pbPedInd.Substring(0,half),16);
+            int second = Convert.ToInt32(pbPedInd.Substring(half),16);
+           
+           
+            
+           
+            
+            
+           
+
+            powerBalance = Convert.ToString(first);
+            powerIndex = Convert.ToString(second);
+            
         }
 
         public int HeartRate { get { return heartRate; } }
@@ -250,7 +300,9 @@ namespace CyclingApp
         public int Altitude { get { return altitude; } }
         public int Power { get { return power; } }
         public int AirPressure { get { return airPressure; } }
-        public int PbPedInd { get { return pbPedInd; } }
+        public string PbPedInd { get { return pbPedInd; } }
         public double Speed { get { return speed; } }
+        public string PB { get { return powerBalance; } }
+        public string PI { get { return powerIndex; } }
     }
 }
