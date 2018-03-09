@@ -335,7 +335,7 @@ namespace CyclingApp
             if (graphHr)
             {
                 GraphPane temp = new GraphPane();
-                LineItem hrCurve = graph.AddCurve("Heart Rate", hr, Color.Red, SymbolType.Diamond);
+                LineItem hrCurve = graph.AddCurve("Heart Rate", hr, Color.Red, SymbolType.None);
                 hrCurve.YAxisIndex = 0;
                 
 
@@ -359,7 +359,7 @@ namespace CyclingApp
 
             if (graphPower)
             {
-                LineItem powerCurve = graph.AddCurve("Power", power, Color.Blue, SymbolType.Default);
+                LineItem powerCurve = graph.AddCurve("Power", power, Color.Blue, SymbolType.None);
                 powerCurve.IsY2Axis = true;
                 powerCurve.YAxisIndex = 0;
 
@@ -382,7 +382,7 @@ namespace CyclingApp
 
             if (graphSpeed)
             {
-               LineItem speedCurve = graph.AddCurve("Speed", speed, Color.Green, SymbolType.Circle);
+               LineItem speedCurve = graph.AddCurve("Speed", speed, Color.Green, SymbolType.None);
                 YAxis yAxis3 = new YAxis("Speed");
                 graph.YAxisList.Add(yAxis3);
                 yAxis3.Scale.FontSpec.FontColor = Color.Green;
@@ -412,7 +412,7 @@ namespace CyclingApp
 
             if (graphAltitude)
             {
-                LineItem altitudeCurve = graph.AddCurve("Altitude", altitude, Color.Brown, SymbolType.Square);
+                LineItem altitudeCurve = graph.AddCurve("Altitude", altitude, Color.Brown, SymbolType.None);
                 altitudeCurve.IsY2Axis = true;
 
      
@@ -447,7 +447,7 @@ namespace CyclingApp
 
             if (graphCadence)
             {
-                LineItem graphCadence = graph.AddCurve("Cadence", cadence, Color.Black, SymbolType.Default);
+                LineItem graphCadence = graph.AddCurve("Cadence", cadence, Color.Black, SymbolType.None);
                 YAxis yAxis3 = new YAxis("Cadence");
                 graph.YAxisList.Add(yAxis3);
                 yAxis3.Scale.FontSpec.FontColor = Color.Black;
