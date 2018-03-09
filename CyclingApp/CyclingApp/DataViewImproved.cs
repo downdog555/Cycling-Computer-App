@@ -344,6 +344,8 @@ namespace CyclingApp
                 yAxis3.Scale.FontSpec.FontColor = Color.Red;
                 yAxis3.Title.FontSpec.FontColor = Color.Red;
                 yAxis3.Color = Color.Red;
+                yAxis3.MajorTic.Color = Color.Red;
+                yAxis3.MinorTic.Color = Color.Red;
                 // turn off the opposite tics so the Y2 tics don't show up on the Y axis
                 yAxis3.MajorTic.IsInside = false;
                 yAxis3.MinorTic.IsInside = false;
@@ -367,6 +369,8 @@ namespace CyclingApp
                 yAxis4.Scale.FontSpec.FontColor = Color.Blue;
                 yAxis4.Title.FontSpec.FontColor = Color.Blue;
                 yAxis4.Color = Color.Blue;
+                yAxis4.MajorTic.Color = Color.Blue;
+                yAxis4.MinorTic.Color = Color.Blue;
                 // turn off the opposite tics so the Y2 tics don't show up on the Y axis
                 yAxis4.MajorTic.IsInside = false;
                 yAxis4.MinorTic.IsInside = false;
@@ -384,6 +388,8 @@ namespace CyclingApp
                 yAxis3.Scale.FontSpec.FontColor = Color.Green;
                 yAxis3.Title.FontSpec.FontColor = Color.Green;
                 yAxis3.Color = Color.Green;
+                yAxis3.MajorTic.Color = Color.Green;
+                yAxis3.MinorTic.Color = Color.Green;
                 // turn off the opposite tics so the Y2 tics don't show up on the Y axis
                 yAxis3.MajorTic.IsInside = false;
                 yAxis3.MinorTic.IsInside = false;
@@ -426,6 +432,8 @@ namespace CyclingApp
                 yAxis4.Scale.FontSpec.FontColor = Color.Brown;
                 yAxis4.Title.FontSpec.FontColor = Color.Brown;
                 yAxis4.Color = Color.Brown;
+                yAxis4.MajorTic.Color = Color.Brown;
+                yAxis4.MinorTic.Color = Color.Brown;
                 // turn off the opposite tics so the Y2 tics don't show up on the Y axis
                 yAxis4.MajorTic.IsInside = false;
                 yAxis4.MinorTic.IsInside = false;
@@ -511,6 +519,8 @@ namespace CyclingApp
             //disable zoom
             graphControl.IsEnableZoom = true;
             graphControl.IsEnableVZoom = false;
+            graphControl.IsShowPointValues = true;
+            
             graphPanel.Controls.Add(graphControl);
 
         }
