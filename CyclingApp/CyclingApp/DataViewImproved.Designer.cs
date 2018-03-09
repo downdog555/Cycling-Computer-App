@@ -58,20 +58,22 @@
             this.allButton = new System.Windows.Forms.Button();
             this.hrButton = new System.Windows.Forms.Button();
             this.summaryPanel = new System.Windows.Forms.GroupBox();
+            this.summaryDataBox = new System.Windows.Forms.RichTextBox();
             this.fullDataPanel = new System.Windows.Forms.GroupBox();
             this.fullDataFlow = new System.Windows.Forms.Panel();
             this.graphPanel = new System.Windows.Forms.GroupBox();
             this.intervalsBox = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.hrLabel = new System.Windows.Forms.Label();
+            this.powerLabel = new System.Windows.Forms.Label();
+            this.speedLabel = new System.Windows.Forms.Label();
+            this.cadenceLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.summaryDataBox = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.altitudeLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.rideDetailsBox.SuspendLayout();
             this.enterValues.SuspendLayout();
@@ -399,6 +401,19 @@
             this.summaryPanel.TabStop = false;
             this.summaryPanel.Text = "Summary Data";
             // 
+            // summaryDataBox
+            // 
+            this.summaryDataBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.summaryDataBox.Location = new System.Drawing.Point(9, 20);
+            this.summaryDataBox.Name = "summaryDataBox";
+            this.summaryDataBox.ReadOnly = true;
+            this.summaryDataBox.Size = new System.Drawing.Size(302, 182);
+            this.summaryDataBox.TabIndex = 0;
+            this.summaryDataBox.Text = "";
+            this.summaryDataBox.TextChanged += new System.EventHandler(this.summaryDataBox_TextChanged);
+            // 
             // fullDataPanel
             // 
             this.fullDataPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -443,10 +458,12 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.altitudeLabel);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.hrLabel);
+            this.groupBox1.Controls.Add(this.powerLabel);
+            this.groupBox1.Controls.Add(this.speedLabel);
+            this.groupBox1.Controls.Add(this.cadenceLabel);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label7);
@@ -456,92 +473,97 @@
             this.groupBox1.Size = new System.Drawing.Size(326, 98);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Active Sensors";
+            this.groupBox1.Text = "Sensors";
             // 
-            // label1
+            // hrLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(106, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Length Of Ride";
+            this.hrLabel.AutoSize = true;
+            this.hrLabel.Location = new System.Drawing.Point(106, 20);
+            this.hrLabel.Name = "hrLabel";
+            this.hrLabel.Size = new System.Drawing.Size(37, 13);
+            this.hrLabel.TabIndex = 7;
+            this.hrLabel.Text = "Active";
             // 
-            // label2
+            // powerLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(106, 33);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Length Of Ride";
+            this.powerLabel.AutoSize = true;
+            this.powerLabel.Location = new System.Drawing.Point(106, 33);
+            this.powerLabel.Name = "powerLabel";
+            this.powerLabel.Size = new System.Drawing.Size(79, 13);
+            this.powerLabel.TabIndex = 6;
+            this.powerLabel.Text = "Length Of Ride";
             // 
-            // label3
+            // speedLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(106, 46);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Length Of Ride";
+            this.speedLabel.AutoSize = true;
+            this.speedLabel.Location = new System.Drawing.Point(106, 46);
+            this.speedLabel.Name = "speedLabel";
+            this.speedLabel.Size = new System.Drawing.Size(79, 13);
+            this.speedLabel.TabIndex = 5;
+            this.speedLabel.Text = "Length Of Ride";
             // 
-            // label4
+            // cadenceLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(106, 59);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Length Of Ride";
+            this.cadenceLabel.AutoSize = true;
+            this.cadenceLabel.Location = new System.Drawing.Point(106, 59);
+            this.cadenceLabel.Name = "cadenceLabel";
+            this.cadenceLabel.Size = new System.Drawing.Size(79, 13);
+            this.cadenceLabel.TabIndex = 4;
+            this.cadenceLabel.Text = "Length Of Ride";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 59);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(94, 13);
+            this.label5.Size = new System.Drawing.Size(50, 13);
             this.label5.TabIndex = 3;
-            this.label5.Text = "Recording Interval";
+            this.label5.Text = "Cadence";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 46);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(79, 13);
+            this.label6.Size = new System.Drawing.Size(41, 13);
             this.label6.TabIndex = 2;
-            this.label6.Text = "Length Of Ride";
+            this.label6.Text = "Speed:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 33);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 13);
+            this.label7.Size = new System.Drawing.Size(40, 13);
             this.label7.TabIndex = 1;
-            this.label7.Text = "Time Of Ride:";
+            this.label7.Text = "Power:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(6, 20);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(72, 13);
+            this.label8.Size = new System.Drawing.Size(59, 13);
             this.label8.TabIndex = 0;
-            this.label8.Text = "Date Of Ride:";
+            this.label8.Text = "Heart Rate";
             // 
-            // summaryDataBox
+            // label1
             // 
-            this.summaryDataBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.summaryDataBox.Location = new System.Drawing.Point(9, 20);
-            this.summaryDataBox.Name = "summaryDataBox";
-            this.summaryDataBox.ReadOnly = true;
-            this.summaryDataBox.Size = new System.Drawing.Size(302, 182);
-            this.summaryDataBox.TabIndex = 0;
-            this.summaryDataBox.Text = "";
-            this.summaryDataBox.TextChanged += new System.EventHandler(this.summaryDataBox_TextChanged);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 72);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Altitude:";
+            // 
+            // altitudeLabel
+            // 
+            this.altitudeLabel.AutoSize = true;
+            this.altitudeLabel.Location = new System.Drawing.Point(106, 72);
+            this.altitudeLabel.Name = "altitudeLabel";
+            this.altitudeLabel.Size = new System.Drawing.Size(79, 13);
+            this.altitudeLabel.TabIndex = 9;
+            this.altitudeLabel.Text = "Length Of Ride";
             // 
             // DataViewImproved
             // 
@@ -599,10 +621,10 @@
         private System.Windows.Forms.GroupBox graphPanel;
         private System.Windows.Forms.GroupBox intervalsBox;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label hrLabel;
+        private System.Windows.Forms.Label powerLabel;
+        private System.Windows.Forms.Label speedLabel;
+        private System.Windows.Forms.Label cadenceLabel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -618,5 +640,7 @@
         private System.Windows.Forms.Button cadenceButton;
         private System.Windows.Forms.Button altitudeButton;
         private System.Windows.Forms.RichTextBox summaryDataBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label altitudeLabel;
     }
 }

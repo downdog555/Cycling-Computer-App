@@ -30,44 +30,52 @@ namespace CyclingApp
 
         public DataViewImproved(bool unitType, HrData hrdata, Smode smode, Polar polar, CyclingMain cym, List<string> rideInfo)
         {
-            
+            InitializeComponent();
             graphHr = true;
 
             if (smode.Power)
             {
                 graphPower = true;
+                powerLabel.Text = "Active";
             }
             else
             {
                 graphPower = false;
                 powerButton.Hide();
+                powerLabel.Text = "Offline";
             }
             if (smode.Speed)
             {
                 graphSpeed = true;
+                speedLabel.Text = "Active";
             }
             else
             {
                 graphSpeed = false;
                 speedButton.Hide();
+                speedLabel.Text = "Offline";
             }
             if (smode.Cadence)
             {
                 graphCadence = true;
+                cadenceLabel.Text = "Active";
             }
             else
             {
                 graphCadence = false;
                 cadenceButton.Hide();
+                cadenceLabel.Text = "Offline";
             }
             if (smode.Altitude)
             {
                 graphAltitude = true;
+                altitudeLabel.Text = "Active";
             }
             else
             {
                 graphAltitude = false;
                 altitudeButton.Hide();
+                altitudeLabel.Text = "Offline";
             }
             hrDetail = new GraphDetail();
 
@@ -83,7 +91,7 @@ namespace CyclingApp
             this.hrdata = hrdata;
             this.smode = smode;
             selectedUnit = unitType;
-            InitializeComponent();
+            
             AddRideInfo(rideInfo);
             if (!unitType)
             {
@@ -321,52 +329,161 @@ namespace CyclingApp
                 x = x + 1;
                 hr.Add(pointHR);
             }
-            //graph.YAxisList.Clear();
+            graph.YAxisList.Clear();
+            graph.Y2AxisList.Clear();
             if (graphHr)
             {
-                YAxis hrAxis = (YAxis)graph.AddCurve("Heart Rate", hr, Color.Red, SymbolType.Diamond).GetYAxis(graph);
-                hrAxis.Title.Text = "";
-                hrAxis.Color = Color.Red;
-                graph.YAxisList.Add(hrAxis);
+                GraphPane temp = new GraphPane();
+                LineItem hrCurve = graph.AddCurve("Heart Rate", hr, Color.Red, SymbolType.Diamond);
+                hrCurve.YAxisIndex = 0;
+
+                YAxis yAxis3 = new YAxis("Heart Rate");
+                graph.YAxisList.Add(yAxis3);
+                yAxis3.Scale.FontSpec.FontColor = Color.Red;
+                yAxis3.Title.FontSpec.FontColor = Color.Red;
+                yAxis3.Color = Color.Red;
+                // turn off the opposite tics so the Y2 tics don't show up on the Y axis
+                yAxis3.MajorTic.IsInside = false;
+                yAxis3.MinorTic.IsInside = false;
+                yAxis3.MajorTic.IsOpposite = false;
+                yAxis3.MinorTic.IsOpposite = false;
+                // Align the Y2 axis labels so they are flush to the axis
+                yAxis3.Scale.Align = AlignP.Inside;
+                
+               
             }
 
             if (graphPower)
             {
-                YAxis powerAxis = (YAxis)graph.AddCurve("Power", power, Color.Blue, SymbolType.Default).GetYAxis(graph);
-                powerAxis.Title.Text = "";
-                powerAxis.Color = Color.Blue;
-                graph.YAxisList.Add(powerAxis);
+                LineItem powerCurve = graph.AddCurve("Power", power, Color.Blue, SymbolType.Default);
+                powerCurve.IsY2Axis = true;
+                powerCurve.YAxisIndex = 0;
 
+                Y2Axis yAxis4 = new Y2Axis("Power");
+                yAxis4.IsVisible = true;
+                graph.Y2AxisList.Add(yAxis4);
+                yAxis4.Scale.FontSpec.FontColor = Color.Blue;
+                yAxis4.Title.FontSpec.FontColor = Color.Blue;
+                yAxis4.Color = Color.Blue;
+                // turn off the opposite tics so the Y2 tics don't show up on the Y axis
+                yAxis4.MajorTic.IsInside = false;
+                yAxis4.MinorTic.IsInside = false;
+                yAxis4.MajorTic.IsOpposite = false;
+                yAxis4.MinorTic.IsOpposite = false;
+                // Align the Y2 axis labels so they are flush to the axis
+                yAxis4.Scale.Align = AlignP.Inside;
             }
 
             if (graphSpeed)
             {
-                YAxis speedAxis = (YAxis)graph.AddCurve("Speed", speed, Color.Green, SymbolType.Circle).GetYAxis(graph);
-                speedAxis.Title.Text = "";
-                speedAxis.Color = Color.Green;
-                graph.YAxisList.Add(speedAxis);
+               LineItem speedCurve = graph.AddCurve("Speed", speed, Color.Green, SymbolType.Circle);
+                YAxis yAxis3 = new YAxis("Speed");
+                graph.YAxisList.Add(yAxis3);
+                yAxis3.Scale.FontSpec.FontColor = Color.Green;
+                yAxis3.Title.FontSpec.FontColor = Color.Green;
+                yAxis3.Color = Color.Green;
+                // turn off the opposite tics so the Y2 tics don't show up on the Y axis
+                yAxis3.MajorTic.IsInside = false;
+                yAxis3.MinorTic.IsInside = false;
+                yAxis3.MajorTic.IsOpposite = false;
+                yAxis3.MinorTic.IsOpposite = false;
+                // Align the Y2 axis labels so they are flush to the axis
+                yAxis3.Scale.Align = AlignP.Inside;
+                if (graphHr)
+                {
+                    speedCurve.YAxisIndex = 1;
+                   
+                }
+                else
+                {
+                    speedCurve.YAxisIndex = 0;
+                }
+              
+          
             }
 
             if (graphAltitude)
             {
-                YAxis altittudeAxis = (YAxis)graph.AddCurve("Altitude", altitude, Color.Brown, SymbolType.Square).GetYAxis(graph);
-                altittudeAxis.Title.Text = "";
-                altittudeAxis.Color = Color.Brown;
-                graph.YAxisList.Add(altittudeAxis);
+                LineItem altitudeCurve = graph.AddCurve("Altitude", altitude, Color.Brown, SymbolType.Square);
+                altitudeCurve.IsY2Axis = true;
+
+     
+                
+                
+                if (graphPower)
+                {
+                    altitudeCurve.YAxisIndex = 1;
+                }
+                else
+                {
+                    altitudeCurve.YAxisIndex = 0;
+                }
+                Y2Axis yAxis4 = new Y2Axis("Altitude");
+                yAxis4.IsVisible = true;
+                graph.Y2AxisList.Add(yAxis4);
+                yAxis4.Scale.FontSpec.FontColor = Color.Brown;
+                yAxis4.Title.FontSpec.FontColor = Color.Brown;
+                yAxis4.Color = Color.Brown;
+                // turn off the opposite tics so the Y2 tics don't show up on the Y axis
+                yAxis4.MajorTic.IsInside = false;
+                yAxis4.MinorTic.IsInside = false;
+                yAxis4.MajorTic.IsOpposite = false;
+                yAxis4.MinorTic.IsOpposite = false;
+                // Align the Y2 axis labels so they are flush to the axis
+                yAxis4.Scale.Align = AlignP.Inside;
+
+
             }
 
             if (graphCadence)
             {
-                YAxis cadenceAxis = (YAxis)graph.AddCurve("Cadence", cadence, Color.Black, SymbolType.Default).GetYAxis(graph);
-                cadenceAxis.Title.Text = "";
-                cadenceAxis.Color = Color.Black;
-                graph.YAxisList.Add(cadenceAxis);
+                LineItem graphCadence = graph.AddCurve("Cadence", cadence, Color.Black, SymbolType.Default);
+                YAxis yAxis3 = new YAxis("Cadence");
+                graph.YAxisList.Add(yAxis3);
+                yAxis3.Scale.FontSpec.FontColor = Color.Black;
+                yAxis3.Title.FontSpec.FontColor = Color.Black;
+                yAxis3.Color = Color.Black;
+                // turn off the opposite tics so the Y2 tics don't show up on the Y axis
+                yAxis3.MajorTic.IsInside = false;
+                yAxis3.MinorTic.IsInside = false;
+                yAxis3.MajorTic.IsOpposite = false;
+                yAxis3.MinorTic.IsOpposite = false;
+                // Align the Y2 axis labels so they are flush to the axis
+                yAxis3.Scale.Align = AlignP.Inside;
+                if (graphHr && graphSpeed)
+                {
+                    graphCadence.YAxisIndex = 2;
+
+                }
+                else if (graphSpeed || graphHr)
+                {
+                    graphCadence.YAxisIndex = 1;
+                   
+                }
+                else
+                {
+                    graphCadence.YAxisIndex = 0;
+                }
+                
+               
             }
-            
 
 
 
 
+            graph.XAxis.Type = AxisType.Date;
+            graph.XAxis.Title.Text = "Time(HH:MM:SS)";
+            graph.XAxis.Scale.Format = "hh:mm:ss";
+            graph.XAxis.Scale.Min = new XDate(0,0,0,0,0,0);
+            DateTime test = Convert.ToDateTime(lengthOfRide.Text);
+            graph.XAxis.Scale.MajorUnit = DateUnit.Second;
+            graph.XAxis.Scale.MinorUnit = DateUnit.Second;
+           
+           
+            graph.XAxis.Scale.Max = new XDate(0,0,0,test.Hour,test.Minute, test.Second);
+
+
+            graph.AxisChange();
 
             graphControl.GraphPane = graph;
             graphControl.Size = graphPanel.Size;

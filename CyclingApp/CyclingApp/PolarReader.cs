@@ -564,10 +564,13 @@ namespace CyclingApp
             VO2max = Convert.ToInt32(parametersList.ElementAt(21).Split('=')[1]);
             weight = Convert.ToInt32(parametersList.ElementAt(22).Split('=')[1]);
             date = FlipDate();
+            
             rideInfo.Add(date);
             rideInfo.Add(startTime);
             rideInfo.Add(length);
             rideInfo.Add(""+interval);
+            
+           
            // Console.WriteLine("We are meme 5");
             //we remove the header that was used for detection [Hr Data]
             hrDataList.RemoveAt(0);
