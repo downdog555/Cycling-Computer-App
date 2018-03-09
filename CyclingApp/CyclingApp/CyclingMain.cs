@@ -28,6 +28,7 @@ namespace CyclingApp
             enterMaximumHeartRateToolStripMenuItem.HideDropDown();
             ftpMenu.HideDropDown();
             this.Invalidate();
+            dw1 = null;
             
         }
 
@@ -71,25 +72,43 @@ namespace CyclingApp
         {
             this.ftp = ftp;
             dw1.SetFTP(ftp);
-            
+
+
         }
         public void SetHR(int hr)
         {
+
             this.maxHr = hr;
             dw1.SetMaxHR(hr);
         }
         public void ftpMenu_Click(object sender, EventArgs e)
         {
-            //we need to show a dialog to allow entering of data
-            EnterFTP enter = new EnterFTP(this, ftp);
-            enter.Show();
+            if (dw1 != null)
+            {
+                //we need to show a dialog to allow entering of data
+                EnterFTP enter = new EnterFTP(this, ftp);
+                enter.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please load a file before setting FTP", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
 
         }
 
         private void enterMaximumHeartRateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EnterHR enterHR = new EnterHR(this, maxHr);
-            enterHR.Show();
+            if (dw1 != null)
+            {
+                EnterHR enterHR = new EnterHR(this, maxHr);
+                enterHR.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please load a file before setting Max HR", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
         }
     }
 }

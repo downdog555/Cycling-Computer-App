@@ -76,7 +76,7 @@ namespace CyclingApp
             foreach (HrDataSingle data in dataList)
             {
                 
-                double hoursSpeed = data.Speed / 10;
+                double hoursSpeed = data.Speed ;
                 // Console.WriteLine("Hours: "+hoursSpeed);
                 double minsSpeed = hoursSpeed / 60;
                 //Console.WriteLine("mins: " + minsSpeed);
@@ -99,7 +99,7 @@ namespace CyclingApp
                 averageSpeed = averageSpeed + data.Speed;
             }
             averageSpeed = averageSpeed / dataList.Count;
-            averageSpeed = averageSpeed / 10;
+            
             return averageSpeed;
 
         }
@@ -118,7 +118,18 @@ namespace CyclingApp
 
             return speed;
         }
-
+        private int GetMaxHeartRate(List<HrDataSingle> dataList)
+        {
+            int maxHeartRate = 0;
+            foreach (HrDataSingle data in dataList)
+            {
+                if (data.HeartRate > maxHeartRate)
+                {
+                    maxHeartRate = data.HeartRate;
+                }
+            }
+            return maxHeartRate;
+        }
         private int GetAverageHeartRate(List<HrDataSingle> dataList)
         {
             int averageHeartRate = 0;
@@ -610,16 +621,17 @@ namespace CyclingApp
                
                 summaryEuro.Add("Average Heart Rate",""+averageHeartRate);
                 summaryUS.Add("Average Heart Rate",""+averageHeartRate);
-              
+
+                int maxHeartRate = GetMaxHeartRate(hrDataExtended.DataEuro);
                 //Max Heart Rate
-                summaryEuro.Add("Maximum Heart Rate", "" + maxHR );
-                summaryUS.Add("Maximum Heart Rate",""+ maxHR );
+                summaryEuro.Add("Maximum Heart Rate", "" + maxHeartRate + " BPM");
+                summaryUS.Add("Maximum Heart Rate", "" + maxHeartRate + " BPM");
 
                 //Min Heart Rate
                 int minHeartRate = GetMinHeartRate(hrDataExtended.DataEuro); ;
                 
-                summaryEuro.Add("Minimum Heart Rate",""+minHeartRate );
-                summaryUS.Add("Minimum Heart Rate",""+minHeartRate);
+                summaryEuro.Add("Minimum Heart Rate",""+minHeartRate + " BPM");
+                summaryUS.Add("Minimum Heart Rate",""+minHeartRate + " BPM");
 
                 if (smode.Power)
                 {
@@ -698,20 +710,23 @@ namespace CyclingApp
                     summaryUS.Add("Maximum Speed", "" + speed + " MPH");
                 }
                 //us starting values
-                
 
-               
+
+
                 //Average Heart Rate
                 int averageHeartRate = GetAverageHeartRate(hrDataExtended.DataUS);
-                
-                summaryEuro.Add("Average Heart Rate", "" + averageHeartRate +" BPM");
+
+                summaryEuro.Add("Average Heart Rate", "" + averageHeartRate + " BPM");
                 summaryUS.Add("Average Heart Rate", "" + averageHeartRate + " BPM");
+
+                int maxHeartRate = GetMaxHeartRate(hrDataExtended.DataUS);
+               
                 //Max Heart Rate
-                summaryEuro.Add("Maximum Heart Rate", "" + maxHR + " BPM");
-                summaryUS.Add("Maximum Heart Rate", "" + maxHR + " BPM");
+                summaryEuro.Add("Maximum Heart Rate", "" + maxHeartRate + " BPM");
+                summaryUS.Add("Maximum Heart Rate", "" + maxHeartRate + " BPM");
                 //Min Heart Rate
                 int minHeartRate = GetMinHeartRate(hrDataExtended.DataUS);
-               
+
                 summaryEuro.Add("Minimum Heart Rate", "" + minHeartRate + " BPM");
                 summaryUS.Add("Minimum Heart Rate", "" + minHeartRate + " BPM");
 

@@ -143,13 +143,13 @@ namespace CyclingApp
             foreach (KeyValuePair<string, string> value in data)
             {
                 summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + value.Value + "\n";
-                
+
                 if (value.Key.Equals("Average Heart Rate"))
                 {
                     if (percentHR)
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of max hr)");
-                        double percent = Math.Round((Convert.ToDouble(value.Value) / MaxHR) * 100,2);
+                        double percent = Math.Round((Convert.ToDouble(value.Value.Split(' ')[0]) / MaxHR) * 100, 2);
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
@@ -163,13 +163,13 @@ namespace CyclingApp
                     if (percentHR)
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of max hr)");
-                        double percent = Math.Round((Convert.ToDouble(value.Value) / MaxHR) * 100,2);
+                        double percent = Math.Round((Convert.ToDouble(value.Value.Split(' ')[0]) / MaxHR) * 100, 2);
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
                     {
                         grid.Columns.Add(value.Key, value.Key + "(BPM)");
-                        MaxHR = Convert.ToInt32(value.Value);
+                        //MaxHR = Convert.ToInt32(value.Value);
                         maxHRValue.Text = "" + MaxHR;
 
                         valuesToBeInserted.Add(value.Value);
@@ -180,7 +180,7 @@ namespace CyclingApp
                     if (percentHR)
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of max hr)");
-                        double percent = Math.Round((Convert.ToDouble(value.Value) / MaxHR) * 100,2);
+                        double percent = Math.Round((Convert.ToDouble(value.Value.Split(' ')[0]) / MaxHR) * 100, 2);
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
@@ -194,7 +194,7 @@ namespace CyclingApp
                     if (percentFTP)
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of FTP)");
-                        double percent = Math.Round((Convert.ToDouble(value.Value) / ftp) * 100,2);
+                        double percent = Math.Round((Convert.ToDouble(value.Value.Split(' ')[0]) / ftp) * 100, 2);
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
@@ -208,7 +208,7 @@ namespace CyclingApp
                     if (percentFTP)
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of FTP)");
-                        double percent = Math.Round((Convert.ToDouble(value.Value) / ftp) * 100,2);
+                        double percent = Math.Round((Convert.ToDouble(value.Value.Split(' ')[0]) / ftp) * 100, 2);
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
@@ -226,7 +226,7 @@ namespace CyclingApp
             }
 
             grid.Rows.Insert(0, valuesToBeInserted.ToArray());
-           // summaryPanel.Controls.Add(grid);
+            // summaryPanel.Controls.Add(grid);
             //  summaryExpand.Content.Controls.Add(grid);
 
 
@@ -321,30 +321,46 @@ namespace CyclingApp
                 x = x + 1;
                 hr.Add(pointHR);
             }
-
+            //graph.YAxisList.Clear();
             if (graphHr)
             {
-                graph.AddCurve("Heart Rate", hr, Color.Red, SymbolType.Diamond);
+                YAxis hrAxis = (YAxis)graph.AddCurve("Heart Rate", hr, Color.Red, SymbolType.Diamond).GetYAxis(graph);
+                hrAxis.Title.Text = "";
+                hrAxis.Color = Color.Red;
+                graph.YAxisList.Add(hrAxis);
             }
 
             if (graphPower)
             {
-                graph.AddCurve("Power", power, Color.Blue, SymbolType.Default);
+                YAxis powerAxis = (YAxis)graph.AddCurve("Power", power, Color.Blue, SymbolType.Default).GetYAxis(graph);
+                powerAxis.Title.Text = "";
+                powerAxis.Color = Color.Blue;
+                graph.YAxisList.Add(powerAxis);
+
             }
 
             if (graphSpeed)
             {
-                graph.AddCurve("Speed", speed, Color.Green, SymbolType.Circle);
+                YAxis speedAxis = (YAxis)graph.AddCurve("Speed", speed, Color.Green, SymbolType.Circle).GetYAxis(graph);
+                speedAxis.Title.Text = "";
+                speedAxis.Color = Color.Green;
+                graph.YAxisList.Add(speedAxis);
             }
 
             if (graphAltitude)
             {
-                graph.AddCurve("Altitude", altitude, Color.Brown, SymbolType.Square);
+                YAxis altittudeAxis = (YAxis)graph.AddCurve("Altitude", altitude, Color.Brown, SymbolType.Square).GetYAxis(graph);
+                altittudeAxis.Title.Text = "";
+                altittudeAxis.Color = Color.Brown;
+                graph.YAxisList.Add(altittudeAxis);
             }
 
             if (graphCadence)
             {
-                graph.AddCurve("Cadence", cadence, Color.Black, SymbolType.Default);
+                YAxis cadenceAxis = (YAxis)graph.AddCurve("Cadence", cadence, Color.Black, SymbolType.Default).GetYAxis(graph);
+                cadenceAxis.Title.Text = "";
+                cadenceAxis.Color = Color.Black;
+                graph.YAxisList.Add(cadenceAxis);
             }
             
 
@@ -388,7 +404,7 @@ namespace CyclingApp
             }
             else
             {
-                fullData.Columns.Add("hr", "Heart Rate");
+                fullData.Columns.Add("hr", "Heart Rate(BPM)");
             }
             //we need to add headers
             if (smode.Speed)
