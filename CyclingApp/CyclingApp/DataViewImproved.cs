@@ -269,6 +269,7 @@ namespace CyclingApp
 
 
             int x = 0;
+            XDate xdate = new XDate(2018, 10, 10, 0, 0, 0);
             foreach (HrDataSingle data in graphDataRaw)
             {
                 PointPair powerPoint;
@@ -277,11 +278,11 @@ namespace CyclingApp
                 {
                     if (percentFTP)
                     {
-                        powerPoint = new PointPair(x, ((double)data.Power / ftp) * 100);
+                        powerPoint = new PointPair((double) xdate, ((double)data.Power / ftp) * 100);
                     }
                     else
                     {
-                        powerPoint = new PointPair(x, data.Power);
+                        powerPoint = new PointPair((double)xdate, data.Power);
                     }
                     power.Add(powerPoint);
                    
@@ -290,14 +291,14 @@ namespace CyclingApp
                 PointPair speedPoint;
                 if (graphSpeed)
                 {
-                    speedPoint = new PointPair(x, data.Speed);
+                    speedPoint = new PointPair((double)xdate, data.Speed);
                     speed.Add(speedPoint);
                 }
 
                 PointPair cadencePoint;
                 if (graphCadence)
                 {
-                    cadencePoint = new PointPair(x, data.Cadence);
+                    cadencePoint = new PointPair((double)xdate, data.Cadence);
                     cadence.Add(cadencePoint);
 
                 }
@@ -305,7 +306,7 @@ namespace CyclingApp
                 PointPair altitudePoint;
                 if (graphAltitude)
                 {
-                    altitudePoint = new PointPair(x, data.Altitude);
+                    altitudePoint = new PointPair((double)xdate, data.Altitude);
                     altitude.Add(altitudePoint);
                 }
 
@@ -318,16 +319,16 @@ namespace CyclingApp
                     //Console.WriteLine((double)data.HeartRate/MaxHR);
                     double y = (((double)data.HeartRate / MaxHR) * 100);
                     //Console.WriteLine(y);
-                    pointHR = new PointPair(x, y);
+                    pointHR = new PointPair((double)xdate, y);
                 }
                 else
                 {
                     // Console.WriteLine("We dont have percent");
-                    pointHR = new PointPair(x, data.HeartRate);
+                    pointHR = new PointPair((double)xdate, data.HeartRate);
                 }
 
-                x = x + 1;
-                hr.Add(pointHR);
+                xdate.AddSeconds(1);
+                    hr.Add(pointHR);
             }
             graph.YAxisList.Clear();
             graph.Y2AxisList.Clear();
@@ -336,6 +337,7 @@ namespace CyclingApp
                 GraphPane temp = new GraphPane();
                 LineItem hrCurve = graph.AddCurve("Heart Rate", hr, Color.Red, SymbolType.Diamond);
                 hrCurve.YAxisIndex = 0;
+                
 
                 YAxis yAxis3 = new YAxis("Heart Rate");
                 graph.YAxisList.Add(yAxis3);
@@ -469,26 +471,43 @@ namespace CyclingApp
             }
 
 
-
+           
+           
 
             graph.XAxis.Type = AxisType.Date;
-            graph.XAxis.Title.Text = "Time(HH:MM:SS)";
-            graph.XAxis.Scale.Format = "hh:mm:ss";
-            graph.XAxis.Scale.Min = new XDate(0,0,0,0,0,0);
-            DateTime test = Convert.ToDateTime(lengthOfRide.Text);
-            graph.XAxis.Scale.MajorUnit = DateUnit.Second;
+           graph.XAxis.Title.Text = "Time(HH:MM:SS)";
+           // graph.XAxis.Scale.Format = "hh:mm:ss";
+            //graph.XAxis.Scale.Min = new XDate(0,0,0,0,0,0);
+            //DateTime test = Convert.ToDateTime(lengthOfRide.Text);
+    
+            graph.XAxis.Scale.Format = "HH:mm:ss";
+            graph.XAxis.Scale.MajorUnit = DateUnit.Hour;
             graph.XAxis.Scale.MinorUnit = DateUnit.Second;
-           
-           
-            graph.XAxis.Scale.Max = new XDate(0,0,0,test.Hour,test.Minute, test.Second);
+            graph.XAxis.Scale.Min = (double) new XDate(2018, 10, 10, 0, 0, 0);
+            //graph.XAxis.Scale.Format = "T";
+            // graph.XAxis.Scale.MajorUnit = DateUnit.Second;
+            // graph.XAxis.Scale.MinorUnit = DateUnit.Second;
+            //graph.XAxis.Scale.Max = new XDate(0,0,0,test.Hour,test.Minute, test.Second);
+            if (graph.YAxisList.Count == 0)
+            {
+                YAxis temp = new YAxis("hidden");
+                temp.IsVisible = false;
+                graph.YAxisList.Add(temp);
+            }
 
+            if (graph.Y2AxisList.Count == 0)
+            {
+                Y2Axis temp = new Y2Axis("hidden");
+                temp.IsVisible = false;
+                graph.Y2AxisList.Add(temp);
+            }
 
             graph.AxisChange();
 
             graphControl.GraphPane = graph;
             graphControl.Size = graphPanel.Size;
             graphControl.Show();
-            graphControl.RestoreScale(graph);
+            //graphControl.RestoreScale(graph);
             //disable zoom
             graphControl.IsEnableZoom = true;
             graphControl.IsEnableVZoom = false;
