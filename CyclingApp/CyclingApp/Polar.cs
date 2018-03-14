@@ -66,5 +66,10 @@ namespace CyclingApp
         {
             return dataStore.Smode;
         }
+
+        public Dictionary<string, string> GetSummaryDataTimeSpecificed(DateTime start, DateTime end)
+        {
+            return dataStore.GetSummarySpecifiedTime(start, end);
+        }
     }
 }

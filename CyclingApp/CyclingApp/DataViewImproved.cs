@@ -150,19 +150,22 @@ namespace CyclingApp
             List<string> valuesToBeInserted = new List<string>();
             foreach (KeyValuePair<string, string> value in data)
             {
-                summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + value.Value + "\n";
+                
 
                 if (value.Key.Equals("Average Heart Rate"))
                 {
                     if (percentHR)
                     {
-                        grid.Columns.Add(value.Key, value.Key + "(% of max hr)");
+                      
+                       
                         double percent = Math.Round((Convert.ToDouble(value.Value.Split(' ')[0]) / MaxHR) * 100, 2);
+                        summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + percent + "%\n";
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
                     {
-                        grid.Columns.Add(value.Key, value.Key + "(BPM)");
+                        //  grid.Columns.Add(value.Key, value.Key + "(BPM)");
+                        summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + value.Value + " BPM\n";
                         valuesToBeInserted.Add(value.Value);
                     }
                 }
@@ -172,14 +175,15 @@ namespace CyclingApp
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of max hr)");
                         double percent = Math.Round((Convert.ToDouble(value.Value.Split(' ')[0]) / MaxHR) * 100, 2);
+                        summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + percent + " %\n";
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
                     {
-                        grid.Columns.Add(value.Key, value.Key + "(BPM)");
+                       // grid.Columns.Add(value.Key, value.Key + "(BPM)");
                         //MaxHR = Convert.ToInt32(value.Value);
                         maxHRValue.Text = "" + MaxHR;
-
+                        summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + value.Value + "\n";
                         valuesToBeInserted.Add(value.Value);
                     }
                 }
@@ -189,11 +193,13 @@ namespace CyclingApp
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of max hr)");
                         double percent = Math.Round((Convert.ToDouble(value.Value.Split(' ')[0]) / MaxHR) * 100, 2);
+                        summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + percent + " %\n";
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
                     {
                         grid.Columns.Add(value.Key, value.Key + "(BPM)");
+                        summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + value.Value + "\n";
                         valuesToBeInserted.Add(value.Value);
                     }
                 }
@@ -202,12 +208,15 @@ namespace CyclingApp
                     if (percentFTP)
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of FTP)");
+
                         double percent = Math.Round((Convert.ToDouble(value.Value.Split(' ')[0]) / ftp) * 100, 2);
+                        summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + percent + "%\n";
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
                     {
                         grid.Columns.Add(value.Key, value.Key + "(W)");
+                        summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + value.Value + "W\n";
                         valuesToBeInserted.Add(value.Value);
                     }
                 }
@@ -217,17 +226,20 @@ namespace CyclingApp
                     {
                         grid.Columns.Add(value.Key, value.Key + "(% of FTP)");
                         double percent = Math.Round((Convert.ToDouble(value.Value.Split(' ')[0]) / ftp) * 100, 2);
+                        summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + percent + "%\n";
                         valuesToBeInserted.Add("" + percent);
                     }
                     else
                     {
                         grid.Columns.Add(value.Key, value.Key + "(W)");
+                        summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + value.Value + "W\n";
                         valuesToBeInserted.Add(value.Value);
                     }
                 }
                 else
                 {
                     grid.Columns.Add(value.Key, value.Key);
+                    summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + value.Value + "\n";
                     valuesToBeInserted.Add(value.Value);
                 }
 
@@ -706,7 +718,11 @@ namespace CyclingApp
         }
 
 
-
+        /// <summary>
+        /// Function called when the US unit selection is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void usSelection_Click(object sender, EventArgs e)
         {
             Console.WriteLine("US Click");
@@ -735,6 +751,12 @@ namespace CyclingApp
             }
         }
 
+        /// <summary>
+        /// Called when the altitude button is pressed
+        /// turns the altitude line on and off
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void altitudeButton_Click(object sender, EventArgs e)
         {
             if (graphAltitude)
@@ -749,6 +771,13 @@ namespace CyclingApp
             }
         }
 
+        /// <summary>
+        /// Called whne the cadence button is pressed
+        /// turns the cadence line on and off if it exists
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cadenceButton_Click(object sender, EventArgs e)
         {
             if (graphCadence)
@@ -763,6 +792,12 @@ namespace CyclingApp
             }
         }
 
+        /// <summary>
+        /// Turns the power button on and off
+        /// called when the power button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void powerButton_Click(object sender, EventArgs e)
         {
             if (graphPower)
@@ -777,6 +812,12 @@ namespace CyclingApp
             }
         }
 
+        /// <summary>
+        /// Called when the speed button is pressed
+        /// turns the speed line on and offf
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void speedButton_Click(object sender, EventArgs e)
         {
             if (graphSpeed)
@@ -791,6 +832,12 @@ namespace CyclingApp
             }
         }
 
+        /// <summary>
+        /// called when the HR button is called
+        /// turns the HR line onm and off
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void hrButton_Click(object sender, EventArgs e)
         {
             if (graphHr)
@@ -810,6 +857,12 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// called when the ftp box is checked
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ftpCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Console.WriteLine("We have changed");
@@ -834,11 +887,22 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// called when the load gile is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void loadFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cyclingMain.loadFileToolStripMenuItem_Click(sender, e);
         }
 
+        /// <summary>
+        /// called when the HR check box is called
+        /// converst the hr between a percent and normal values
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void hrCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Console.WriteLine("We have change 2");
@@ -863,6 +927,12 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// called when the all button is clciked
+        /// resets the graph to show all lines
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void allButton_Click(object sender, EventArgs e)
         {
             if (smode.Power && !graphPower)
@@ -933,6 +1003,12 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// called when the euro radio is cclicked
+        /// cahnges values into metric
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void euroSelection_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Euro Selected");
@@ -947,5 +1023,17 @@ namespace CyclingApp
         {
 
         }
+
+        /// <summary>
+        /// called when the graph is zoomed in or our and summary data is recalcualted
+        /// </summary>
+        /// <param name="start">start time</param>
+        /// <param name="end">end time</param>
+        private void GetSummaryBetweenValue(DateTime start, DateTime end)
+        {
+
+        }
+
+
     }
 }
