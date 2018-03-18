@@ -86,12 +86,7 @@
     </Compile>
     <Compile Include="HrData.cs" />
     <Compile Include="HrDataSingle.cs" />
-    <Compile Include="GraphDetail.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GraphDetail.Designer.cs">
-      <DependentUpon>GraphDetail.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Marker.cs" />
     <Compile Include="Mode.cs" />
     <Compile Include="Polar.cs" />
     <Compile Include="PolarReader.cs" />
@@ -112,9 +107,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EnterHR.resx">
       <DependentUpon>EnterHR.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GraphDetail.resx">
-      <DependentUpon>GraphDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -30,6 +30,7 @@ namespace CyclingApp
         private GraphPane graph;
         private ZedGraphControl graphControl;
         private double currentXState = 0;
+        private List<Marker> MarkerList;
 
         /// <summary>
         /// constructor for the data view
@@ -44,7 +45,7 @@ namespace CyclingApp
         {
             InitializeComponent();
             graphHr = true;
-
+            MarkerList = new List<Marker>();
             if (smode.Power)
             {
                 graphPower = true;
@@ -105,6 +106,10 @@ namespace CyclingApp
             selectedUnit = unitType;
             
             AddRideInfo(rideInfo);
+
+
+            
+
             if (!unitType)
             {
                 euroSelection.Checked = true;
@@ -546,10 +551,7 @@ namespace CyclingApp
             XDate end = new XDate(2018, 10, 10, 0, 0, 0);
             end.AddSeconds((hrdata.DataEuro.Count * Convert.ToInt32(recordingInterval.Text.Split(' ')[0])));
             graph.XAxis.Scale.Max = end;
-            //graph.XAxis.Scale.Format = "T";
-            // graph.XAxis.Scale.MajorUnit = DateUnit.Second;
-            // graph.XAxis.Scale.MinorUnit = DateUnit.Second;
-            //graph.XAxis.Scale.Max = new XDate(0,0,0,test.Hour,test.Minute, test.Second);
+            
             if (graph.YAxisList.Count == 0)
             {
                 YAxis temp = new YAxis("hidden");
@@ -574,50 +576,133 @@ namespace CyclingApp
             graphControl.IsEnableZoom = true;
             graphControl.IsEnableVZoom = false;
             graphControl.IsShowPointValues = true;
-            
+            //dissable pan so control isnt used for that
+            graphControl.IsEnableHPan = false;
+            graphControl.IsEnableVPan = false;
+            //set control as a modifier so we can still zoom with it pressed
+            //set the second zoom button to left click as well
+            graphControl.ZoomButtons2 = MouseButtons.Left;
+            //modifer key means it doenst work unless control is pressed.
+            graphControl.ZoomModifierKeys2 = Keys.Control;
+           
+
             graphPanel.Controls.Add(graphControl);
             graphControl.ZoomEvent += new ZedGraphControl.ZoomEventHandler(graphZoom);
-
-
+            graphControl.DoubleClickEvent += new ZedGraphControl.ZedMouseEventHandler(GraphDoubleClick);
+           // graphControl.ZoomModifierKeys = Keys.Control;
             graph.AxisChangeEvent += new GraphPane.AxisChangeEventHandler(GetSummaryBetweenValue);
             currentXState = graph.XAxis.Scale.Min;
+            Console.WriteLine("Marker list count" + MarkerList.Count);
+            if (MarkerList.Count > 0)
+            {
+                Random rand = new Random();
+                //we need to draw the markers if we have them 
+                foreach (Marker marker in MarkerList)
+                {
+                   
+                    YAxis startMarker = new YAxis("");
+                    startMarker.Color = marker.C;
+                    startMarker.Scale.IsVisible = false;
+                    startMarker.MajorTic.IsAllTics = false;
+                    startMarker.MinorTic.IsAllTics = false;
+                    startMarker.MajorTic.PenWidth = 2;
+                    startMarker.Cross = marker.Min;
+
+                    YAxis endMarker = new YAxis("");
+                    endMarker.Color = marker.C;
+                    endMarker.Scale.IsVisible = false;
+                    endMarker.MajorTic.IsAllTics = false;
+                    endMarker.MinorTic.IsAllTics = false;
+                    endMarker.Cross = marker.Max;
+                    endMarker.MajorTic.PenWidth = 2;
+
+                    graph.YAxisList.Add(startMarker);
+                    graph.YAxisList.Add(endMarker);
+                }
+            }
+
         }
 
+        private bool GraphDoubleClick(ZedGraphControl sender, MouseEventArgs e)
+        {
+            Console.WriteLine("Mouse was : "+e.Location);
+           
+
+            return true;
+        }
+        private void graphZoomBefore(ZedGraphControl sender)
+        {
+
+        }
         private void graphZoom(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
         {
-            //we now know that we have zoomed
-            if (currentXState > sender.GraphPane.XAxis.Scale.Min)
+            //we need to check to see if modifer key has been pressed if so that means we want to select so zoom and then undo the zoom
+            if (ModifierKeys.HasFlag(Keys.Control))
             {
-                Console.WriteLine("Zoom out");
-                currentXState = sender.GraphPane.XAxis.Scale.Min;
-      
-            }
-            else
-            {
-                Console.WriteLine("Zoom in");
-                currentXState = sender.GraphPane.XAxis.Scale.Min;
                 
-            }
-            XDate start = new XDate(sender.GraphPane.XAxis.Scale.Min);
-            XDate end = new XDate(sender.GraphPane.XAxis.Scale.Max);
-            DateTime s = start.DateTime;
-            DateTime e = end.DateTime;
+                Console.WriteLine("Control is pressed so zoom and get values then unzoom");
+                double min = sender.GraphPane.XAxis.Scale.Min;
+                double max = sender.GraphPane.XAxis.Scale.Max;
+                //ender.ZoomOut(sender.GraphPane);
+               // newState.ApplyState(sender.GraphPane);
+                //Console.WriteLine("We have zoomed out");
+                //we then add the values to the list
+               
+                bool exists = false;
+                foreach (Marker line in MarkerList)
+                {
+                    if (line.Min == min && line.Max == max)
+                    {
+                        exists = true;
+                    }
+                }
+                // if this exact marker does not exist then add to list 
+                if (!exists)
+                {
+                    Marker temp = new Marker(min, max);
+                    MarkerList.Add(temp);
+                }
 
-           Dictionary<string,string>[] dataTemp =  polar.GetSummaryDataTimeSpecificed(s,e,selectedUnit);
-            int i = 0;
-            if (!selectedUnit)
-            {
-                i = 0;
+                
+                AddGraphs();
             }
             else
             {
-                i = 1;
+                //we now know that we have zoomed
+                if (currentXState > sender.GraphPane.XAxis.Scale.Min)
+                {
+                    Console.WriteLine("Zoom out");
+                    currentXState = sender.GraphPane.XAxis.Scale.Min;
+
+                }
+                else
+                {
+                    Console.WriteLine("Zoom in");
+                    currentXState = sender.GraphPane.XAxis.Scale.Min;
+
+                }
+                XDate start = new XDate(sender.GraphPane.XAxis.Scale.Min);
+                XDate end = new XDate(sender.GraphPane.XAxis.Scale.Max);
+                DateTime s = start.DateTime;
+                DateTime e = end.DateTime;
+
+                Dictionary<string, string>[] dataTemp = polar.GetSummaryDataTimeSpecificed(s, e, selectedUnit);
+                int i = 0;
+                if (!selectedUnit)
+                {
+                    i = 0;
+                }
+                else
+                {
+                    i = 1;
+                }
+              
+                AddSummaryData(dataTemp[i], false);
             }
-            foreach (KeyValuePair<string,string> data in dataTemp[i])
-            {
-                Console.WriteLine(data.Key+": "+data.Value);
-            }
-            AddSummaryData(dataTemp[i], false);
+
+
+
+           
 
         }
 
