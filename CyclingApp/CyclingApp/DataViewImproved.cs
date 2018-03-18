@@ -27,7 +27,19 @@ namespace CyclingApp
         private CyclingMain cyclingMain;
         private GraphDetail hrDetail;
         private bool graphHr, graphPower, graphCadence, graphSpeed, graphAltitude;
+        private GraphPane graph;
+        private ZedGraphControl graphControl;
+        private double currentXState = 0;
 
+        /// <summary>
+        /// constructor for the data view
+        /// </summary>
+        /// <param name="unitType">boolean to tell if the unit is euro or us  by default</param>
+        /// <param name="hrdata">a hrdata object conating all of the data process by polar reader</param>
+        /// <param name="smode">a smode object reference of the current file</param>
+        /// <param name="polar">a reference to the polar object above this</param>
+        /// <param name="cym">a reference to the cyclingmain object that created this object</param>
+        /// <param name="rideInfo">A list containg the basic ride info</param>
         public DataViewImproved(bool unitType, HrData hrdata, Smode smode, Polar polar, CyclingMain cym, List<string> rideInfo)
         {
             InitializeComponent();
@@ -113,9 +125,15 @@ namespace CyclingApp
             }
             AddFullData();
             AddGraphs();
+            
             //summaryExpand.Dock = DockStyle.Top;
         }
 
+
+        /// <summary>
+        /// Loads the ride info into the required labels
+        /// </summary>
+        /// <param name="data">a list with the required data</param>
         public void AddRideInfo(List<string> data)
         {
             dateOfRide.Text = data.ElementAt(0);
@@ -123,17 +141,33 @@ namespace CyclingApp
             lengthOfRide.Text = data.ElementAt(2);
             recordingInterval.Text = data.ElementAt(3) + " S";
         }
+
+        /// <summary>
+        /// methdo called to set hte ftp value
+        /// </summary>
+        /// <param name="ftp">double containg the FTP</param>
         public void SetFTP(double ftp)
         {
             this.ftpValue.Text = "" + ftp;
             this.ftp = ftp;
             AddFullData();
         }
+
+        /// <summary>
+        /// function to set the max Heart rate
+        /// </summary>
+        /// <param name="maxHr">integer with the max hr</param>
         public void SetMaxHR(int maxHr)
         {
             this.MaxHR = maxHr;
             this.maxHRValue.Text = "" + maxHr;
         }
+        /// <summary>
+        /// Adds the summary data when called
+        /// 
+        /// </summary>
+        /// <param name="data">dictionary containg the summary data</param>
+        /// <param name="unitType">the unit that it represents</param>
         public void AddSummaryData(Dictionary<string, string> data, bool unitType)
         {
             //summaryPanel.Controls.Clear();
@@ -253,11 +287,16 @@ namespace CyclingApp
 
         }
 
+        public void loadSummaryOnGraphChange()
+        {
+
+        }
+
         public void AddGraphs()
         {
             //we need to update the graph to show  all values
             graphPanel.Controls.Clear();
-            ZedGraphControl graphControl = new ZedGraphControl();
+            graphControl = new ZedGraphControl();
            // graphControl.Click += HrControl_Click;
             Console.WriteLine("We are adding graphs");
             List<HrDataSingle> graphDataRaw;
@@ -271,7 +310,7 @@ namespace CyclingApp
             }
             //we first load hr graph over time
             //we know the interval etc so we need to build the data set
-            GraphPane graph = new GraphPane(new RectangleF(10f, 10f, 1000f, 1000f), "", "Time(S)", "Ride Visualisation");
+             graph = new GraphPane(new RectangleF(10f, 10f, 1000f, 1000f), "", "Time(S)", "Ride Visualisation");
 
             PointPairList hr = new PointPairList();
             PointPairList power = new PointPairList();
@@ -504,6 +543,9 @@ namespace CyclingApp
             graph.XAxis.Scale.MajorUnit = DateUnit.Hour;
             graph.XAxis.Scale.MinorUnit = DateUnit.Second;
             graph.XAxis.Scale.Min = (double) new XDate(2018, 10, 10, 0, 0, 0);
+            XDate end = new XDate(2018, 10, 10, 0, 0, 0);
+            end.AddSeconds((hrdata.DataEuro.Count * Convert.ToInt32(recordingInterval.Text.Split(' ')[0])));
+            graph.XAxis.Scale.Max = end;
             //graph.XAxis.Scale.Format = "T";
             // graph.XAxis.Scale.MajorUnit = DateUnit.Second;
             // graph.XAxis.Scale.MinorUnit = DateUnit.Second;
@@ -534,7 +576,73 @@ namespace CyclingApp
             graphControl.IsShowPointValues = true;
             
             graphPanel.Controls.Add(graphControl);
+            graphControl.ZoomEvent += new ZedGraphControl.ZoomEventHandler(graphZoom);
 
+
+            graph.AxisChangeEvent += new GraphPane.AxisChangeEventHandler(GetSummaryBetweenValue);
+            currentXState = graph.XAxis.Scale.Min;
+        }
+
+        private void graphZoom(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
+        {
+            //we now know that we have zoomed
+            if (currentXState > sender.GraphPane.XAxis.Scale.Min)
+            {
+                Console.WriteLine("Zoom out");
+                currentXState = sender.GraphPane.XAxis.Scale.Min;
+      
+            }
+            else
+            {
+                Console.WriteLine("Zoom in");
+                currentXState = sender.GraphPane.XAxis.Scale.Min;
+                
+            }
+            XDate start = new XDate(sender.GraphPane.XAxis.Scale.Min);
+            XDate end = new XDate(sender.GraphPane.XAxis.Scale.Max);
+            DateTime s = start.DateTime;
+            DateTime e = end.DateTime;
+
+           Dictionary<string,string>[] dataTemp =  polar.GetSummaryDataTimeSpecificed(s,e,selectedUnit);
+            int i = 0;
+            if (!selectedUnit)
+            {
+                i = 0;
+            }
+            else
+            {
+                i = 1;
+            }
+            foreach (KeyValuePair<string,string> data in dataTemp[i])
+            {
+                Console.WriteLine(data.Key+": "+data.Value);
+            }
+            AddSummaryData(dataTemp[i], false);
+
+        }
+
+        /// <summary>
+        /// called when the graph is zoomed in or our and summary data is recalcualted
+        /// </summary>
+        /// <param name="start">start time</param>
+        /// <param name="end">end time</param>
+
+        private void  GetSummaryBetweenValue(GraphPane pane)
+        {
+           // Console.WriteLine("Graph zoomed");
+            //we will need to reload summary
+         //   double start,end,startGraph, endGraph;
+           // startGraph = graph.XAxis.Scale.Min;
+           // endGraph = graph.XAxis.Scale.Max;
+          //  start = pane.XAxis.Scale.Min;
+          //  end = pane.XAxis.Scale.Max;
+           
+          //  Console.WriteLine("Graph Scale:");
+         //   Console.WriteLine("Start: "+startGraph);
+          //  Console.WriteLine("End: "+endGraph);
+         //   Console.WriteLine("Selection Scale");
+          //  Console.WriteLine("Start: "+start);
+          //  Console.WriteLine("End: "+end);
         }
 
         private void HrControl_Click(object sender, EventArgs e)
@@ -1024,15 +1132,7 @@ namespace CyclingApp
 
         }
 
-        /// <summary>
-        /// called when the graph is zoomed in or our and summary data is recalcualted
-        /// </summary>
-        /// <param name="start">start time</param>
-        /// <param name="end">end time</param>
-        private void GetSummaryBetweenValue(DateTime start, DateTime end)
-        {
-
-        }
+    
 
 
     }

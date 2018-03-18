@@ -67,8 +67,9 @@ namespace CyclingApp
             return dataStore.Smode;
         }
 
-        public Dictionary<string, string> GetSummaryDataTimeSpecificed(DateTime start, DateTime end)
+        public Dictionary<string, string>[] GetSummaryDataTimeSpecificed(DateTime start, DateTime end, bool unit)
         {
+            Console.WriteLine("We are getting data from polar");
             return dataStore.GetSummarySpecifiedTime(start, end);
         }
     }
