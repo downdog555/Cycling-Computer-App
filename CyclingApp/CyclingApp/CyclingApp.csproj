@@ -84,6 +84,12 @@
     <Compile Include="CyclingMain.Designer.cs">
       <DependentUpon>CyclingMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="GraphDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraphDetail.Designer.cs">
+      <DependentUpon>GraphDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="HrData.cs" />
     <Compile Include="HrDataSingle.cs" />
     <Compile Include="Marker.cs" />
@@ -107,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EnterHR.resx">
       <DependentUpon>EnterHR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphDetail.resx">
+      <DependentUpon>GraphDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
