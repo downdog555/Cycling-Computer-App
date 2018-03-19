@@ -597,15 +597,25 @@ namespace CyclingApp
 
             foreach (Marker m in intervalList)
             {
-                YAxis endMarker = new YAxis("");
-                endMarker.Color = Color.Red;
-                endMarker.Scale.IsVisible = false;
-                endMarker.MajorTic.IsAllTics = false;
-                endMarker.MinorTic.IsAllTics = false;
-                endMarker.Cross = m.Max;
-                endMarker.MajorTic.PenWidth = 2;
+                Console.WriteLine("Marker start: "+m.Min+" Marker End: "+m.Max+" Marker Colour: "+m.C.ToString());
+                YAxis startMarker1 = new YAxis("");
+                startMarker1.Color = m.C;
+                startMarker1.Scale.IsVisible = false;
+                startMarker1.MajorTic.IsAllTics = false;
+                startMarker1.MinorTic.IsAllTics = false;
+                startMarker1.Cross = m.Min;
+                startMarker1.MajorTic.PenWidth = 2;
 
-                graph.YAxisList.Add(endMarker);
+                YAxis endMarker1 = new YAxis("");
+                endMarker1.Color = m.C;
+                endMarker1.Scale.IsVisible = false;
+                endMarker1.MajorTic.IsAllTics = false;
+                endMarker1.MinorTic.IsAllTics = false;
+                endMarker1.Cross = m.Max;
+                endMarker1.MajorTic.PenWidth = 2;
+
+                graph.YAxisList.Add(startMarker1);
+                graph.YAxisList.Add(endMarker1);
             }
 
 
@@ -1079,10 +1089,17 @@ namespace CyclingApp
             //we need to create the lines
             int past = 0;
             bool first = true;
+            bool start = false;
+            bool markerDone = false;
+            Marker intervalMarker = new Marker();
             XDate date = new XDate(2018, 10, 10, 0, 0, 0);
             foreach (HrDataSingle data in hrdata.DataEuro)
             {
-                
+                if (markerDone)
+                {
+                    intervalMarker = new Marker();
+                    markerDone = false;
+                }
                 if (first)
                 {
                     past = data.Power;
@@ -1091,42 +1108,72 @@ namespace CyclingApp
                 else
                 {
                     int diff = 0;
-                    if (past < data.Power)
+                    diff = past - data.Power;
+                   
+                    if (diff >= 0)
                     {
-                        diff = data.Power - past;
+                        if (data.Power <= (past / 1.5) && start)
+                        {
+
+                            Console.WriteLine("Difference = " + diff);
+                            //means we have marker
+                            Console.WriteLine("end found");
+                            //create list of interval markers
+                           
+                            Console.WriteLine("Date double: " + date);
+                           // m.Min = (double)date;
+                            intervalMarker.Max = (double)date;
+                            //intervalList.Add(m);
+                            start = false;
+                            markerDone = true;
+
+
+                        }
                     }
                     else
                     {
-                        diff = past - data.Power;
-                    }
-                   
-                    if (diff >= DetectionValue )
-                    {
-                       
+                        if (data.Power >= (past * 2) && !start)
+                        {
+
                             Console.WriteLine("Difference = " + diff);
                             //means we have marker
-                            Console.WriteLine("Anomaly found");
+                            Console.WriteLine("start found");
                             //create list of interval markers
-                            Marker m = new Marker();
+                           // Marker m = new Marker();
                             Console.WriteLine("Date double: " + date);
-                            m.Min = (double)date;
-                            m.Max = (double)date;
-                            intervalList.Add(m);
-                        
+                            intervalMarker.Min = (double)date;
                             
-                        
-                        
+                            //intervalList.Add(m);
+
+                            start = true;
+
+
+                        }
                     }
+               
+                   
+                    
                 }
                 date.AddSeconds(Convert.ToInt32(recordingInterval.Text.Split(' ')[0]));
+                if (markerDone)
+                {
+                    intervalMarker.GenColour();
+                    intervalList.Add(intervalMarker);
+                }
             }
-            Console.WriteLine(intervalList.Count);
+            Console.WriteLine("Inteval Marer Count: "+intervalList.Count);
 
 
           
             
             AddGraphs();
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            intervalList.Clear();
+            AddGraphs();
         }
 
         /// <summary>

@@ -20,6 +20,13 @@ namespace CyclingApp
             c = Color.FromArgb(255, rand.Next(255), rand.Next(255), rand.Next(255));
         }
 
+    
+        public void GenColour()
+        {
+            Random rand = new Random();
+            c = Color.FromArgb(255, rand.Next(255), rand.Next(255), rand.Next(255));
+        }
+
         public double Min { get { return min; } set { min = value; } }
         public double Max { get { return max; } set { max = value; } }
         public Color C { get { return c; } set { c = value; } }

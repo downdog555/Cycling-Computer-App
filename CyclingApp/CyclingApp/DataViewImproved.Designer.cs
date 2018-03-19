@@ -51,6 +51,7 @@
             this.ftpLabel = new System.Windows.Forms.Label();
             this.basePanel = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.intervalDetection = new System.Windows.Forms.Button();
             this.powerButton = new System.Windows.Forms.Button();
             this.speedButton = new System.Windows.Forms.Button();
             this.cadenceButton = new System.Windows.Forms.Button();
@@ -74,7 +75,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.intervalDetection = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.rideDetailsBox.SuspendLayout();
             this.enterValues.SuspendLayout();
@@ -317,6 +318,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.intervalDetection);
             this.groupBox2.Controls.Add(this.powerButton);
             this.groupBox2.Controls.Add(this.speedButton);
@@ -330,6 +332,16 @@
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graph Controls";
+            // 
+            // intervalDetection
+            // 
+            this.intervalDetection.Location = new System.Drawing.Point(109, 10);
+            this.intervalDetection.Name = "intervalDetection";
+            this.intervalDetection.Size = new System.Drawing.Size(75, 23);
+            this.intervalDetection.TabIndex = 6;
+            this.intervalDetection.Text = "Detect Intervals";
+            this.intervalDetection.UseVisualStyleBackColor = true;
+            this.intervalDetection.Click += new System.EventHandler(this.intervalDetection_Click);
             // 
             // powerButton
             // 
@@ -567,15 +579,15 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Heart Rate";
             // 
-            // intervalDetection
+            // button1
             // 
-            this.intervalDetection.Location = new System.Drawing.Point(107, 10);
-            this.intervalDetection.Name = "intervalDetection";
-            this.intervalDetection.Size = new System.Drawing.Size(75, 23);
-            this.intervalDetection.TabIndex = 6;
-            this.intervalDetection.Text = "Detect Intervals";
-            this.intervalDetection.UseVisualStyleBackColor = true;
-            this.intervalDetection.Click += new System.EventHandler(this.intervalDetection_Click);
+            this.button1.Location = new System.Drawing.Point(190, 10);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Remove Intervals";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // DataViewImproved
             // 
@@ -655,5 +667,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label altitudeLabel;
         private System.Windows.Forms.Button intervalDetection;
+        private System.Windows.Forms.Button button1;
     }
 }
