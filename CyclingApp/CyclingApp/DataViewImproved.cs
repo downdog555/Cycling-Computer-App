@@ -618,14 +618,19 @@ namespace CyclingApp
                 graph.YAxisList.Add(endMarker1);
             }
 
-
+            userIntervalsFlow.Controls.Clear();
             Console.WriteLine("Marker list count" + MarkerList.Count);
             if (MarkerList.Count > 0)
             {
                 Random rand = new Random();
                 //we need to draw the markers if we have them 
-                foreach (Marker marker in MarkerList)
+                for(int i = 0; i < MarkerList.Count;i++)
                 {
+                    Marker marker = MarkerList.ElementAt(i);
+                    XDate start = new XDate(marker.Min);
+                    XDate endTime = new XDate(marker.Max);
+                    UserMarkerControl u = new UserMarkerControl(i,this,start.DateTime, endTime.DateTime);
+                    userIntervalsFlow.Controls.Add(u);
                    
                     YAxis startMarker = new YAxis("");
                     startMarker.Color = marker.C;
@@ -1168,6 +1173,12 @@ namespace CyclingApp
             
             AddGraphs();
             
+        }
+
+        public void RemoveUserSelection(int index)
+        {
+            MarkerList.RemoveAt(index);
+            AddGraphs();
         }
 
         private void button1_Click(object sender, EventArgs e)

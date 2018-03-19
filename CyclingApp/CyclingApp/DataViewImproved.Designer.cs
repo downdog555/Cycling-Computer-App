@@ -76,6 +76,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.userIntervalsFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1.SuspendLayout();
             this.rideDetailsBox.SuspendLayout();
             this.enterValues.SuspendLayout();
@@ -84,6 +86,7 @@
             this.summaryPanel.SuspendLayout();
             this.fullDataPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // hrCheckBox
@@ -303,6 +306,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.basePanel.AutoScroll = true;
+            this.basePanel.Controls.Add(this.groupBox3);
             this.basePanel.Controls.Add(this.groupBox2);
             this.basePanel.Controls.Add(this.summaryPanel);
             this.basePanel.Controls.Add(this.fullDataPanel);
@@ -461,9 +465,9 @@
             // 
             // intervalsBox
             // 
-            this.intervalsBox.Location = new System.Drawing.Point(1582, 478);
+            this.intervalsBox.Location = new System.Drawing.Point(1582, 657);
             this.intervalsBox.Name = "intervalsBox";
-            this.intervalsBox.Size = new System.Drawing.Size(318, 396);
+            this.intervalsBox.Size = new System.Drawing.Size(318, 217);
             this.intervalsBox.TabIndex = 11;
             this.intervalsBox.TabStop = false;
             this.intervalsBox.Text = "Intevals";
@@ -589,6 +593,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.userIntervalsFlow);
+            this.groupBox3.Location = new System.Drawing.Point(1582, 473);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(318, 178);
+            this.groupBox3.TabIndex = 16;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "User Intervals";
+            // 
+            // userIntervalsFlow
+            // 
+            this.userIntervalsFlow.Location = new System.Drawing.Point(7, 20);
+            this.userIntervalsFlow.Name = "userIntervalsFlow";
+            this.userIntervalsFlow.Size = new System.Drawing.Size(305, 152);
+            this.userIntervalsFlow.TabIndex = 0;
+            // 
             // DataViewImproved
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -613,6 +634,7 @@
             this.fullDataPanel.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -668,5 +690,7 @@
         private System.Windows.Forms.Label altitudeLabel;
         private System.Windows.Forms.Button intervalDetection;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.FlowLayoutPanel userIntervalsFlow;
     }
 }
