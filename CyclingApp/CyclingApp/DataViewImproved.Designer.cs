@@ -64,6 +64,8 @@
             this.graphPanel = new System.Windows.Forms.GroupBox();
             this.intervalsBox = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.altitudeLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.hrLabel = new System.Windows.Forms.Label();
             this.powerLabel = new System.Windows.Forms.Label();
             this.speedLabel = new System.Windows.Forms.Label();
@@ -72,8 +74,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.altitudeLabel = new System.Windows.Forms.Label();
+            this.intervalDetection = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.rideDetailsBox.SuspendLayout();
             this.enterValues.SuspendLayout();
@@ -316,6 +317,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.intervalDetection);
             this.groupBox2.Controls.Add(this.powerButton);
             this.groupBox2.Controls.Add(this.speedButton);
             this.groupBox2.Controls.Add(this.cadenceButton);
@@ -475,6 +477,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sensors";
             // 
+            // altitudeLabel
+            // 
+            this.altitudeLabel.AutoSize = true;
+            this.altitudeLabel.Location = new System.Drawing.Point(106, 72);
+            this.altitudeLabel.Name = "altitudeLabel";
+            this.altitudeLabel.Size = new System.Drawing.Size(79, 13);
+            this.altitudeLabel.TabIndex = 9;
+            this.altitudeLabel.Text = "Length Of Ride";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 72);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Altitude:";
+            // 
             // hrLabel
             // 
             this.hrLabel.AutoSize = true;
@@ -547,23 +567,15 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Heart Rate";
             // 
-            // label1
+            // intervalDetection
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 72);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Altitude:";
-            // 
-            // altitudeLabel
-            // 
-            this.altitudeLabel.AutoSize = true;
-            this.altitudeLabel.Location = new System.Drawing.Point(106, 72);
-            this.altitudeLabel.Name = "altitudeLabel";
-            this.altitudeLabel.Size = new System.Drawing.Size(79, 13);
-            this.altitudeLabel.TabIndex = 9;
-            this.altitudeLabel.Text = "Length Of Ride";
+            this.intervalDetection.Location = new System.Drawing.Point(107, 10);
+            this.intervalDetection.Name = "intervalDetection";
+            this.intervalDetection.Size = new System.Drawing.Size(75, 23);
+            this.intervalDetection.TabIndex = 6;
+            this.intervalDetection.Text = "Detect Intervals";
+            this.intervalDetection.UseVisualStyleBackColor = true;
+            this.intervalDetection.Click += new System.EventHandler(this.intervalDetection_Click);
             // 
             // DataViewImproved
             // 
@@ -642,5 +654,6 @@
         private System.Windows.Forms.RichTextBox summaryDataBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label altitudeLabel;
+        private System.Windows.Forms.Button intervalDetection;
     }
 }

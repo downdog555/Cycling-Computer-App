@@ -31,6 +31,7 @@ namespace CyclingApp
         private ZedGraphControl graphControl;
         private double currentXState = 0;
         private List<Marker> MarkerList;
+        private List<Marker> intervalList;
 
         /// <summary>
         /// constructor for the data view
@@ -46,6 +47,7 @@ namespace CyclingApp
             InitializeComponent();
             graphHr = true;
             MarkerList = new List<Marker>();
+            intervalList = new List<Marker>();
             if (smode.Power)
             {
                 graphPower = true;
@@ -592,6 +594,21 @@ namespace CyclingApp
            // graphControl.ZoomModifierKeys = Keys.Control;
             graph.AxisChangeEvent += new GraphPane.AxisChangeEventHandler(GetSummaryBetweenValue);
             currentXState = graph.XAxis.Scale.Min;
+
+            foreach (Marker m in intervalList)
+            {
+                YAxis endMarker = new YAxis("");
+                endMarker.Color = Color.Red;
+                endMarker.Scale.IsVisible = false;
+                endMarker.MajorTic.IsAllTics = false;
+                endMarker.MinorTic.IsAllTics = false;
+                endMarker.Cross = m.Max;
+                endMarker.MajorTic.PenWidth = 2;
+
+                graph.YAxisList.Add(endMarker);
+            }
+
+
             Console.WriteLine("Marker list count" + MarkerList.Count);
             if (MarkerList.Count > 0)
             {
@@ -1048,6 +1065,68 @@ namespace CyclingApp
         private void summaryDataBox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Called when interval detection button is called
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void intervalDetection_Click(object sender, EventArgs e)
+        {
+            intervalList.Clear();
+            int DetectionValue = 100;
+            //we need to create the lines
+            int past = 0;
+            bool first = true;
+            XDate date = new XDate(2018, 10, 10, 0, 0, 0);
+            foreach (HrDataSingle data in hrdata.DataEuro)
+            {
+                
+                if (first)
+                {
+                    past = data.Power;
+                    first = false;
+                }
+                else
+                {
+                    int diff = 0;
+                    if (past < data.Power)
+                    {
+                        diff = data.Power - past;
+                    }
+                    else
+                    {
+                        diff = past - data.Power;
+                    }
+                   
+                    if (diff >= DetectionValue )
+                    {
+                       
+                            Console.WriteLine("Difference = " + diff);
+                            //means we have marker
+                            Console.WriteLine("Anomaly found");
+                            //create list of interval markers
+                            Marker m = new Marker();
+                            Console.WriteLine("Date double: " + date);
+                            m.Min = (double)date;
+                            m.Max = (double)date;
+                            intervalList.Add(m);
+                        
+                            
+                        
+                        
+                    }
+                }
+                date.AddSeconds(Convert.ToInt32(recordingInterval.Text.Split(' ')[0]));
+            }
+            Console.WriteLine(intervalList.Count);
+
+
+          
+            
+            AddGraphs();
+            
         }
 
         /// <summary>
