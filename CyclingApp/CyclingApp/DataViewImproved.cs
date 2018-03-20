@@ -1138,7 +1138,7 @@ namespace CyclingApp
                     }
                     else
                     {
-                        if (data.Power >= (past2 +(past2/2)) && !start && data.Power > DetectionValue)
+                        if (data.Power >= (past2 +(past2/4)) && !start && data.Power > DetectionValue)
                         {
 
                             Console.WriteLine("Difference = " + diff);
