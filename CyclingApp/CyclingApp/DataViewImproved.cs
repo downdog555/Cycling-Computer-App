@@ -1090,9 +1090,9 @@ namespace CyclingApp
         private void intervalDetection_Click(object sender, EventArgs e)
         {
             intervalList.Clear();
-            int DetectionValue = 100;
+            int DetectionValue = 110;
             //we need to create the lines
-            int past = 0;
+            int past2 = 0;
             bool first = true;
             bool start = false;
             bool markerDone = false;
@@ -1107,17 +1107,17 @@ namespace CyclingApp
                 }
                 if (first)
                 {
-                    past = data.Power;
+                    past2 = data.Power;
                     first = false;
                 }
                 else
                 {
                     int diff = 0;
-                    diff = past - data.Power;
+                    diff = past2 - data.Power;
                    
                     if (diff >= 0)
                     {
-                        if (data.Power <= (past / 1.5) && start)
+                        if (data.Power <= (past2 - (past2 / 3 )) && start)
                         {
 
                             Console.WriteLine("Difference = " + diff);
@@ -1127,6 +1127,7 @@ namespace CyclingApp
                            
                             Console.WriteLine("Date double: " + date);
                            // m.Min = (double)date;
+                           
                             intervalMarker.Max = (double)date;
                             //intervalList.Add(m);
                             start = false;
@@ -1137,7 +1138,7 @@ namespace CyclingApp
                     }
                     else
                     {
-                        if (data.Power >= (past * 2) && !start)
+                        if (data.Power >= (past2 +(past2/2)) && !start && data.Power > DetectionValue)
                         {
 
                             Console.WriteLine("Difference = " + diff);
@@ -1146,7 +1147,9 @@ namespace CyclingApp
                             //create list of interval markers
                            // Marker m = new Marker();
                             Console.WriteLine("Date double: " + date);
-                            intervalMarker.Min = (double)date;
+                            XDate temp = new XDate(date);
+                            temp.AddSeconds(-1);
+                            intervalMarker.Min = (double)temp;
                             
                             //intervalList.Add(m);
 
@@ -1165,6 +1168,7 @@ namespace CyclingApp
                     intervalMarker.GenColour();
                     intervalList.Add(intervalMarker);
                 }
+                past2 = data.Power;
             }
             Console.WriteLine("Inteval Marer Count: "+intervalList.Count);
 
