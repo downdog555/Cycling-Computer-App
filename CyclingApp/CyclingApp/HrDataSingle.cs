@@ -99,11 +99,11 @@ namespace CyclingApp
                 }
                 else if (smode.Power && !smode.Speed && smode.Altitude && !smode.Cadence)
                 {
-                    power = Convert.ToInt32(data.ElementAt(3));
+                    power = Convert.ToInt32(data.ElementAt(2));
                 }
                 else if (smode.Power && !smode.Speed && !smode.Altitude && smode.Cadence)
                 {
-                    power = Convert.ToInt32(data.ElementAt(3));
+                    power = Convert.ToInt32(data.ElementAt(2));
                 }
                 else if (smode.Power && !smode.Speed && smode.Altitude && smode.Cadence)
                 {
@@ -114,8 +114,17 @@ namespace CyclingApp
 
                 if (smode.PowerLeftRightBalance && smode.Power && smode.Speed && smode.Altitude && smode.Cadence)
                 {
-                    pbPedInd = data.ElementAt(5);
-                    GetPBIndex();
+                    try
+                    {
+                        pbPedInd = data.ElementAt(5);
+                        GetPBIndex();
+                    }
+                    catch (Exception e)
+                    {
+                        smode.PowerLeftRightBalance = false;
+                        smode.PowerPedallingIndex = false;
+                    }
+                    
                 }
                 else if (smode.PowerLeftRightBalance && smode.Power && !smode.Speed && !smode.Altitude && !smode.Cadence)
                 {

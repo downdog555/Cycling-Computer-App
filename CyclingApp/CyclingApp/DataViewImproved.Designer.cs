@@ -50,7 +50,10 @@
             this.ftpValue = new System.Windows.Forms.Label();
             this.ftpLabel = new System.Windows.Forms.Label();
             this.basePanel = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.userIntervalsFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.intervalDetection = new System.Windows.Forms.Button();
             this.powerButton = new System.Windows.Forms.Button();
             this.speedButton = new System.Windows.Forms.Button();
@@ -75,18 +78,15 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.userIntervalsFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1.SuspendLayout();
             this.rideDetailsBox.SuspendLayout();
             this.enterValues.SuspendLayout();
             this.basePanel.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.summaryPanel.SuspendLayout();
             this.fullDataPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // hrCheckBox
@@ -320,6 +320,26 @@
             this.basePanel.Size = new System.Drawing.Size(1911, 886);
             this.basePanel.TabIndex = 10;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.userIntervalsFlow);
+            this.groupBox3.Location = new System.Drawing.Point(1582, 473);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(318, 178);
+            this.groupBox3.TabIndex = 16;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "User Intervals";
+            // 
+            // userIntervalsFlow
+            // 
+            this.userIntervalsFlow.AutoScroll = true;
+            this.userIntervalsFlow.Location = new System.Drawing.Point(7, 20);
+            this.userIntervalsFlow.Name = "userIntervalsFlow";
+            this.userIntervalsFlow.Size = new System.Drawing.Size(305, 152);
+            this.userIntervalsFlow.TabIndex = 0;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.button1);
@@ -336,6 +356,16 @@
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graph Controls";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(190, 10);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Remove Intervals";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // intervalDetection
             // 
@@ -465,6 +495,8 @@
             // 
             // intervalsBox
             // 
+            this.intervalsBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.intervalsBox.Location = new System.Drawing.Point(1582, 657);
             this.intervalsBox.Name = "intervalsBox";
             this.intervalsBox.Size = new System.Drawing.Size(318, 217);
@@ -583,33 +615,6 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Heart Rate";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(190, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Remove Intervals";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.userIntervalsFlow);
-            this.groupBox3.Location = new System.Drawing.Point(1582, 473);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(318, 178);
-            this.groupBox3.TabIndex = 16;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "User Intervals";
-            // 
-            // userIntervalsFlow
-            // 
-            this.userIntervalsFlow.Location = new System.Drawing.Point(7, 20);
-            this.userIntervalsFlow.Name = "userIntervalsFlow";
-            this.userIntervalsFlow.Size = new System.Drawing.Size(305, 152);
-            this.userIntervalsFlow.TabIndex = 0;
-            // 
             // DataViewImproved
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -629,12 +634,12 @@
             this.enterValues.ResumeLayout(false);
             this.enterValues.PerformLayout();
             this.basePanel.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.summaryPanel.ResumeLayout(false);
             this.fullDataPanel.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

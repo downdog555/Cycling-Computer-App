@@ -22,8 +22,8 @@ namespace CyclingApp
             this.dv = dv;
             this.start = start;
             this.end = end;
-            startTime.Text = start.ToShortTimeString();
-            endTime.Text = end.ToShortTimeString();
+            startTime.Text = start.ToLongTimeString();
+            endTime.Text = end.ToLongTimeString();
         }
 
         private void remove_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -32,9 +32,14 @@ namespace CyclingApp
             
         }
 
+        /// <summary>
+        /// called when the view summary is called
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            dv.GetAndLoadSummary(start, end);
         }
     }
 }

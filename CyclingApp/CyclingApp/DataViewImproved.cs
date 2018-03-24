@@ -299,6 +299,21 @@ namespace CyclingApp
 
         }
 
+        public void GetAndLoadSummary(DateTime start, DateTime end)
+        {
+            
+            Dictionary<string, string>[] summary = polar.GetSummaryDataTimeSpecificed(start, end, polar.GetUnit());
+            if (!selectedUnit)
+
+            {
+                AddSummaryData(summary[0], false);
+            }
+            else
+            {
+                AddSummaryData(summary[1], true);
+            }
+        }
+
         public void AddGraphs()
         {
             //we need to update the graph to show  all values
@@ -385,9 +400,11 @@ namespace CyclingApp
                     pointHR = new PointPair((double)xdate, data.HeartRate);
                 }
 
-                xdate.AddSeconds(1);
+                xdate.AddSeconds(Convert.ToInt32(recordingInterval.Text.Split(' ')[0]));
                     hr.Add(pointHR);
             }
+            //Console.WriteLine(xdate.DateTime.ToLongTimeString());
+           // Console.WriteLine(power.Count);
             graph.YAxisList.Clear();
             graph.Y2AxisList.Clear();
             if (graphHr)
@@ -597,7 +614,7 @@ namespace CyclingApp
 
             foreach (Marker m in intervalList)
             {
-                Console.WriteLine("Marker start: "+m.Min+" Marker End: "+m.Max+" Marker Colour: "+m.C.ToString());
+                //Console.WriteLine("Marker start: "+m.Min+" Marker End: "+m.Max+" Marker Colour: "+m.C.ToString());
                 YAxis startMarker1 = new YAxis("");
                 startMarker1.Color = m.C;
                 startMarker1.Scale.IsVisible = false;
@@ -619,7 +636,7 @@ namespace CyclingApp
             }
 
             userIntervalsFlow.Controls.Clear();
-            Console.WriteLine("Marker list count" + MarkerList.Count);
+            //Console.WriteLine("Marker list count" + MarkerList.Count);
             if (MarkerList.Count > 0)
             {
                 Random rand = new Random();
@@ -1092,14 +1109,23 @@ namespace CyclingApp
             intervalList.Clear();
             int DetectionValue = 110;
             //we need to create the lines
-            int past2 = 0;
+            HrDataSingle past2=new HrDataSingle() ;
             bool first = true;
             bool start = false;
             bool markerDone = false;
+            int averageHR = 0;
+            foreach (KeyValuePair<string, string> keyData in summaryDataEuro)
+            {
+                if (keyData.Key.Equals("Average Heart Rate"))
+                {
+                    averageHR = Convert.ToInt32(keyData.Value);
+                }
+            }
             Marker intervalMarker = new Marker();
             XDate date = new XDate(2018, 10, 10, 0, 0, 0);
-            foreach (HrDataSingle data in hrdata.DataEuro)
+            for (int x=0;x<hrdata.DataEuro.Count;x++)
             {
+                HrDataSingle data = hrdata.DataEuro.ElementAt(x);
                 if (markerDone)
                 {
                     intervalMarker = new Marker();
@@ -1107,53 +1133,63 @@ namespace CyclingApp
                 }
                 if (first)
                 {
-                    past2 = data.Power;
+                    past2 = data;
                     first = false;
                 }
                 else
                 {
                     int diff = 0;
-                    diff = past2 - data.Power;
+                    diff = past2.Power - data.Power;
                    
                     if (diff >= 0)
                     {
-                        if (data.Power <= (past2 - (past2 / 3 )) && start)
+                        if ( start )
                         {
+                            int hrDiff = past2.HeartRate - data.HeartRate;
+                            if ( data.Power <= (past2.Power - (past2.Power / 6)) )
+                            {
+                                Console.WriteLine("Difference = " + diff);
+                                //means we have marker
+                                Console.WriteLine("end found");
+                                //create list of interval markers
 
-                            Console.WriteLine("Difference = " + diff);
-                            //means we have marker
-                            Console.WriteLine("end found");
-                            //create list of interval markers
+                                Console.WriteLine("Date double: " + date);
+                                // m.Min = (double)date;
+
+                                intervalMarker.Max = (double)date;
+                                //intervalList.Add(m);
+                                start = false;
+                                markerDone = true;
+                            }
                            
-                            Console.WriteLine("Date double: " + date);
-                           // m.Min = (double)date;
-                           
-                            intervalMarker.Max = (double)date;
-                            //intervalList.Add(m);
-                            start = false;
-                            markerDone = true;
 
 
                         }
                     }
                     else
                     {
-                        if (data.Power >= (past2 +(past2/4)) && !start && data.Power > DetectionValue)
+                        if ( !start )
                         {
+                            int hrDiff = past2.HeartRate - data.HeartRate;
+                            Console.WriteLine("Average HR: "+averageHR);
+                            if (  (data.HeartRate > past2.HeartRate && data.HeartRate >= averageHR-(((float)averageHR/100 *19))) && (data.Power >= (past2.Power + (past2.Power / 4)) && data.Power > 100) )
+                            {
+                                Console.WriteLine("Difference = " + diff);
+                                //means we have marker
+                                Console.WriteLine("start found");
+                                //create list of interval markers
+                                // Marker m = new Marker();
+                                Console.WriteLine("Date double: " + date);
+                                XDate temp = new XDate(date);
+                                temp.AddSeconds(-1);
+                                intervalMarker.Min = (double)temp;
 
-                            Console.WriteLine("Difference = " + diff);
-                            //means we have marker
-                            Console.WriteLine("start found");
-                            //create list of interval markers
-                           // Marker m = new Marker();
-                            Console.WriteLine("Date double: " + date);
-                            XDate temp = new XDate(date);
-                            temp.AddSeconds(-1);
-                            intervalMarker.Min = (double)temp;
-                            
-                            //intervalList.Add(m);
+                                //intervalList.Add(m);
 
-                            start = true;
+                                start = true;
+
+                            }
+
 
 
                         }
@@ -1168,7 +1204,7 @@ namespace CyclingApp
                     intervalMarker.GenColour();
                     intervalList.Add(intervalMarker);
                 }
-                past2 = data.Power;
+                past2 = data;
             }
             Console.WriteLine("Inteval Marer Count: "+intervalList.Count);
 

@@ -87,7 +87,7 @@ namespace CyclingApp
             DateTime temp = new DateTime(start.Year, start.Month, start.Day, 0, 0, 0);
             TimeSpan startTime = new TimeSpan(start.Hour, start.Minute, start.Second);
             TimeSpan endTime = new TimeSpan(end.Hour, end.Minute, end.Second);
-            int endPostion = (int)endTime.TotalSeconds-1;
+            int endPostion = (int)(endTime.TotalSeconds/interval)-1;
             int startPosition = (int)startTime.TotalSeconds ;
             startPosition = (startPosition / interval)-1;
             if (startPosition < 0)
@@ -99,7 +99,7 @@ namespace CyclingApp
 
             for (int x = startPosition; x <= (endPostion);x++)
             {
-                Console.WriteLine(""+x);
+                //Console.WriteLine(""+x);
                 if (!smode.Unit)
                 {
                     tempData.Add(hrDataExtended.DataEuro.ElementAt(x));
@@ -442,9 +442,16 @@ namespace CyclingApp
 
         private double GetMaxAltitude(List<HrDataSingle> dataList)
         {
-            double maxAlt = 0;
+            double maxAlt = 0; ;
+            bool first = true;
             foreach (HrDataSingle data in dataList)
             {
+                if (first)
+                {
+                    first = false;
+                    maxAlt = data.Altitude;
+                    continue;
+                }
                 if (maxAlt < data.Altitude)
                 {
                     maxAlt = data.Altitude;
@@ -651,62 +658,186 @@ namespace CyclingApp
                     bool parameters, note, intTime, intNotes, extraData, lapName, summary123, summaryTh, hrZone, swapTime, trip, hrData;
                     parameters = note = intTime = intNotes = extraData = lapName = summary123 = summaryTh = hrZone = swapTime = trip = hrData = false;
                     string line;
-
+                    
                     //Console.WriteLine("We are meme 1");
                     // Read and display lines from the file until 
                     // the end of the file is reached. 
                     while ((line = sr.ReadLine()) != null)
                     {
-                       // Console.WriteLine("We are reading data");
-
+                        // Console.WriteLine("We are reading data");
+                        if (line.Equals(""))
+                        {
+                            continue;
+                        }
                         switch (line)
                         {
                             case "[Params]":
                                 parameters = true;
+                                note = false;
+                                intTime = false;
+                                intNotes = false;
+                                extraData = false;
+                                lapName = false;
+                                summary123 = false;
+                                summaryTh = false;
+                                hrZone = false;
+                                swapTime = false;
+                                trip = false;
+                                hrData = false;
                                 break;
                             case "[Note]":
-                                note = true;
                                 parameters = false;
+                                note = true;
+                                intTime = false;
+                                intNotes = false;
+                                extraData = false;
+                                lapName = false;
+                                summary123 = false;
+                                summaryTh = false;
+                                hrZone = false;
+                                swapTime = false;
+                                trip = false;
+                                hrData = false;
                                 break;
                             case "[IntTimes]":
-                                intTime = true;
+                                parameters = false;
                                 note = false;
+                                intTime = true;
+                                intNotes = false;
+                                extraData = false;
+                                lapName = false;
+                                summary123 = false;
+                                summaryTh = false;
+                                hrZone = false;
+                                swapTime = false;
+                                trip = false;
+                                hrData = false;
                                 break;
                             case "[IntNotes]":
-                                intNotes = true;
+                                parameters = false;
+                                note = false;
                                 intTime = false;
+                                intNotes = true;
+                                extraData = false;
+                                lapName = false;
+                                summary123 = false;
+                                summaryTh = false;
+                                hrZone = false;
+                                swapTime = false;
+                                trip = false;
+                                hrData = false;
                                 break;
                             case "[ExtraData]":
-                                extraData = true;
+                                parameters = false;
+                                note = false;
+                                intTime = false;
                                 intNotes = false;
+                                extraData = true;
+                                lapName = false;
+                                summary123 = false;
+                                summaryTh = false;
+                                hrZone = false;
+                                swapTime = false;
+                                trip = false;
+                                hrData = false;
                                 break;
                             case "[LapNames]":
-                                lapName = true;
+                                parameters = false;
+                                note = false;
+                                intTime = false;
+                                intNotes = false;
                                 extraData = false;
+                                lapName = true;
+                                summary123 = false;
+                                summaryTh = false;
+                                hrZone = false;
+                                swapTime = false;
+                                trip = false;
+                                hrData = false;
                                 break;
                             case "[Summary-123]":
-                                summary123 = true;
+                                parameters = false;
+                                note = false;
+                                intTime = false;
+                                intNotes = false;
+                                extraData = false;
                                 lapName = false;
+                                summary123 = true;
+                                summaryTh = false;
+                                hrZone = false;
+                                swapTime = false;
+                                trip = false;
+                                hrData = false;
                                 break;
                             case "[Summary-TH]":
-                                summaryTh = true;
+                                parameters = false;
+                                note = false;
+                                intTime = false;
+                                intNotes = false;
+                                extraData = false;
+                                lapName = false;
                                 summary123 = false;
+                                summaryTh = true;
+                                hrZone = false;
+                                swapTime = false;
+                                trip = false;
+                                hrData = false;
                                 break;
                             case "[HRZones]":
-                                hrZone = true;
+                                parameters = false;
+                                note = false;
+                                intTime = false;
+                                intNotes = false;
+                                extraData = false;
+                                lapName = false;
+                                summary123 = false;
                                 summaryTh = false;
+                                hrZone = true;
+                                swapTime = false;
+                                trip = false;
+                                hrData = false;
                                 break;
                             case "[SwapTimes]":
-                                swapTime = true;
+                                parameters = false;
+                                note = false;
+                                intTime = false;
+                                intNotes = false;
+                                extraData = false;
+                                lapName = false;
+                                summary123 = false;
+                                summaryTh = false;
                                 hrZone = false;
+                                swapTime = true;
+                                trip = false;
+                                hrData = false;
                                 break;
                             case "[Trip]":
-                                trip = true;
+                                parameters = false;
+                                note = false;
+                                intTime = false;
+                                intNotes = false;
+                                extraData = false;
+                                lapName = false;
+                                summary123 = false;
+                                summaryTh = false;
+                                hrZone = false;
                                 swapTime = false;
+                                trip = true;
+                                hrData = false;
                                 break;
                             case "[HRData]":
-                                hrData = true;
+                                parameters = false;
+                                note = false;
+                                intTime = false;
+                                intNotes = false;
+                                extraData = false;
+                                lapName = false;
+                                summary123 = false;
+                                summaryTh = false;
+                                hrZone = false;
+                                swapTime = false;
                                 trip = false;
+                                hrData = true;
                                 break;
                         }
                         if (parameters)
@@ -772,6 +903,7 @@ namespace CyclingApp
             //Console.WriteLine("We are meme 2");
             //we need to separate the data out futher
             //Console.WriteLine(parametersList.ElementAt(1));
+
             version = Convert.ToInt32(parametersList.ElementAt(1).Split('=')[1]);
             monitor = GetMonitorType(parametersList.ElementAt(2));
             if (version <= 105)

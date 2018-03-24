@@ -39,7 +39,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(333, 4);
+            this.linkLabel1.Location = new System.Drawing.Point(117, 17);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(102, 13);
             this.linkLabel1.TabIndex = 0;
@@ -86,7 +86,7 @@
             // remove
             // 
             this.remove.AutoSize = true;
-            this.remove.Location = new System.Drawing.Point(244, 4);
+            this.remove.Location = new System.Drawing.Point(3, 17);
             this.remove.Name = "remove";
             this.remove.Size = new System.Drawing.Size(83, 13);
             this.remove.TabIndex = 6;
@@ -105,7 +105,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.linkLabel1);
             this.Name = "UserMarkerControl";
-            this.Size = new System.Drawing.Size(435, 25);
+            this.Size = new System.Drawing.Size(229, 41);
             this.ResumeLayout(false);
             this.PerformLayout();
 

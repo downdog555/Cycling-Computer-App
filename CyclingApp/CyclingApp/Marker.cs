@@ -7,11 +7,20 @@ using System.Drawing;
 
 namespace CyclingApp
 {
+    /// <summary>
+    /// Struct that represents a marker
+    /// has a staring and end point of a double as that can be converetd to a XDate
+    /// </summary>
     struct Marker
     {
         private double min, max;
         private Color c;
 
+        /// <summary>
+        /// Constructor for the marker, generates a random colour
+        /// </summary>
+        /// <param name="min">starting value for the marker where it will cross the x axis</param>
+        /// <param name="max">ending value for the marker where it will cross the y axis</param>
        public Marker(double min, double max)
         {
             this.min = min;
@@ -21,6 +30,10 @@ namespace CyclingApp
         }
 
     
+        /// <summary>
+        /// Method used to genereate a colour
+        /// specifcally used when blank constructor used
+        /// </summary>
         public void GenColour()
         {
             Random rand = new Random();
