@@ -33,6 +33,8 @@ namespace CyclingApp
         private double currentXState = 0;
         private List<Marker> MarkerList;
         private List<Marker> intervalList;
+        private HrDataSingle[] dataEuroBackup = null;
+        private HrDataSingle[] dataUSBackup = null;
 
         /// <summary>
         /// constructor for the data view
@@ -1231,9 +1233,10 @@ namespace CyclingApp
         private void smoothing_Click(object sender, EventArgs e)
         {
             //first take copy of current data etc
-            if (hrDataBeforeSmooth == null)
+            if (dataEuroBackup == null && dataUSBackup == null)
             {
-                hrDataBeforeSmooth = hrdata;
+                dataEuroBackup = hrdata.DataEuro.ToArray();
+                dataUSBackup = hrdata.DataUS.ToArray();
             }
             int windowSize = 0;
             //we can then apply the smooth
@@ -1243,7 +1246,7 @@ namespace CyclingApp
             }
             catch (Exception e1)
             {
-                Console.WriteLine("Value enteredd not valid");
+                MessageBox.Show("Error","Value entered for smoothing is not valid, please enter an integer value",MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -1255,6 +1258,7 @@ namespace CyclingApp
         {
             Console.WriteLine("We are here");
            /// HrData newData = hrdata;
+           /// //we convert to array so we can acutally edit the proper values, cannot do that as foreach and list, or even index at as it is a copy
             HrDataSingle[] dataEuro = hrdata.DataEuro.ToArray();
             HrDataSingle[] dataUS = hrdata.DataUS.ToArray();
            // newData.DataEuro.Clear();
@@ -1303,10 +1307,23 @@ namespace CyclingApp
                 //newData.DataEuro.Add(tempeuro);
                 //newData.DataUS.Add(tempus);
             }
+            //convert back to list from array
             hrdata.DataEuro = dataEuro.ToList();
             hrdata.DataUS = dataUS.ToList();
             AddFullData();
             
+            AddGraphs();
+        }
+
+        private void removeSmooth_Click(object sender, EventArgs e)
+        {
+            hrdata.DataEuro = dataEuroBackup.ToList();
+            hrdata.DataUS = dataUSBackup.ToList();
+            dataEuroBackup = null;
+            dataUSBackup = null; 
+
+            AddFullData();
+
             AddGraphs();
         }
 

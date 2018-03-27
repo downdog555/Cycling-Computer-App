@@ -53,6 +53,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.userIntervalsFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.windowSizeEntry = new System.Windows.Forms.TextBox();
+            this.smoothing = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.intervalDetection = new System.Windows.Forms.Button();
             this.powerButton = new System.Windows.Forms.Button();
@@ -78,8 +80,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.smoothing = new System.Windows.Forms.Button();
-            this.windowSizeEntry = new System.Windows.Forms.TextBox();
+            this.removeSmooth = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.rideDetailsBox.SuspendLayout();
             this.enterValues.SuspendLayout();
@@ -344,6 +345,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.removeSmooth);
             this.groupBox2.Controls.Add(this.windowSizeEntry);
             this.groupBox2.Controls.Add(this.smoothing);
             this.groupBox2.Controls.Add(this.button1);
@@ -360,6 +362,23 @@
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graph Controls";
+            // 
+            // windowSizeEntry
+            // 
+            this.windowSizeEntry.Location = new System.Drawing.Point(504, 9);
+            this.windowSizeEntry.Name = "windowSizeEntry";
+            this.windowSizeEntry.Size = new System.Drawing.Size(45, 20);
+            this.windowSizeEntry.TabIndex = 9;
+            // 
+            // smoothing
+            // 
+            this.smoothing.Location = new System.Drawing.Point(376, 6);
+            this.smoothing.Name = "smoothing";
+            this.smoothing.Size = new System.Drawing.Size(122, 23);
+            this.smoothing.TabIndex = 8;
+            this.smoothing.Text = "Apply Smoothing";
+            this.smoothing.UseVisualStyleBackColor = true;
+            this.smoothing.Click += new System.EventHandler(this.smoothing_Click);
             // 
             // button1
             // 
@@ -619,22 +638,15 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Heart Rate";
             // 
-            // smoothing
+            // removeSmooth
             // 
-            this.smoothing.Location = new System.Drawing.Point(376, 9);
-            this.smoothing.Name = "smoothing";
-            this.smoothing.Size = new System.Drawing.Size(122, 23);
-            this.smoothing.TabIndex = 8;
-            this.smoothing.Text = "Apply Smoothing";
-            this.smoothing.UseVisualStyleBackColor = true;
-            this.smoothing.Click += new System.EventHandler(this.smoothing_Click);
-            // 
-            // windowSizeEntry
-            // 
-            this.windowSizeEntry.Location = new System.Drawing.Point(504, 9);
-            this.windowSizeEntry.Name = "windowSizeEntry";
-            this.windowSizeEntry.Size = new System.Drawing.Size(45, 20);
-            this.windowSizeEntry.TabIndex = 9;
+            this.removeSmooth.Location = new System.Drawing.Point(555, 6);
+            this.removeSmooth.Name = "removeSmooth";
+            this.removeSmooth.Size = new System.Drawing.Size(118, 23);
+            this.removeSmooth.TabIndex = 10;
+            this.removeSmooth.Text = "Remove Smoothing";
+            this.removeSmooth.UseVisualStyleBackColor = true;
+            this.removeSmooth.Click += new System.EventHandler(this.removeSmooth_Click);
             // 
             // DataViewImproved
             // 
@@ -721,5 +733,6 @@
         private System.Windows.Forms.FlowLayoutPanel userIntervalsFlow;
         private System.Windows.Forms.TextBox windowSizeEntry;
         private System.Windows.Forms.Button smoothing;
+        private System.Windows.Forms.Button removeSmooth;
     }
 }
