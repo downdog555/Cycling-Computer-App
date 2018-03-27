@@ -19,6 +19,7 @@ namespace CyclingApp
         private bool selectedUnit;
         private Polar polar;
         private HrData hrdata;
+        private HrData hrDataBeforeSmooth = null;
         private Smode smode;
         private bool percentFTP, percentHR;
         private Dictionary<string, string> summaryDataUS, summaryDataEuro;
@@ -1224,6 +1225,88 @@ namespace CyclingApp
         private void button1_Click(object sender, EventArgs e)
         {
             intervalList.Clear();
+            AddGraphs();
+        }
+
+        private void smoothing_Click(object sender, EventArgs e)
+        {
+            //first take copy of current data etc
+            if (hrDataBeforeSmooth == null)
+            {
+                hrDataBeforeSmooth = hrdata;
+            }
+            int windowSize = 0;
+            //we can then apply the smooth
+            try
+            {
+                 windowSize = Convert.ToInt32(windowSizeEntry.Text);
+            }
+            catch (Exception e1)
+            {
+                Console.WriteLine("Value enteredd not valid");
+                return;
+            }
+
+            ApplySmooth(windowSize);
+
+        }
+
+        private void ApplySmooth(int windowSize)
+        {
+            Console.WriteLine("We are here");
+           /// HrData newData = hrdata;
+            HrDataSingle[] dataEuro = hrdata.DataEuro.ToArray();
+            HrDataSingle[] dataUS = hrdata.DataUS.ToArray();
+           // newData.DataEuro.Clear();
+           // newData.DataUS.Clear();
+            for (int i = 0; i< hrdata.DataEuro.Count;i++)
+            {
+                //we need another loop for window size counter etc
+                int x = 0;
+                //declare the values first
+                double powerUS, powerEuro;
+                double heartRate;
+                powerUS = powerEuro = heartRate = 0;
+                while (x < windowSize)
+                {
+
+                    try
+                    {
+                        powerEuro =powerEuro + hrdata.DataEuro.ElementAt(i+x).Power;
+                        powerUS = powerUS + hrdata.DataUS.ElementAt(i + x).Power;
+                        heartRate = heartRate + hrdata.DataEuro.ElementAt(i+x).HeartRate;
+
+                        x += 1;
+                    }
+                    catch (Exception e)
+                    {
+                        //means we have gone our of range
+                        //we can just exit out of loop 
+                        break;
+                    }
+
+
+                   
+                }
+                powerEuro = powerEuro / x;
+                powerUS = powerUS / x;
+                heartRate = heartRate / x;
+                Console.WriteLine("Indext: "+i+" Power: "+powerEuro+" HeartRate: "+heartRate);
+                //HrDataSingle tempeuro =  hrdata.DataEuro.ElementAt(i);
+               // HrDataSingle tempus = hrdata.DataUS.ElementAt(i);
+                
+                dataEuro[i].Power = (int)powerEuro;
+               dataUS[i].Power = (int)powerUS;
+                dataEuro[i].HeartRate = (int)heartRate;
+                dataUS[i].HeartRate = (int)heartRate;
+
+                //newData.DataEuro.Add(tempeuro);
+                //newData.DataUS.Add(tempus);
+            }
+            hrdata.DataEuro = dataEuro.ToList();
+            hrdata.DataUS = dataUS.ToList();
+            AddFullData();
+            
             AddGraphs();
         }
 

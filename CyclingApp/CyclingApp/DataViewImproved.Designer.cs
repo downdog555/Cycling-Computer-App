@@ -78,6 +78,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.smoothing = new System.Windows.Forms.Button();
+            this.windowSizeEntry = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.rideDetailsBox.SuspendLayout();
             this.enterValues.SuspendLayout();
@@ -342,6 +344,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.windowSizeEntry);
+            this.groupBox2.Controls.Add(this.smoothing);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.intervalDetection);
             this.groupBox2.Controls.Add(this.powerButton);
@@ -615,6 +619,23 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Heart Rate";
             // 
+            // smoothing
+            // 
+            this.smoothing.Location = new System.Drawing.Point(376, 9);
+            this.smoothing.Name = "smoothing";
+            this.smoothing.Size = new System.Drawing.Size(122, 23);
+            this.smoothing.TabIndex = 8;
+            this.smoothing.Text = "Apply Smoothing";
+            this.smoothing.UseVisualStyleBackColor = true;
+            this.smoothing.Click += new System.EventHandler(this.smoothing_Click);
+            // 
+            // windowSizeEntry
+            // 
+            this.windowSizeEntry.Location = new System.Drawing.Point(504, 9);
+            this.windowSizeEntry.Name = "windowSizeEntry";
+            this.windowSizeEntry.Size = new System.Drawing.Size(45, 20);
+            this.windowSizeEntry.TabIndex = 9;
+            // 
             // DataViewImproved
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -636,6 +657,7 @@
             this.basePanel.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.summaryPanel.ResumeLayout(false);
             this.fullDataPanel.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -697,5 +719,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.FlowLayoutPanel userIntervalsFlow;
+        private System.Windows.Forms.TextBox windowSizeEntry;
+        private System.Windows.Forms.Button smoothing;
     }
 }

@@ -307,10 +307,10 @@ namespace CyclingApp
             
         }
 
-        public int HeartRate { get { return heartRate; } }
+        public int HeartRate { get { return heartRate; } set { heartRate = value; } }
         public int Cadence { get { return cadence; } }
         public int Altitude { get { return altitude; } }
-        public int Power { get { return power; } }
+        public int Power { get { return power; } set { power = value; } }
         public int AirPressure { get { return airPressure; } }
         public string PbPedInd { get { return pbPedInd; } }
         public double Speed { get { return speed; } }
