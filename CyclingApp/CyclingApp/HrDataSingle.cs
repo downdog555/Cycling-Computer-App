@@ -22,6 +22,14 @@ namespace CyclingApp
         private double speed;
         private Smode smode;
 
+        /// <summary>
+        /// Constructor for this calss
+        /// </summary>
+        /// <param name="data">list of the hr data to be used</param>
+        /// <param name="version">version of the file</param>
+        /// <param name="smode">SMODE of the current file</param>
+        /// <param name="cadAlt">cad alt if provided, defaults to 46</param>
+        /// <param name="pbPed">if not supplied set to null</param>
         public HrDataSingle(List<string> data, int version, Smode smode ,int cadAlt = 46, string pbPed = null)
         {
             this.powerBalance = "";
@@ -279,6 +287,9 @@ namespace CyclingApp
             }
         }
 
+        /// <summary>
+        /// used to get the power balance and index
+        /// </summary>
         private void GetPBIndex()
         {
             string binary = "";

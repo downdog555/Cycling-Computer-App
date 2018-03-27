@@ -14,6 +14,12 @@ namespace CyclingApp
     {
         private CyclingMain cyclingMain;
         private int hr;
+
+        /// <summary>
+        /// constructor for entering the max heart rate
+        /// </summary>
+        /// <param name="cymain">refreence back to the intial entry point so we can update values</param>
+        /// <param name="hr">value for the heart rate, defaults to zero if one is not provided</param>
         public EnterHR(CyclingMain cymain, int hr = 0)
         {
             InitializeComponent();
@@ -22,6 +28,11 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// called when the submit button is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ftpSubmitButton_Click(object sender, EventArgs e)
         {
             try

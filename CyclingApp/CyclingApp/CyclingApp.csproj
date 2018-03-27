@@ -53,12 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="DataView.Designer.cs">
-      <DependentUpon>DataView.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataViewImproved.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -84,12 +78,6 @@
     <Compile Include="CyclingMain.Designer.cs">
       <DependentUpon>CyclingMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="GraphDetail.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GraphDetail.Designer.cs">
-      <DependentUpon>GraphDetail.cs</DependentUpon>
-    </Compile>
     <Compile Include="HrData.cs" />
     <Compile Include="HrDataSingle.cs" />
     <Compile Include="Marker.cs" />
@@ -108,9 +96,6 @@
     <EmbeddedResource Include="CyclingMain.resx">
       <DependentUpon>CyclingMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataView.resx">
-      <DependentUpon>DataView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DataViewImproved.resx">
       <DependentUpon>DataViewImproved.cs</DependentUpon>
     </EmbeddedResource>
@@ -119,9 +104,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EnterHR.resx">
       <DependentUpon>EnterHR.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GraphDetail.resx">
-      <DependentUpon>GraphDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

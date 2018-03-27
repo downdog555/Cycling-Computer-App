@@ -26,7 +26,7 @@ namespace CyclingApp
         private double ftp;
         private int MaxHR;
         private CyclingMain cyclingMain;
-        private GraphDetail hrDetail;
+
         private bool graphHr, graphPower, graphCadence, graphSpeed, graphAltitude;
         private GraphPane graph;
         private ZedGraphControl graphControl;
@@ -95,7 +95,7 @@ namespace CyclingApp
                 altitudeButton.Hide();
                 altitudeLabel.Text = "Offline";
             }
-            hrDetail = new GraphDetail();
+            
 
             this.cyclingMain = cym;
             this.ftp = 1;
@@ -302,6 +302,11 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// function used when summary data is wanted for a specific start and end time
+        /// </summary>
+        /// <param name="start">start time for data selection</param>
+        /// <param name="end">end time for data selection</param>
         public void GetAndLoadSummary(DateTime start, DateTime end)
         {
             
@@ -317,6 +322,9 @@ namespace CyclingApp
             }
         }
 
+        /// <summary>
+        /// function called to add the graphs to the current data view
+        /// </summary>
         public void AddGraphs()
         {
             //we need to update the graph to show  all values
@@ -610,7 +618,7 @@ namespace CyclingApp
 
             graphPanel.Controls.Add(graphControl);
             graphControl.ZoomEvent += new ZedGraphControl.ZoomEventHandler(graphZoom);
-            graphControl.DoubleClickEvent += new ZedGraphControl.ZedMouseEventHandler(GraphDoubleClick);
+            
            // graphControl.ZoomModifierKeys = Keys.Control;
             graph.AxisChangeEvent += new GraphPane.AxisChangeEventHandler(GetSummaryBetweenValue);
             currentXState = graph.XAxis.Scale.Min;
@@ -675,17 +683,15 @@ namespace CyclingApp
 
         }
 
-        private bool GraphDoubleClick(ZedGraphControl sender, MouseEventArgs e)
-        {
-            Console.WriteLine("Mouse was : "+e.Location);
-           
-
-            return true;
-        }
-        private void graphZoomBefore(ZedGraphControl sender)
-        {
-
-        }
+        
+       
+       /// <summary>
+       /// Function called when the graph is zoomed
+       /// is also used to apply markers, seeing if control is pressed
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="oldState"></param>
+       /// <param name="newState"></param>
         private void graphZoom(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
         {
             //we need to check to see if modifer key has been pressed if so that means we want to select so zoom and then undo the zoom
@@ -782,19 +788,10 @@ namespace CyclingApp
           //  Console.WriteLine("End: "+end);
         }
 
-        private void HrControl_Click(object sender, EventArgs e)
-        {
-            if (!hrDetail.Visible)
-            {
-                hrDetail.SetGraphType("hr");
-                hrDetail.Show();
-            }
-            else
-            {
-                hrDetail.BringToFront();
-            }
-        }
-
+     
+        /// <summary>
+        /// Adds the full set of data to the control
+        /// </summary>
         public void AddFullData()
         {
             fullDataFlow.Controls.Clear();
@@ -1218,18 +1215,32 @@ namespace CyclingApp
             
         }
 
+        /// <summary>
+        /// function called to remove a user added marker
+        /// </summary>
+        /// <param name="index"></param>
         public void RemoveUserSelection(int index)
         {
             MarkerList.RemoveAt(index);
             AddGraphs();
         }
 
+        /// <summary>
+        /// called when button is clicked, remvoes the markers added by the interval detection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             intervalList.Clear();
             AddGraphs();
         }
 
+        /// <summary>
+        /// function called when apply smoothing button is called
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void smoothing_Click(object sender, EventArgs e)
         {
             //first take copy of current data etc
@@ -1254,6 +1265,10 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// called after the event function to actually apply the smoothing
+        /// </summary>
+        /// <param name="windowSize"></param>
         private void ApplySmooth(int windowSize)
         {
             Console.WriteLine("We are here");
@@ -1315,16 +1330,25 @@ namespace CyclingApp
             AddGraphs();
         }
 
+        /// <summary>
+        /// function called when the remove smoothing button is pressed reverst back to data used initally.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void removeSmooth_Click(object sender, EventArgs e)
         {
-            hrdata.DataEuro = dataEuroBackup.ToList();
-            hrdata.DataUS = dataUSBackup.ToList();
-            dataEuroBackup = null;
-            dataUSBackup = null; 
+            if (dataEuroBackup != null && dataUSBackup != null)
+            {
+                hrdata.DataEuro = dataEuroBackup.ToList();
+                hrdata.DataUS = dataUSBackup.ToList();
+                dataEuroBackup = null;
+                dataUSBackup = null;
 
-            AddFullData();
+                AddFullData();
 
-            AddGraphs();
+                AddGraphs();
+            }
+      
         }
 
         /// <summary>

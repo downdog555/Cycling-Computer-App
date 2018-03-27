@@ -12,14 +12,26 @@ namespace CyclingApp
 {
     public partial class CyclingMain : Form
     {
-      
+      /// <summary>
+      /// polar used to reference the polar reader
+      /// </summary>
         private Polar polar = new Polar();
+        /// <summary>
+        /// FTP of the user once entered
+        /// </summary>
         private double ftp;
+        /// <summary>
+        /// max  heart rate once entered
+        /// </summary>
         private int maxHr;
-        DataView dw;
+        /// <summary>
+        /// Data view used to display and furhter process datra
+        /// </summary>
         DataViewImproved dw1;
 
-
+        /// <summary>
+        /// Constructor for this class
+        /// </summary>
         public CyclingMain()
         {
             InitializeComponent();
@@ -45,7 +57,11 @@ namespace CyclingApp
         }
 
        
-
+        /// <summary>
+        /// Event called when ok is pressed on the fileopendialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FileOk(object sender, CancelEventArgs e)
         {
 
@@ -68,6 +84,10 @@ namespace CyclingApp
    
             }
         }
+        /// <summary>
+        /// used to set the ftp values
+        /// </summary>
+        /// <param name="ftp">ftp that has been entered</param>
         public void SetFTP(double ftp)
         {
             this.ftp = ftp;
@@ -75,12 +95,22 @@ namespace CyclingApp
 
 
         }
+        /// <summary>
+        /// used to set the heart rate
+        /// </summary>
+        /// <param name="hr">heart rate entered</param>
         public void SetHR(int hr)
         {
 
             this.maxHr = hr;
             dw1.SetMaxHR(hr);
         }
+
+        /// <summary>
+        /// event called when ftpmenu is clicked in turn opening the form to enter the value
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void ftpMenu_Click(object sender, EventArgs e)
         {
             if (dw1 != null)
@@ -97,6 +127,11 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// event called when the enter heart rate button is called, in turn opening the form 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void enterMaximumHeartRateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dw1 != null)

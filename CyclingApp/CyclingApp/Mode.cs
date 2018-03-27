@@ -15,6 +15,11 @@ namespace CyclingApp
         private bool unit, ccData;
         private int cadAltInt;
 
+        /// <summary>
+        /// constructor for this class
+        /// used when file has mode not SMODE
+        /// </summary>
+        /// <param name="values"></param>
         public Mode(string values)
         {
             char[] valueChar = values.ToCharArray();

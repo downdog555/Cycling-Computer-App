@@ -15,6 +15,14 @@ namespace CyclingApp
         private List<HrDataSingle> dataUS;
         private Smode smode;
 
+        /// <summary>
+        /// constructor for the data from the cycle
+        /// </summary>
+        /// <param name="dataType">false for euro units, true for US</param>
+        /// <param name="version">version of the file</param>
+        /// <param name="rawData">list of the raw HR data</param>
+        /// <param name="smode">the SMODE for the currnet file</param>
+        /// <param name="cadAlt">Cad aLt if need for an earlier file, defaults to 46 if not provied</param>
         public HrData(Boolean dataType, int version, List<string> rawData, Smode smode ,int cadAlt = 46)
         {
             this.smode = smode;
@@ -92,8 +100,13 @@ namespace CyclingApp
             }
 
         }
-
+        /// <summary>
+        /// getters and setters for data us
+        /// </summary>
         public List<HrDataSingle> DataUS { get { return dataUS; } set { dataUS = value; } }
+        /// <summary>
+        /// getters and setters for data euro
+        /// </summary>
         public List<HrDataSingle> DataEuro { get { return dataEuro; } set { dataEuro = value; } }
     }
 }

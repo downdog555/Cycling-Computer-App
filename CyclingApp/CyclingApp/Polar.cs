@@ -67,6 +67,13 @@ namespace CyclingApp
             return dataStore.Smode;
         }
 
+        /// <summary>
+        /// used to pass data to polar reader to get the summary data
+        /// </summary>
+        /// <param name="start">start time</param>
+        /// <param name="end">end time</param>
+        /// <param name="unit">requird unit</param>
+        /// <returns></returns>
         public Dictionary<string, string>[] GetSummaryDataTimeSpecificed(DateTime start, DateTime end, bool unit)
         {
             Console.WriteLine("We are getting data from polar");

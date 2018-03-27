@@ -460,6 +460,8 @@ namespace CyclingApp
 
             return maxAlt;
         }
+
+
         public List<string> GetRideInfo()
         {
             return rideInfo;
@@ -634,6 +636,10 @@ namespace CyclingApp
             SeparateData();
         }
 
+        /// <summary>
+        /// flips the date as it is in incorrect format when supplied
+        /// </summary>
+        /// <returns>date in correct format</returns>
         public string FlipDate()
         {
             string newDate = "";
@@ -647,6 +653,9 @@ namespace CyclingApp
             return newDate;
         }
 
+        /// <summary>
+        /// function called to separate the data
+        /// </summary>
         public void SeparateData()
         {
            // Console.WriteLine("We are in separeate data");
