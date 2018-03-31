@@ -26,6 +26,9 @@ namespace CyclingApp
         private double ftp;
         private int MaxHR;
         private CyclingMain cyclingMain;
+        private double IntensityFactor;
+        private int NormalisedPower;
+        private double TSS;
 
         private bool graphHr, graphPower, graphCadence, graphSpeed, graphAltitude;
         private GraphPane graph;
@@ -180,6 +183,8 @@ namespace CyclingApp
         /// <param name="unitType">the unit that it represents</param>
         public void AddSummaryData(Dictionary<string, string> data, bool unitType)
         {
+
+            GetAdvancedMetrics();
             //summaryPanel.Controls.Clear();
             summaryDataBox.Text = "";
             string distanceUnit, speedUnit, distanceSmallUnit;
@@ -194,14 +199,14 @@ namespace CyclingApp
             List<string> valuesToBeInserted = new List<string>();
             foreach (KeyValuePair<string, string> value in data)
             {
-                
+
 
                 if (value.Key.Equals("Average Heart Rate"))
                 {
                     if (percentHR)
                     {
-                      
-                       
+
+
                         double percent = Math.Round((Convert.ToDouble(value.Value.Split(' ')[0]) / MaxHR) * 100, 2);
                         summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + percent + "%\n";
                         valuesToBeInserted.Add("" + percent);
@@ -224,7 +229,7 @@ namespace CyclingApp
                     }
                     else
                     {
-                       // grid.Columns.Add(value.Key, value.Key + "(BPM)");
+                        // grid.Columns.Add(value.Key, value.Key + "(BPM)");
                         //MaxHR = Convert.ToInt32(value.Value);
                         maxHRValue.Text = "" + MaxHR;
                         summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + value.Value + "\n";
@@ -280,6 +285,11 @@ namespace CyclingApp
                         valuesToBeInserted.Add(value.Value);
                     }
                 }
+                else if (value.Key.Equals("NormalisedPower"))
+                {
+                    NormalisedPower = Convert.ToInt32(value.Value.Split(' ')[0]);
+                    summaryDataBox.Text = summaryDataBox.Text + value.Key + ": " + value.Value + "\n";
+                }
                 else
                 {
                     grid.Columns.Add(value.Key, value.Key);
@@ -309,8 +319,14 @@ namespace CyclingApp
         /// <param name="end">end time for data selection</param>
         public void GetAndLoadSummary(DateTime start, DateTime end)
         {
+    
             
             Dictionary<string, string>[] summary = polar.GetSummaryDataTimeSpecificed(start, end, polar.GetUnit());
+            if (smode.Power)
+            {
+                NormalisedPower = Convert.ToInt32(summary[0].ElementAt(summary[0].Count - 1).Value.Split(' ')[0]);
+            }
+            
             if (!selectedUnit)
 
             {
@@ -320,6 +336,25 @@ namespace CyclingApp
             {
                 AddSummaryData(summary[1], true);
             }
+
+            //we then need to do similar for the advanced metrics
+            //calc list etc
+            //we need  to do same on inital load we could do it in get summary data time specifed
+            GetAdvancedMetrics();
+        }
+
+        private void GetAdvancedMetrics()
+        {
+            IntensityFactor = polar.GetIF(NormalisedPower, (int)ftp);
+
+            //we can then calculate the TSS
+            Console.WriteLine("IF is :"+IntensityFactor);
+            //we need the number of seconds in the ride
+            DateTime startTemp = new DateTime(0,0,0,0,0,0);
+            DateTime tempDateToGetSec = new DateTime(0, 0, 0, Convert.ToInt32(lengthOfRide.Text.Split('/')[0]), Convert.ToInt32(lengthOfRide.Text.Split('/')[1]), Convert.ToInt32(lengthOfRide.Text.Split('/')[2]));
+            TimeSpan t = tempDateToGetSec - startTemp;
+            TSS = ((t.TotalSeconds * NormalisedPower * IntensityFactor )/(ftp*3600)*100);
+            Console.WriteLine("TSS = "+TSS);
         }
 
         /// <summary>

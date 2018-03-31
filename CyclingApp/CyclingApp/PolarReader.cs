@@ -301,11 +301,75 @@ namespace CyclingApp
 
 
             }
+            //advanced metrics/normalised power
+            if (smode.Power)
+            {
+                //we then can calc, we have the temp data
+                int normPower = GetNormalisedPower(tempData);
+                sumEuro.Add("NormalisedPower",""+normPower+" W");
+                sumUS.Add("NormalisedPower", "" + normPower + " W");
+
+            }
 
              Dictionary<string, string>[] returnData = { sumEuro, sumUS};
             return returnData;
         }
 
+        private int GetNormalisedPower(List<HrDataSingle> dataList)
+        {
+            /**
+             * 1. Starting at the beginning of the data and calculating a 30-second rolling average for power;        
+
+                2. Raising the values obtained in step 1 to the fourth power;        
+
+                3. Taking the average of all the values obtained in step 2; and        
+
+                4. Taking the fourth root of the number obtained in step 3. This is Normalized Power.
+            **/
+            List<double> averages = new List<double>();
+            try
+            {
+                for (int i = 0; i < dataList.Count; i++)
+                {
+                    double tempPower = 0;
+                    for (int x = 0; x < 30; x++)
+                    {
+                        tempPower = tempPower + dataList.ElementAt(x + i).Power;
+
+                    }
+                    tempPower = tempPower / 30;
+                    averages.Add(tempPower);
+
+                }
+
+            }
+            catch (Exception e)
+            {
+
+            }
+
+
+            //convert list to array
+            double[] averageInt = averages.ToArray();
+
+            //raise to power of 4
+            for (int i = 0; i < averageInt.Length;i++)
+            {
+                averageInt[i] = Math.Pow( averageInt[i], 4);
+            }
+
+            //take avaerage
+            double averagePower = 0;
+            for (int i = 0; i < averageInt.Length; i++)
+            {
+                averagePower = averagePower + averageInt[i];
+            }
+            averagePower = averagePower / averageInt.Length;
+
+            double root = Math.Pow(averagePower, ((double)1/4));
+            Console.WriteLine(""+root);
+            return (int)root;
+        }
 
         /// <summary>
         /// Used to calculate the total distance traveled
@@ -372,6 +436,22 @@ namespace CyclingApp
             }
             return maxHeartRate;
         }
+
+        /// <summary>
+        /// used to calculate and pass back the Intensity Factor
+        /// </summary>
+        /// <param name="np">normalised power</param>
+        /// <param name="ftp">Functional Threshold Power</param>
+        /// <returns>intesity factor as percentage</returns>
+        public double GetIF(double np, int ftp)
+        {
+            double IF = 0;
+
+            IF = (np / ftp)*100;
+
+            return IF;
+        }
+
         private int GetAverageHeartRate(List<HrDataSingle> dataList)
         {
             int averageHeartRate = 0;
@@ -400,14 +480,14 @@ namespace CyclingApp
 
         private int GetAveragePower(List<HrDataSingle> dataList)
         {
-            int PowerAverage = 0;
+            double PowerAverage = 0;
             foreach (HrDataSingle data in dataList)
             {
                 PowerAverage = PowerAverage + data.Power;
             }
             PowerAverage = PowerAverage / dataList.Count;
 
-            return PowerAverage;
+            return (int)PowerAverage;
         }
 
         private int GetMaxPower(List<HrDataSingle> dataList)
@@ -461,7 +541,10 @@ namespace CyclingApp
             return maxAlt;
         }
 
-
+        /// <summary>
+        /// Used to Pass The Ride Info Higher up
+        /// </summary>
+        /// <returns>list of strings with ride info</returns>
         public List<string> GetRideInfo()
         {
             return rideInfo;
@@ -1151,6 +1234,16 @@ namespace CyclingApp
                
                 
                
+            }
+
+            //advanced metrics/normalised power
+            if (smode.Power)
+            {
+                //we then can calc, we have the temp data
+                int normPower = GetNormalisedPower(hrDataExtended.DataEuro);
+                summaryEuro.Add("NormalisedPower", "" + normPower + " W");
+                SummaryUS.Add("NormalisedPower", "" + normPower + " W");
+
             }
 
 

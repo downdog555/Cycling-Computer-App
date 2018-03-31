@@ -68,6 +68,17 @@ namespace CyclingApp
         }
 
         /// <summary>
+        /// used to get and calc the Intensity Factor
+        /// </summary>
+        /// <param name="np"></param>
+        /// <param name="ftp"></param>
+        /// <returns></returns>
+        public double GetIF(double np, int ftp)
+        {
+            return dataStore.GetIF(np,ftp);
+        }
+
+        /// <summary>
         /// used to pass data to polar reader to get the summary data
         /// </summary>
         /// <param name="start">start time</param>
