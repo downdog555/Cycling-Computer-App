@@ -53,6 +53,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.userIntervalsFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.removeSmooth = new System.Windows.Forms.Button();
             this.windowSizeEntry = new System.Windows.Forms.TextBox();
             this.smoothing = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -80,7 +81,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.removeSmooth = new System.Windows.Forms.Button();
+            this.ifLab = new System.Windows.Forms.Label();
+            this.TSSLabel = new System.Windows.Forms.Label();
+            this.tssData = new System.Windows.Forms.Label();
+            this.ifData = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.rideDetailsBox.SuspendLayout();
             this.enterValues.SuspendLayout();
@@ -363,6 +367,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graph Controls";
             // 
+            // removeSmooth
+            // 
+            this.removeSmooth.Location = new System.Drawing.Point(555, 6);
+            this.removeSmooth.Name = "removeSmooth";
+            this.removeSmooth.Size = new System.Drawing.Size(118, 23);
+            this.removeSmooth.TabIndex = 10;
+            this.removeSmooth.Text = "Remove Smoothing";
+            this.removeSmooth.UseVisualStyleBackColor = true;
+            this.removeSmooth.Click += new System.EventHandler(this.removeSmooth_Click);
+            // 
             // windowSizeEntry
             // 
             this.windowSizeEntry.Location = new System.Drawing.Point(504, 9);
@@ -464,6 +478,10 @@
             // 
             this.summaryPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.summaryPanel.Controls.Add(this.ifData);
+            this.summaryPanel.Controls.Add(this.tssData);
+            this.summaryPanel.Controls.Add(this.TSSLabel);
+            this.summaryPanel.Controls.Add(this.ifLab);
             this.summaryPanel.Controls.Add(this.summaryDataBox);
             this.summaryPanel.Location = new System.Drawing.Point(1583, 264);
             this.summaryPanel.Name = "summaryPanel";
@@ -480,7 +498,7 @@
             this.summaryDataBox.Location = new System.Drawing.Point(9, 20);
             this.summaryDataBox.Name = "summaryDataBox";
             this.summaryDataBox.ReadOnly = true;
-            this.summaryDataBox.Size = new System.Drawing.Size(302, 182);
+            this.summaryDataBox.Size = new System.Drawing.Size(302, 124);
             this.summaryDataBox.TabIndex = 0;
             this.summaryDataBox.Text = "";
             this.summaryDataBox.TextChanged += new System.EventHandler(this.summaryDataBox_TextChanged);
@@ -638,15 +656,41 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Heart Rate";
             // 
-            // removeSmooth
+            // ifLab
             // 
-            this.removeSmooth.Location = new System.Drawing.Point(555, 6);
-            this.removeSmooth.Name = "removeSmooth";
-            this.removeSmooth.Size = new System.Drawing.Size(118, 23);
-            this.removeSmooth.TabIndex = 10;
-            this.removeSmooth.Text = "Remove Smoothing";
-            this.removeSmooth.UseVisualStyleBackColor = true;
-            this.removeSmooth.Click += new System.EventHandler(this.removeSmooth_Click);
+            this.ifLab.AutoSize = true;
+            this.ifLab.Location = new System.Drawing.Point(6, 151);
+            this.ifLab.Name = "ifLab";
+            this.ifLab.Size = new System.Drawing.Size(82, 13);
+            this.ifLab.TabIndex = 1;
+            this.ifLab.Text = "Intensity Factor:";
+            // 
+            // TSSLabel
+            // 
+            this.TSSLabel.AutoSize = true;
+            this.TSSLabel.Location = new System.Drawing.Point(6, 170);
+            this.TSSLabel.Name = "TSSLabel";
+            this.TSSLabel.Size = new System.Drawing.Size(111, 13);
+            this.TSSLabel.TabIndex = 2;
+            this.TSSLabel.Text = "Training Stress Score:";
+            // 
+            // tssData
+            // 
+            this.tssData.AutoSize = true;
+            this.tssData.Location = new System.Drawing.Point(123, 170);
+            this.tssData.Name = "tssData";
+            this.tssData.Size = new System.Drawing.Size(35, 13);
+            this.tssData.TabIndex = 3;
+            this.tssData.Text = "label2";
+            // 
+            // ifData
+            // 
+            this.ifData.AutoSize = true;
+            this.ifData.Location = new System.Drawing.Point(123, 150);
+            this.ifData.Name = "ifData";
+            this.ifData.Size = new System.Drawing.Size(35, 13);
+            this.ifData.TabIndex = 4;
+            this.ifData.Text = "label2";
             // 
             // DataViewImproved
             // 
@@ -671,6 +715,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.summaryPanel.ResumeLayout(false);
+            this.summaryPanel.PerformLayout();
             this.fullDataPanel.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -734,5 +779,9 @@
         private System.Windows.Forms.TextBox windowSizeEntry;
         private System.Windows.Forms.Button smoothing;
         private System.Windows.Forms.Button removeSmooth;
+        private System.Windows.Forms.Label ifData;
+        private System.Windows.Forms.Label tssData;
+        private System.Windows.Forms.Label TSSLabel;
+        private System.Windows.Forms.Label ifLab;
     }
 }

@@ -350,11 +350,18 @@ namespace CyclingApp
             //we can then calculate the TSS
             Console.WriteLine("IF is :"+IntensityFactor);
             //we need the number of seconds in the ride
-            DateTime startTemp = new DateTime(0,0,0,0,0,0);
-            DateTime tempDateToGetSec = new DateTime(0, 0, 0, Convert.ToInt32(lengthOfRide.Text.Split('/')[0]), Convert.ToInt32(lengthOfRide.Text.Split('/')[1]), Convert.ToInt32(lengthOfRide.Text.Split('/')[2]));
+            string temp = lengthOfRide.Text;
+            int lengthH = Convert.ToInt32(lengthOfRide.Text.Split(':')[0]);
+            int lengthM = Convert.ToInt32(lengthOfRide.Text.Split(':')[1]);
+            int lengthS = (int)Convert.ToDouble(lengthOfRide.Text.Split(':')[2]);
+            DateTime startTemp = new DateTime(2018,10,10,0,0,0);
+            DateTime tempDateToGetSec = new DateTime(2018, 10, 10, lengthH, lengthM, lengthS);
             TimeSpan t = tempDateToGetSec - startTemp;
             TSS = ((t.TotalSeconds * NormalisedPower * IntensityFactor )/(ftp*3600)*100);
-            Console.WriteLine("TSS = "+TSS);
+             Console.WriteLine("TSS = "+TSS);
+            tssData.Text = Convert.ToString(TSS);
+            ifData.Text = "" + IntensityFactor;
+           
         }
 
         /// <summary>

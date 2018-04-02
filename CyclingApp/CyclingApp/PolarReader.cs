@@ -326,12 +326,12 @@ namespace CyclingApp
 
                 4. Taking the fourth root of the number obtained in step 3. This is Normalized Power.
             **/
-            List<double> averages = new List<double>();
+            List<long> averages = new List<long>();
             try
             {
                 for (int i = 0; i < dataList.Count; i++)
                 {
-                    double tempPower = 0;
+                    long tempPower = 0;
                     for (int x = 0; x < 30; x++)
                     {
                         tempPower = tempPower + dataList.ElementAt(x + i).Power;
@@ -350,23 +350,24 @@ namespace CyclingApp
 
 
             //convert list to array
-            double[] averageInt = averages.ToArray();
+            long[] averageInt = averages.ToArray();
 
             //raise to power of 4
             for (int i = 0; i < averageInt.Length;i++)
             {
-                averageInt[i] = Math.Pow( averageInt[i], 4);
+                averageInt[i] = (long)Math.Pow( (double)averageInt[i], 4);
             }
 
             //take avaerage
-            double averagePower = 0;
+            long averagePower = 0;
             for (int i = 0; i < averageInt.Length; i++)
             {
                 averagePower = averagePower + averageInt[i];
             }
-            averagePower = averagePower / averageInt.Length;
 
-            double root = Math.Pow(averagePower, ((double)1/4));
+            averagePower = averagePower / averageInt.Length;
+            
+            long root = (long)Math.Pow(averagePower, ((double)1/4));
             Console.WriteLine(""+root);
             return (int)root;
         }
