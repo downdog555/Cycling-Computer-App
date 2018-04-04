@@ -93,6 +93,12 @@
     <Compile Include="UserMarkerControl.Designer.cs">
       <DependentUpon>UserMarkerControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserSelectedDataView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserSelectedDataView.Designer.cs">
+      <DependentUpon>UserSelectedDataView.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CyclingMain.resx">
       <DependentUpon>CyclingMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,6 +122,9 @@
     </Compile>
     <EmbeddedResource Include="UserMarkerControl.resx">
       <DependentUpon>UserMarkerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserSelectedDataView.resx">
+      <DependentUpon>UserSelectedDataView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

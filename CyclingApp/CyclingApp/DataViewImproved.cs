@@ -364,6 +364,52 @@ namespace CyclingApp
            
         }
 
+        public List<HrDataSingle> GetListData(DateTime start, DateTime end)
+        {
+            List<HrDataSingle> data = new List<HrDataSingle>();
+            int interval = Convert.ToInt32(recordingInterval.Text.Split(' ')[0]);
+            DateTime zeroPoint = new DateTime(start.Year, start.Month, start.Day,0,0,0);
+            TimeSpan startTime = start - zeroPoint;
+            TimeSpan endTme = end - zeroPoint;
+
+            int startPoint = (int)startTime.TotalSeconds / interval;
+            int endPoint = (int)endTme.TotalSeconds / interval;
+
+
+            Console.WriteLine("Length of data: " + ((endPoint - startPoint)/interval));
+            List<HrDataSingle> allData;
+            if (!selectedUnit)
+            {
+                allData = hrdata.DataEuro;
+            }
+            else
+            {
+
+                allData = hrdata.DataUS;
+            }
+
+            bool startFound = false;
+            for (int i = 0; i < allData.Count; i++)
+            {
+                if (i == startPoint)
+                {
+                    startFound = true;
+                }
+
+                if (startFound)
+                {
+                    data.Add(allData.ElementAt(i));
+                }
+                if (i == endPoint-1)
+                {
+                    break;
+                }
+            }
+
+            return data;
+
+        }
+
         /// <summary>
         /// function called to add the graphs to the current data view
         /// </summary>
@@ -699,7 +745,7 @@ namespace CyclingApp
                     Marker marker = MarkerList.ElementAt(i);
                     XDate start = new XDate(marker.Min);
                     XDate endTime = new XDate(marker.Max);
-                    UserMarkerControl u = new UserMarkerControl(i,this,start.DateTime, endTime.DateTime);
+                    UserMarkerControl u = new UserMarkerControl(i, this, start.DateTime, endTime.DateTime, GetListData(start.DateTime, endTime.DateTime));
                     userIntervalsFlow.Controls.Add(u);
                    
                     YAxis startMarker = new YAxis("");

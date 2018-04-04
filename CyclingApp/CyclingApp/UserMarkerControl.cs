@@ -15,7 +15,8 @@ namespace CyclingApp
         private int markerIndex;
         DataViewImproved dv;
         private DateTime start, end;
-        public UserMarkerControl(int marker, DataViewImproved dv, DateTime start, DateTime end)
+        private List<HrDataSingle> data;
+        public UserMarkerControl(int marker, DataViewImproved dv, DateTime start, DateTime end, List<HrDataSingle> data)
         {
             InitializeComponent();
             this.markerIndex = marker;
@@ -24,6 +25,8 @@ namespace CyclingApp
             this.end = end;
             startTime.Text = start.ToLongTimeString();
             endTime.Text = end.ToLongTimeString();
+            Console.WriteLine("Length of data in marker: "+data.Count);
+            this.data = data;
         }
 
         private void remove_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
