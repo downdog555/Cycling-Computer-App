@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.mainBox = new System.Windows.Forms.GroupBox();
-            this.graphBox = new System.Windows.Forms.GroupBox();
-            this.summaryBox = new System.Windows.Forms.GroupBox();
-            this.splitDataBox = new System.Windows.Forms.GroupBox();
             this.graphControlBox = new System.Windows.Forms.GroupBox();
+            this.splitDataBox = new System.Windows.Forms.GroupBox();
+            this.summaryBox = new System.Windows.Forms.GroupBox();
+            this.graphBox = new System.Windows.Forms.GroupBox();
             this.mainBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,23 +49,14 @@
             this.mainBox.TabStop = false;
             this.mainBox.Text = "User Selection Start:   End:";
             // 
-            // graphBox
+            // graphControlBox
             // 
-            this.graphBox.Location = new System.Drawing.Point(8, 109);
-            this.graphBox.Name = "graphBox";
-            this.graphBox.Size = new System.Drawing.Size(1216, 259);
-            this.graphBox.TabIndex = 0;
-            this.graphBox.TabStop = false;
-            this.graphBox.Text = "Graph";
-            // 
-            // summaryBox
-            // 
-            this.summaryBox.Location = new System.Drawing.Point(8, 375);
-            this.summaryBox.Name = "summaryBox";
-            this.summaryBox.Size = new System.Drawing.Size(1216, 231);
-            this.summaryBox.TabIndex = 1;
-            this.summaryBox.TabStop = false;
-            this.summaryBox.Text = "Summaries";
+            this.graphControlBox.Location = new System.Drawing.Point(8, 70);
+            this.graphControlBox.Name = "graphControlBox";
+            this.graphControlBox.Size = new System.Drawing.Size(1211, 33);
+            this.graphControlBox.TabIndex = 3;
+            this.graphControlBox.TabStop = false;
+            this.graphControlBox.Text = "Graph Control Buttons";
             // 
             // splitDataBox
             // 
@@ -76,14 +67,23 @@
             this.splitDataBox.TabStop = false;
             this.splitDataBox.Text = "Split Buttons";
             // 
-            // graphControlBox
+            // summaryBox
             // 
-            this.graphControlBox.Location = new System.Drawing.Point(8, 70);
-            this.graphControlBox.Name = "graphControlBox";
-            this.graphControlBox.Size = new System.Drawing.Size(1211, 33);
-            this.graphControlBox.TabIndex = 3;
-            this.graphControlBox.TabStop = false;
-            this.graphControlBox.Text = "Graph Control Buttons";
+            this.summaryBox.Location = new System.Drawing.Point(8, 375);
+            this.summaryBox.Name = "summaryBox";
+            this.summaryBox.Size = new System.Drawing.Size(1216, 231);
+            this.summaryBox.TabIndex = 1;
+            this.summaryBox.TabStop = false;
+            this.summaryBox.Text = "Summaries";
+            // 
+            // graphBox
+            // 
+            this.graphBox.Location = new System.Drawing.Point(8, 109);
+            this.graphBox.Name = "graphBox";
+            this.graphBox.Size = new System.Drawing.Size(1216, 259);
+            this.graphBox.TabIndex = 0;
+            this.graphBox.TabStop = false;
+            this.graphBox.Text = "Graph";
             // 
             // UserSelectedDataView
             // 
