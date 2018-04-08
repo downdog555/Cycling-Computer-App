@@ -11,10 +11,12 @@ namespace CyclingApp
     /// Struct that represents a marker
     /// has a staring and end point of a double as that can be converetd to a XDate
     /// </summary>
-    struct Marker
+    public struct Marker
     {
         private double min, max;
         private Color c;
+        private bool drawMarker ;
+        private bool selected;
 
         /// <summary>
         /// Constructor for the marker, generates a random colour
@@ -27,6 +29,8 @@ namespace CyclingApp
             this.max = max;
             Random rand = new Random();
             c = Color.FromArgb(255, rand.Next(255), rand.Next(255), rand.Next(255));
+            drawMarker = true;
+            selected = false;
         }
 
     
@@ -43,5 +47,9 @@ namespace CyclingApp
         public double Min { get { return min; } set { min = value; } }
         public double Max { get { return max; } set { max = value; } }
         public Color C { get { return c; } set { c = value; } }
+
+        public bool DrawMarker { get { return drawMarker; } set { drawMarker = value; } }
+
+        public bool Selected { get { return selected; } set { selected = value; } }
     }
 }

@@ -29,6 +29,7 @@ namespace CyclingApp
         private double IntensityFactor;
         private int NormalisedPower;
         private double TSS;
+        private bool markerSelected;
 
         private List<HrDataSingle>[] selectedDataSet = new List<HrDataSingle>[2];
 
@@ -40,6 +41,11 @@ namespace CyclingApp
         private List<Marker> intervalList;
         private HrDataSingle[] dataEuroBackup = null;
         private HrDataSingle[] dataUSBackup = null;
+
+        public bool MarkerSelected { get { return markerSelected; } set { markerSelected = value; } }
+        public List<Marker> MarkerList1 { get { return MarkerList; } set { MarkerList = value; } }
+
+
 
         /// <summary>
         /// constructor for the data view
@@ -53,6 +59,7 @@ namespace CyclingApp
         public DataViewImproved(bool unitType, HrData hrdata, Smode smode, Polar polar, CyclingMain cym, List<string> rideInfo)
         {
             InitializeComponent();
+            markerSelected = false;
             graphHr = true;
             MarkerList = new List<Marker>();
             intervalList = new List<Marker>();
@@ -313,6 +320,17 @@ namespace CyclingApp
 
         }
 
+        public void SetData(List<HrDataSingle>[] data)
+        {
+            selectedDataSet[0] = data[0];
+            selectedDataSet[1] = data[1];
+            //tjem load graphs etc
+
+            AddFullData();
+            AddGraphs();
+            
+        }
+
         public void loadSummaryOnGraphChange()
         {
 
@@ -370,9 +388,13 @@ namespace CyclingApp
            
         }
 
-        public List<HrDataSingle> GetListData(DateTime start, DateTime end)
+        public List<HrDataSingle>[] GetListData(DateTime start, DateTime end)
         {
-            List<HrDataSingle> data = new List<HrDataSingle>();
+            List<HrDataSingle>[] data = new List<HrDataSingle>[2];
+            List<HrDataSingle> euro = new List<HrDataSingle>();
+            List<HrDataSingle> us = new List<HrDataSingle>();
+
+
             int interval = Convert.ToInt32(recordingInterval.Text.Split(' ')[0]);
             DateTime zeroPoint = new DateTime(start.Year, start.Month, start.Day,0,0,0);
             TimeSpan startTime = start - zeroPoint;
@@ -383,19 +405,11 @@ namespace CyclingApp
 
 
             Console.WriteLine("Length of data: " + ((endPoint - startPoint)/interval));
-            List<HrDataSingle> allData;
-            if (!selectedUnit)
-            {
-                allData = selectedDataSet[0];
-            }
-            else
-            {
-
-                allData = selectedDataSet[1];
-            }
+         
+            
 
             bool startFound = false;
-            for (int i = 0; i < allData.Count; i++)
+            for (int i = 0; i < hrdata.DataEuro.Count; i++)
             {
                 if (i == startPoint)
                 {
@@ -404,14 +418,16 @@ namespace CyclingApp
 
                 if (startFound)
                 {
-                    data.Add(allData.ElementAt(i));
+                    euro.Add(hrdata.DataEuro.ElementAt(i));
+                    us.Add(hrdata.DataUS.ElementAt(i));
                 }
                 if (i == endPoint-1)
                 {
                     break;
                 }
             }
-
+            data[0] = euro;
+            data[1] = us;
             return data;
 
         }
@@ -753,25 +769,50 @@ namespace CyclingApp
                     XDate endTime = new XDate(marker.Max);
                     UserMarkerControl u = new UserMarkerControl(i, this, start.DateTime, endTime.DateTime, GetListData(start.DateTime, endTime.DateTime));
                     userIntervalsFlow.Controls.Add(u);
-                   
-                    YAxis startMarker = new YAxis("");
-                    startMarker.Color = marker.C;
-                    startMarker.Scale.IsVisible = false;
-                    startMarker.MajorTic.IsAllTics = false;
-                    startMarker.MinorTic.IsAllTics = false;
-                    startMarker.MajorTic.PenWidth = 2;
-                    startMarker.Cross = marker.Min;
 
-                    YAxis endMarker = new YAxis("");
-                    endMarker.Color = marker.C;
-                    endMarker.Scale.IsVisible = false;
-                    endMarker.MajorTic.IsAllTics = false;
-                    endMarker.MinorTic.IsAllTics = false;
-                    endMarker.Cross = marker.Max;
-                    endMarker.MajorTic.PenWidth = 2;
+                    if (marker.DrawMarker && !marker.Selected && !MarkerSelected)
+                    {
+                        YAxis startMarker = new YAxis("");
+                        startMarker.Color = marker.C;
+                        startMarker.Scale.IsVisible = false;
+                        startMarker.MajorTic.IsAllTics = false;
+                        startMarker.MinorTic.IsAllTics = false;
+                        startMarker.MajorTic.PenWidth = 2;
+                        startMarker.Cross = marker.Min;
 
-                    graph.YAxisList.Add(startMarker);
-                    graph.YAxisList.Add(endMarker);
+                        YAxis endMarker = new YAxis("");
+                        endMarker.Color = marker.C;
+                        endMarker.Scale.IsVisible = false;
+                        endMarker.MajorTic.IsAllTics = false;
+                        endMarker.MinorTic.IsAllTics = false;
+                        endMarker.Cross = marker.Max;
+                        endMarker.MajorTic.PenWidth = 2;
+
+                        graph.YAxisList.Add(startMarker);
+                        graph.YAxisList.Add(endMarker);
+                    }
+                    else if (MarkerSelected && marker.Selected && marker.DrawMarker) 
+                    {
+                        YAxis startMarker = new YAxis("");
+                        startMarker.Color = marker.C;
+                        startMarker.Scale.IsVisible = false;
+                        startMarker.MajorTic.IsAllTics = false;
+                        startMarker.MinorTic.IsAllTics = false;
+                        startMarker.MajorTic.PenWidth = 2;
+                        startMarker.Cross = marker.Min;
+
+                        YAxis endMarker = new YAxis("");
+                        endMarker.Color = marker.C;
+                        endMarker.Scale.IsVisible = false;
+                        endMarker.MajorTic.IsAllTics = false;
+                        endMarker.MinorTic.IsAllTics = false;
+                        endMarker.Cross = marker.Max;
+                        endMarker.MajorTic.PenWidth = 2;
+
+                        graph.YAxisList.Add(startMarker);
+                        graph.YAxisList.Add(endMarker);
+                    }
+                    
                 }
             }
 
@@ -1419,9 +1460,10 @@ namespace CyclingApp
             //convert back to list from array
             selectedDataSet[0] = dataEuro.ToList();
             selectedDataSet[1] = dataUS.ToList();
-            AddFullData();
+           
             
             AddGraphs();
+            AddFullData();
         }
 
         /// <summary>
@@ -1437,12 +1479,23 @@ namespace CyclingApp
                 selectedDataSet[1] = dataUSBackup.ToList();
                 dataEuroBackup = null;
                 dataUSBackup = null;
-
+                AddGraphs();
                 AddFullData();
 
-                AddGraphs();
+              
             }
       
+        }
+
+        private void revertData_Click(object sender, EventArgs e)
+        {
+            selectedDataSet[0] = hrdata.DataEuro;
+            selectedDataSet[1] = hrdata.DataUS;
+            markerSelected = false;
+            AddGraphs();
+            AddFullData();
+
+           
         }
 
         /// <summary>

@@ -15,8 +15,14 @@ namespace CyclingApp
         private int markerIndex;
         DataViewImproved dv;
         private DateTime start, end;
-        private List<HrDataSingle> data;
-        public UserMarkerControl(int marker, DataViewImproved dv, DateTime start, DateTime end, List<HrDataSingle> data)
+        private List<HrDataSingle>[] data;
+        private bool drawMarkers = true;
+        private bool selected = false;
+
+        public bool DrawMarkers { get { return drawMarkers; } set { drawMarkers = value; } }
+        public bool Selected { get { return selected; } set { selected = value; } }
+
+        public UserMarkerControl(int marker, DataViewImproved dv, DateTime start, DateTime end, List<HrDataSingle>[] data)
         {
             InitializeComponent();
             this.markerIndex = marker;
@@ -25,7 +31,7 @@ namespace CyclingApp
             this.end = end;
             startTime.Text = start.ToLongTimeString();
             endTime.Text = end.ToLongTimeString();
-            Console.WriteLine("Length of data in marker: "+data.Count);
+            Console.WriteLine("Length of data in marker: "+data[0].Count);
             this.data = data;
         }
 
@@ -33,6 +39,21 @@ namespace CyclingApp
         {
             dv.RemoveUserSelection(markerIndex);
             
+        }
+
+        private void loadSectionLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //on click assgin the current data to the selected data
+            drawMarkers = true;
+            dv.MarkerSelected = true;
+            Marker[] temp = dv.MarkerList1.ToArray();
+            temp[markerIndex].Selected = true;
+            dv.MarkerList1 = temp.ToList();
+
+
+
+
+            dv.SetData(data);
         }
 
         /// <summary>

@@ -34,6 +34,7 @@
             this.endTime = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.remove = new System.Windows.Forms.LinkLabel();
+            this.loadSectionLink = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // linkLabel1
@@ -94,10 +95,22 @@
             this.remove.Text = "Remove Marker";
             this.remove.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.remove_LinkClicked);
             // 
+            // loadSectionLink
+            // 
+            this.loadSectionLink.AutoSize = true;
+            this.loadSectionLink.Location = new System.Drawing.Point(4, 34);
+            this.loadSectionLink.Name = "loadSectionLink";
+            this.loadSectionLink.Size = new System.Drawing.Size(70, 13);
+            this.loadSectionLink.TabIndex = 7;
+            this.loadSectionLink.TabStop = true;
+            this.loadSectionLink.Text = "Load Section";
+            this.loadSectionLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.loadSectionLink_LinkClicked);
+            // 
             // UserMarkerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.loadSectionLink);
             this.Controls.Add(this.remove);
             this.Controls.Add(this.endTime);
             this.Controls.Add(this.label4);
@@ -105,7 +118,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.linkLabel1);
             this.Name = "UserMarkerControl";
-            this.Size = new System.Drawing.Size(229, 41);
+            this.Size = new System.Drawing.Size(229, 54);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -119,5 +132,6 @@
         private System.Windows.Forms.Label endTime;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel remove;
+        private System.Windows.Forms.LinkLabel loadSectionLink;
     }
 }
