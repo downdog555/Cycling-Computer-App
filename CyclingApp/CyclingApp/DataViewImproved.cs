@@ -30,6 +30,8 @@ namespace CyclingApp
         private int NormalisedPower;
         private double TSS;
 
+        private List<HrDataSingle>[] selectedDataSet = new List<HrDataSingle>[2];
+
         private bool graphHr, graphPower, graphCadence, graphSpeed, graphAltitude;
         private GraphPane graph;
         private ZedGraphControl graphControl;
@@ -110,6 +112,8 @@ namespace CyclingApp
             summaryDataEuro = polar.GetSummaryEuro();
 
             this.hrdata = hrdata;
+            selectedDataSet[0] = hrdata.DataEuro;
+            selectedDataSet[1] = hrdata.DataUS;
             this.smode = smode;
             selectedUnit = unitType;
             
@@ -138,8 +142,10 @@ namespace CyclingApp
             }
             AddFullData();
             AddGraphs();
-            
-            //summaryExpand.Dock = DockStyle.Top;
+
+            //summaryExpand.Dock = DockStyle.Top
+            //assign the data currntly so we can allow for the selection of chunking selected data.........
+           
         }
 
 
@@ -380,12 +386,12 @@ namespace CyclingApp
             List<HrDataSingle> allData;
             if (!selectedUnit)
             {
-                allData = hrdata.DataEuro;
+                allData = selectedDataSet[0];
             }
             else
             {
 
-                allData = hrdata.DataUS;
+                allData = selectedDataSet[1];
             }
 
             bool startFound = false;
@@ -423,11 +429,11 @@ namespace CyclingApp
             List<HrDataSingle> graphDataRaw;
             if (!selectedUnit)
             {
-                graphDataRaw = hrdata.DataEuro;
+                graphDataRaw = selectedDataSet[0];
             }
             else
             {
-                graphDataRaw = hrdata.DataUS;
+                graphDataRaw = selectedDataSet[1];
             }
             //we first load hr graph over time
             //we know the interval etc so we need to build the data set
@@ -667,7 +673,7 @@ namespace CyclingApp
             graph.XAxis.Scale.MinorUnit = DateUnit.Second;
             graph.XAxis.Scale.Min = (double) new XDate(2018, 10, 10, 0, 0, 0);
             XDate end = new XDate(2018, 10, 10, 0, 0, 0);
-            end.AddSeconds((hrdata.DataEuro.Count * Convert.ToInt32(recordingInterval.Text.Split(' ')[0])));
+            end.AddSeconds((selectedDataSet[0].Count * Convert.ToInt32(recordingInterval.Text.Split(' ')[0])));
             graph.XAxis.Scale.Max = end;
             
             if (graph.YAxisList.Count == 0)
@@ -957,11 +963,11 @@ namespace CyclingApp
             List<HrDataSingle> dataSmall;
             if (selectedUnit)
             {
-                dataSmall = hrdata.DataUS;
+                dataSmall = selectedDataSet[1];
             }
             else
             {
-                dataSmall = hrdata.DataEuro;
+                dataSmall = selectedDataSet[0];
             }
             DateTime dateTimeRide = new DateTime(Convert.ToInt32(dateOfRide.Text.Split('/')[2]),Convert.ToInt32(dateOfRide.Text.Split('/')[1]),Convert.ToInt32(dateOfRide.Text.Split('/')[0]), Convert.ToInt32(timeOfRide.Text.Split(':')[0]),Convert.ToInt32(timeOfRide.Text.Split(':')[1]), Convert.ToInt32(timeOfRide.Text.Split(':')[2].Split('.')[0]));
        
@@ -1211,9 +1217,9 @@ namespace CyclingApp
             }
             Marker intervalMarker = new Marker();
             XDate date = new XDate(2018, 10, 10, 0, 0, 0);
-            for (int x=0;x<hrdata.DataEuro.Count;x++)
+            for (int x=0;x<selectedDataSet[0].Count;x++)
             {
-                HrDataSingle data = hrdata.DataEuro.ElementAt(x);
+                HrDataSingle data = selectedDataSet[0].ElementAt(x);
                 if (markerDone)
                 {
                     intervalMarker = new Marker();
@@ -1334,8 +1340,8 @@ namespace CyclingApp
             //first take copy of current data etc
             if (dataEuroBackup == null && dataUSBackup == null)
             {
-                dataEuroBackup = hrdata.DataEuro.ToArray();
-                dataUSBackup = hrdata.DataUS.ToArray();
+                dataEuroBackup = selectedDataSet[0].ToArray();
+                dataUSBackup = selectedDataSet[1].ToArray();
             }
             int windowSize = 0;
             //we can then apply the smooth
@@ -1362,11 +1368,11 @@ namespace CyclingApp
             Console.WriteLine("We are here");
            /// HrData newData = hrdata;
            /// //we convert to array so we can acutally edit the proper values, cannot do that as foreach and list, or even index at as it is a copy
-            HrDataSingle[] dataEuro = hrdata.DataEuro.ToArray();
-            HrDataSingle[] dataUS = hrdata.DataUS.ToArray();
+            HrDataSingle[] dataEuro = selectedDataSet[0].ToArray();
+            HrDataSingle[] dataUS = selectedDataSet[1].ToArray();
            // newData.DataEuro.Clear();
            // newData.DataUS.Clear();
-            for (int i = 0; i< hrdata.DataEuro.Count;i++)
+            for (int i = 0; i< selectedDataSet[0].Count;i++)
             {
                 //we need another loop for window size counter etc
                 int x = 0;
@@ -1379,9 +1385,9 @@ namespace CyclingApp
 
                     try
                     {
-                        powerEuro =powerEuro + hrdata.DataEuro.ElementAt(i+x).Power;
-                        powerUS = powerUS + hrdata.DataUS.ElementAt(i + x).Power;
-                        heartRate = heartRate + hrdata.DataEuro.ElementAt(i+x).HeartRate;
+                        powerEuro =powerEuro + selectedDataSet[0].ElementAt(i+x).Power;
+                        powerUS = powerUS + selectedDataSet[1].ElementAt(i + x).Power;
+                        heartRate = heartRate + selectedDataSet[0].ElementAt(i+x).HeartRate;
 
                         x += 1;
                     }
@@ -1399,8 +1405,8 @@ namespace CyclingApp
                 powerUS = powerUS / x;
                 heartRate = heartRate / x;
                 Console.WriteLine("Indext: "+i+" Power: "+powerEuro+" HeartRate: "+heartRate);
-                //HrDataSingle tempeuro =  hrdata.DataEuro.ElementAt(i);
-               // HrDataSingle tempus = hrdata.DataUS.ElementAt(i);
+                //HrDataSingle tempeuro =  selectedDataSet[0].ElementAt(i);
+               // HrDataSingle tempus = selectedDataSet[1].ElementAt(i);
                 
                 dataEuro[i].Power = (int)powerEuro;
                dataUS[i].Power = (int)powerUS;
@@ -1411,8 +1417,8 @@ namespace CyclingApp
                 //newData.DataUS.Add(tempus);
             }
             //convert back to list from array
-            hrdata.DataEuro = dataEuro.ToList();
-            hrdata.DataUS = dataUS.ToList();
+            selectedDataSet[0] = dataEuro.ToList();
+            selectedDataSet[1] = dataUS.ToList();
             AddFullData();
             
             AddGraphs();
@@ -1427,8 +1433,8 @@ namespace CyclingApp
         {
             if (dataEuroBackup != null && dataUSBackup != null)
             {
-                hrdata.DataEuro = dataEuroBackup.ToList();
-                hrdata.DataUS = dataUSBackup.ToList();
+                selectedDataSet[0] = dataEuroBackup.ToList();
+                selectedDataSet[1] = dataUSBackup.ToList();
                 dataEuroBackup = null;
                 dataUSBackup = null;
 
