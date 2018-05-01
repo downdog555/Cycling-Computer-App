@@ -31,6 +31,9 @@ namespace CyclingApp
         private double TSS;
         private bool markerSelected;
 
+
+        private List<Marker> chunkMarkers;
+
         private List<HrDataSingle>[] selectedDataSet = new List<HrDataSingle>[2];
 
         private bool graphHr, graphPower, graphCadence, graphSpeed, graphAltitude;
@@ -59,6 +62,7 @@ namespace CyclingApp
         public DataViewImproved(bool unitType, HrData hrdata, Smode smode, Polar polar, CyclingMain cym, List<string> rideInfo)
         {
             InitializeComponent();
+            chunkMarkers = new List<Marker>();
             markerSelected = false;
             graphHr = true;
             MarkerList = new List<Marker>();
@@ -169,6 +173,17 @@ namespace CyclingApp
         }
 
         /// <summary>
+        /// Used to set markers for outside current class
+        /// </summary>
+        /// <param name="newMarkers"></param>
+        public void AddMarkers(List<Marker> newMarkers)
+        {
+            chunkMarkers = newMarkers;
+
+            AddGraphs();
+        }
+
+        /// <summary>
         /// methdo called to set hte ftp value
         /// </summary>
         /// <param name="ftp">double containg the FTP</param>
@@ -188,6 +203,7 @@ namespace CyclingApp
             this.MaxHR = maxHr;
             this.maxHRValue.Text = "" + maxHr;
         }
+
         /// <summary>
         /// Adds the summary data when called
         /// 
@@ -320,6 +336,10 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// used to set data when selection is loaded
+        /// </summary>
+        /// <param name="data"></param>
         public void SetData(List<HrDataSingle>[] data)
         {
             selectedDataSet[0] = data[0];
@@ -366,11 +386,24 @@ namespace CyclingApp
             //we need  to do same on inital load we could do it in get summary data time specifed
             GetAdvancedMetrics();
         }
+        /// <summary>
+        /// used to calculate and pass back the Intensity Factor
+        /// </summary>
+        /// <param name="np">normalised power</param>
+        /// <param name="ftp">Functional Threshold Power</param>
+        /// <returns>intesity factor as percentage</returns>
+        public double GetIF(double np)
+        {
+            double IF = 0;
 
+            IF = (np / ftp);
+
+            return IF;
+        }
         private void GetAdvancedMetrics()
         {
-            IntensityFactor = polar.GetIF(NormalisedPower, (int)ftp);
-
+            IntensityFactor = GetIF(NormalisedPower);
+            Console.WriteLine("Norm Power: "+NormalisedPower);
             //we can then calculate the TSS
             Console.WriteLine("IF is :"+IntensityFactor);
             //we need the number of seconds in the ride
@@ -381,11 +414,12 @@ namespace CyclingApp
             DateTime startTemp = new DateTime(2018,10,10,0,0,0);
             DateTime tempDateToGetSec = new DateTime(2018, 10, 10, lengthH, lengthM, lengthS);
             TimeSpan t = tempDateToGetSec - startTemp;
+            Console.WriteLine("Total Seconds: "+ t.TotalSeconds);
             TSS = ((t.TotalSeconds * NormalisedPower * IntensityFactor )/(ftp*3600)*100);
              Console.WriteLine("TSS = "+TSS);
-            tssData.Text = Convert.ToString(TSS);
-            ifData.Text = "" + IntensityFactor;
-           
+            tssData.Text =""+ Math.Round(TSS,0);
+            ifData.Text = "" + Math.Round(IntensityFactor, 2);
+            normPower.Text = ""+NormalisedPower;
         }
 
         public List<HrDataSingle>[] GetListData(DateTime start, DateTime end)
@@ -430,6 +464,48 @@ namespace CyclingApp
             data[1] = us;
             return data;
 
+        }
+
+        public void AddChunkMarkers()
+        {
+            chunkmFlow.Controls.Clear();
+            //Console.WriteLine("Marker list count" + MarkerList.Count);
+            if (chunkMarkers.Count > 0)
+            {
+                Random rand = new Random();
+                //we need to draw the markers if we have them 
+                for (int i = 0; i < chunkMarkers.Count; i++)
+                {
+                    Marker marker = chunkMarkers.ElementAt(i);
+                    XDate start = new XDate(marker.Min);
+                    XDate endTime = new XDate(marker.Max);
+                    UserMarkerControl u = new UserMarkerControl(i, this, start.DateTime, endTime.DateTime, GetListData(start.DateTime, endTime.DateTime), selectedUnit, Convert.ToInt32(recordingInterval.Text.Split(' ')[0]), true);
+                    chunkmFlow.Controls.Add(u);
+
+
+                    YAxis startMarker = new YAxis("");
+                    startMarker.Color = marker.C;
+                    startMarker.Scale.IsVisible = false;
+                    startMarker.MajorTic.IsAllTics = false;
+                    startMarker.MinorTic.IsAllTics = false;
+                    startMarker.MajorTic.PenWidth = 2;
+                    startMarker.Cross = marker.Min;
+
+                    YAxis endMarker = new YAxis("");
+                    endMarker.Color = marker.C;
+                    endMarker.Scale.IsVisible = false;
+                    endMarker.MajorTic.IsAllTics = false;
+                    endMarker.MinorTic.IsAllTics = false;
+                    endMarker.Cross = marker.Max;
+                    endMarker.MajorTic.PenWidth = 2;
+
+                    graph.YAxisList.Add(startMarker);
+                    graph.YAxisList.Add(endMarker);
+
+
+
+                }
+            }
         }
 
         /// <summary>
@@ -767,7 +843,7 @@ namespace CyclingApp
                     Marker marker = MarkerList.ElementAt(i);
                     XDate start = new XDate(marker.Min);
                     XDate endTime = new XDate(marker.Max);
-                    UserMarkerControl u = new UserMarkerControl(i, this, start.DateTime, endTime.DateTime, GetListData(start.DateTime, endTime.DateTime));
+                    UserMarkerControl u = new UserMarkerControl(i, this, start.DateTime, endTime.DateTime, GetListData(start.DateTime, endTime.DateTime), selectedUnit, Convert.ToInt32(recordingInterval.Text.Split(' ')[0]),false);
                     userIntervalsFlow.Controls.Add(u);
 
                     if (marker.DrawMarker && !marker.Selected && !MarkerSelected)
@@ -791,28 +867,36 @@ namespace CyclingApp
                         graph.YAxisList.Add(startMarker);
                         graph.YAxisList.Add(endMarker);
                     }
-                    else if (MarkerSelected && marker.Selected && marker.DrawMarker) 
-                    {
-                        YAxis startMarker = new YAxis("");
-                        startMarker.Color = marker.C;
-                        startMarker.Scale.IsVisible = false;
-                        startMarker.MajorTic.IsAllTics = false;
-                        startMarker.MinorTic.IsAllTics = false;
-                        startMarker.MajorTic.PenWidth = 2;
-                        startMarker.Cross = marker.Min;
-
-                        YAxis endMarker = new YAxis("");
-                        endMarker.Color = marker.C;
-                        endMarker.Scale.IsVisible = false;
-                        endMarker.MajorTic.IsAllTics = false;
-                        endMarker.MinorTic.IsAllTics = false;
-                        endMarker.Cross = marker.Max;
-                        endMarker.MajorTic.PenWidth = 2;
-
-                        graph.YAxisList.Add(startMarker);
-                        graph.YAxisList.Add(endMarker);
-                    }
+                  
                     
+                }
+            }
+
+
+            if (chunkMarkers.Count > 0)
+            {
+
+                foreach (Marker m in chunkMarkers)
+                {
+                    //Console.WriteLine("Marker start: "+m.Min+" Marker End: "+m.Max+" Marker Colour: "+m.C.ToString());
+                    YAxis startMarker1 = new YAxis("");
+                    startMarker1.Color = m.C;
+                    startMarker1.Scale.IsVisible = false;
+                    startMarker1.MajorTic.IsAllTics = false;
+                    startMarker1.MinorTic.IsAllTics = false;
+                    startMarker1.Cross = m.Min;
+                    startMarker1.MajorTic.PenWidth = 2;
+
+                    YAxis endMarker1 = new YAxis("");
+                    endMarker1.Color = m.C;
+                    endMarker1.Scale.IsVisible = false;
+                    endMarker1.MajorTic.IsAllTics = false;
+                    endMarker1.MinorTic.IsAllTics = false;
+                    endMarker1.Cross = m.Max;
+                    endMarker1.MajorTic.PenWidth = 2;
+
+                    graph.YAxisList.Add(startMarker1);
+                    graph.YAxisList.Add(endMarker1);
                 }
             }
 
@@ -1360,6 +1444,14 @@ namespace CyclingApp
             AddGraphs();
         }
 
+        public void RemoveChunkSelection(int index)
+        {
+            chunkMarkers.RemoveAt(index);
+            AddChunkMarkers();
+            AddGraphs();
+            
+        }
+
         /// <summary>
         /// called when button is clicked, remvoes the markers added by the interval detection
         /// </summary>
@@ -1445,7 +1537,7 @@ namespace CyclingApp
                 powerEuro = powerEuro / x;
                 powerUS = powerUS / x;
                 heartRate = heartRate / x;
-                Console.WriteLine("Indext: "+i+" Power: "+powerEuro+" HeartRate: "+heartRate);
+                //Console.WriteLine("Indext: "+i+" Power: "+powerEuro+" HeartRate: "+heartRate);
                 //HrDataSingle tempeuro =  selectedDataSet[0].ElementAt(i);
                // HrDataSingle tempus = selectedDataSet[1].ElementAt(i);
                 
@@ -1525,6 +1617,11 @@ namespace CyclingApp
                 AddSummaryData(summaryDataEuro, selectedUnit);
             }
             AddGraphs();
+
+        }
+
+        private void basePanel_Paint(object sender, PaintEventArgs e)
+        {
 
         }
 
@@ -1663,6 +1760,13 @@ namespace CyclingApp
         private void groupBox3_Enter(object sender, EventArgs e)
         {
 
+        }
+
+
+
+        public void ChunkMarkers(List<Marker> markers)
+        {
+          
         }
 
     

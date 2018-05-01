@@ -302,26 +302,28 @@ namespace CyclingApp
                 UInt16 temp = Convert.ToUInt16(pbPedInd);
                 binary = Convert.ToString(temp, 2);
                 Console.WriteLine(binary.Length);
-                UInt16 pwIndex = Convert.ToUInt16((temp & 0b1111111100000000)>>8);
-                UInt16 pwBalance = Convert.ToUInt16((temp & 0b0000000011111111));
+            //  UInt16 pwIndex = Convert.ToUInt16((temp & 0b1111111100000000)>>8);
+             //  UInt16 pwBalance = Convert.ToUInt16((temp & 0b0000000011111111));
 
                 //Console.WriteLine(Convert.ToString(temp, 2));
                 int half = binary.Length / 2;
                 // var m = pbPedInd.Substring(0, half);
                 //var n = pbPedInd.Substring(half);
-               // UInt32 first = Convert.ToUInt32(binary.Substring(0, half), 2);
-               // UInt32 second = Convert.ToUInt32(binary.Substring(half), 2);
+                // UInt32 first = Convert.ToUInt32(binary.Substring(0, half), 2);
+                // UInt32 second = Convert.ToUInt32(binary.Substring(half), 2);
 
 
 
 
-                //powerBalance = tempBits.Substring(0, half);
-               // powerIndex = tempBits.Substring(half);
+                string pwBalance = "meow";
+                string pwIndex = "meow2";
 
 
 
                 powerBalance = Convert.ToString(pwBalance);
-                powerIndex = Convert.ToString(pwIndex);
+                 powerIndex = Convert.ToString(pwIndex);
+               // powerBalance = "meow";
+                //powerIndex = "meow2";
             }
             else
             {

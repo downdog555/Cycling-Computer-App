@@ -35,6 +35,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.remove = new System.Windows.Forms.LinkLabel();
             this.loadSectionLink = new System.Windows.Forms.LinkLabel();
+            this.chunkData = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // linkLabel1
@@ -106,10 +107,22 @@
             this.loadSectionLink.Text = "Load Section";
             this.loadSectionLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.loadSectionLink_LinkClicked);
             // 
+            // chunkData
+            // 
+            this.chunkData.AutoSize = true;
+            this.chunkData.Location = new System.Drawing.Point(117, 34);
+            this.chunkData.Name = "chunkData";
+            this.chunkData.Size = new System.Drawing.Size(64, 13);
+            this.chunkData.TabIndex = 8;
+            this.chunkData.TabStop = true;
+            this.chunkData.Text = "Chunk Data";
+            this.chunkData.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.chunkData_LinkClicked);
+            // 
             // UserMarkerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.chunkData);
             this.Controls.Add(this.loadSectionLink);
             this.Controls.Add(this.remove);
             this.Controls.Add(this.endTime);
@@ -133,5 +146,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel remove;
         private System.Windows.Forms.LinkLabel loadSectionLink;
+        private System.Windows.Forms.LinkLabel chunkData;
     }
 }

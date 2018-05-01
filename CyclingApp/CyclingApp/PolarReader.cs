@@ -224,7 +224,7 @@ namespace CyclingApp
 
                 if (smode.Speed)
                 {
-//#TODO
+
                     //total distance not sure if for that trip or the odometer
                     double distance = GetTotalDistance(tempData);
 

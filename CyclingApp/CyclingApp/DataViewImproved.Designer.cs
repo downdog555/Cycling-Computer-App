@@ -53,6 +53,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.userIntervalsFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.revertData = new System.Windows.Forms.Button();
             this.removeSmooth = new System.Windows.Forms.Button();
             this.windowSizeEntry = new System.Windows.Forms.TextBox();
             this.smoothing = new System.Windows.Forms.Button();
@@ -85,7 +86,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.revertData = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.chunkM = new System.Windows.Forms.GroupBox();
+            this.chunkmFlow = new System.Windows.Forms.FlowLayoutPanel();
+            this.normPower = new System.Windows.Forms.Label();
+            this.normPowerlbl = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.rideDetailsBox.SuspendLayout();
             this.enterValues.SuspendLayout();
@@ -94,7 +100,10 @@
             this.groupBox2.SuspendLayout();
             this.summaryPanel.SuspendLayout();
             this.fullDataPanel.SuspendLayout();
+            this.intervalsBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.chunkM.SuspendLayout();
             this.SuspendLayout();
             // 
             // hrCheckBox
@@ -180,7 +189,7 @@
             this.rideDetailsBox.Controls.Add(this.dateLabel);
             this.rideDetailsBox.Location = new System.Drawing.Point(1582, 159);
             this.rideDetailsBox.Name = "rideDetailsBox";
-            this.rideDetailsBox.Size = new System.Drawing.Size(326, 98);
+            this.rideDetailsBox.Size = new System.Drawing.Size(309, 98);
             this.rideDetailsBox.TabIndex = 9;
             this.rideDetailsBox.TabStop = false;
             this.rideDetailsBox.Text = "Ride Information";
@@ -267,7 +276,7 @@
             this.enterValues.Controls.Add(this.ftpLabel);
             this.enterValues.Location = new System.Drawing.Point(1582, 4);
             this.enterValues.Name = "enterValues";
-            this.enterValues.Size = new System.Drawing.Size(318, 39);
+            this.enterValues.Size = new System.Drawing.Size(301, 39);
             this.enterValues.TabIndex = 10;
             this.enterValues.TabStop = false;
             this.enterValues.Text = "FTP & Max HR";
@@ -314,6 +323,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.basePanel.AutoScroll = true;
+            this.basePanel.Controls.Add(this.chunkM);
             this.basePanel.Controls.Add(this.groupBox3);
             this.basePanel.Controls.Add(this.groupBox2);
             this.basePanel.Controls.Add(this.summaryPanel);
@@ -327,6 +337,7 @@
             this.basePanel.Name = "basePanel";
             this.basePanel.Size = new System.Drawing.Size(1911, 886);
             this.basePanel.TabIndex = 10;
+            this.basePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.basePanel_Paint);
             // 
             // groupBox3
             // 
@@ -335,7 +346,7 @@
             this.groupBox3.Controls.Add(this.userIntervalsFlow);
             this.groupBox3.Location = new System.Drawing.Point(1582, 473);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(318, 178);
+            this.groupBox3.Size = new System.Drawing.Size(301, 140);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "User Intervals";
@@ -345,7 +356,7 @@
             this.userIntervalsFlow.AutoScroll = true;
             this.userIntervalsFlow.Location = new System.Drawing.Point(7, 20);
             this.userIntervalsFlow.Name = "userIntervalsFlow";
-            this.userIntervalsFlow.Size = new System.Drawing.Size(305, 152);
+            this.userIntervalsFlow.Size = new System.Drawing.Size(305, 109);
             this.userIntervalsFlow.TabIndex = 0;
             // 
             // groupBox2
@@ -368,6 +379,16 @@
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graph Controls";
+            // 
+            // revertData
+            // 
+            this.revertData.Location = new System.Drawing.Point(693, 7);
+            this.revertData.Name = "revertData";
+            this.revertData.Size = new System.Drawing.Size(75, 23);
+            this.revertData.TabIndex = 11;
+            this.revertData.Text = "Revert Data";
+            this.revertData.UseVisualStyleBackColor = true;
+            this.revertData.Click += new System.EventHandler(this.revertData_Click);
             // 
             // removeSmooth
             // 
@@ -480,6 +501,8 @@
             // 
             this.summaryPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.summaryPanel.Controls.Add(this.normPower);
+            this.summaryPanel.Controls.Add(this.normPowerlbl);
             this.summaryPanel.Controls.Add(this.ifData);
             this.summaryPanel.Controls.Add(this.tssData);
             this.summaryPanel.Controls.Add(this.TSSLabel);
@@ -487,7 +510,7 @@
             this.summaryPanel.Controls.Add(this.summaryDataBox);
             this.summaryPanel.Location = new System.Drawing.Point(1583, 264);
             this.summaryPanel.Name = "summaryPanel";
-            this.summaryPanel.Size = new System.Drawing.Size(317, 208);
+            this.summaryPanel.Size = new System.Drawing.Size(300, 208);
             this.summaryPanel.TabIndex = 14;
             this.summaryPanel.TabStop = false;
             this.summaryPanel.Text = "Summary Data";
@@ -536,7 +559,7 @@
             this.summaryDataBox.Location = new System.Drawing.Point(9, 20);
             this.summaryDataBox.Name = "summaryDataBox";
             this.summaryDataBox.ReadOnly = true;
-            this.summaryDataBox.Size = new System.Drawing.Size(302, 124);
+            this.summaryDataBox.Size = new System.Drawing.Size(285, 124);
             this.summaryDataBox.TabIndex = 0;
             this.summaryDataBox.Text = "";
             this.summaryDataBox.TextChanged += new System.EventHandler(this.summaryDataBox_TextChanged);
@@ -548,7 +571,7 @@
             this.fullDataPanel.Controls.Add(this.fullDataFlow);
             this.fullDataPanel.Location = new System.Drawing.Point(4, 434);
             this.fullDataPanel.Name = "fullDataPanel";
-            this.fullDataPanel.Size = new System.Drawing.Size(1572, 440);
+            this.fullDataPanel.Size = new System.Drawing.Size(1572, 443);
             this.fullDataPanel.TabIndex = 13;
             this.fullDataPanel.TabStop = false;
             this.fullDataPanel.Text = "Full Data";
@@ -559,7 +582,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.fullDataFlow.Location = new System.Drawing.Point(7, 20);
             this.fullDataFlow.Name = "fullDataFlow";
-            this.fullDataFlow.Size = new System.Drawing.Size(1559, 414);
+            this.fullDataFlow.Size = new System.Drawing.Size(1559, 417);
             this.fullDataFlow.TabIndex = 0;
             // 
             // graphPanel
@@ -576,9 +599,10 @@
             // 
             this.intervalsBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.intervalsBox.Location = new System.Drawing.Point(1582, 657);
+            this.intervalsBox.Controls.Add(this.groupBox4);
+            this.intervalsBox.Location = new System.Drawing.Point(1583, 619);
             this.intervalsBox.Name = "intervalsBox";
-            this.intervalsBox.Size = new System.Drawing.Size(318, 217);
+            this.intervalsBox.Size = new System.Drawing.Size(301, 122);
             this.intervalsBox.TabIndex = 11;
             this.intervalsBox.TabStop = false;
             this.intervalsBox.Text = "Intevals";
@@ -599,7 +623,7 @@
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Location = new System.Drawing.Point(1582, 49);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(326, 98);
+            this.groupBox1.Size = new System.Drawing.Size(309, 98);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sensors";
@@ -694,15 +718,63 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Heart Rate";
             // 
-            // revertData
+            // groupBox4
             // 
-            this.revertData.Location = new System.Drawing.Point(903, 9);
-            this.revertData.Name = "revertData";
-            this.revertData.Size = new System.Drawing.Size(75, 23);
-            this.revertData.TabIndex = 11;
-            this.revertData.Text = "Revert Data";
-            this.revertData.UseVisualStyleBackColor = true;
-            this.revertData.Click += new System.EventHandler(this.revertData_Click);
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.flowLayoutPanel1);
+            this.groupBox4.Location = new System.Drawing.Point(1, 128);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(301, 89);
+            this.groupBox4.TabIndex = 17;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "User Intervals";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(7, 20);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(305, 152);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
+            // chunkM
+            // 
+            this.chunkM.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chunkM.Controls.Add(this.chunkmFlow);
+            this.chunkM.Location = new System.Drawing.Point(1582, 749);
+            this.chunkM.Name = "chunkM";
+            this.chunkM.Size = new System.Drawing.Size(301, 140);
+            this.chunkM.TabIndex = 17;
+            this.chunkM.TabStop = false;
+            this.chunkM.Text = "Chunk Timings";
+            // 
+            // chunkmFlow
+            // 
+            this.chunkmFlow.AutoScroll = true;
+            this.chunkmFlow.Location = new System.Drawing.Point(7, 20);
+            this.chunkmFlow.Name = "chunkmFlow";
+            this.chunkmFlow.Size = new System.Drawing.Size(305, 109);
+            this.chunkmFlow.TabIndex = 0;
+            // 
+            // normPower
+            // 
+            this.normPower.AutoSize = true;
+            this.normPower.Location = new System.Drawing.Point(123, 183);
+            this.normPower.Name = "normPower";
+            this.normPower.Size = new System.Drawing.Size(35, 13);
+            this.normPower.TabIndex = 6;
+            this.normPower.Text = "label2";
+            // 
+            // normPowerlbl
+            // 
+            this.normPowerlbl.AutoSize = true;
+            this.normPowerlbl.Location = new System.Drawing.Point(6, 183);
+            this.normPowerlbl.Name = "normPowerlbl";
+            this.normPowerlbl.Size = new System.Drawing.Size(95, 13);
+            this.normPowerlbl.TabIndex = 5;
+            this.normPowerlbl.Text = "Normalized Power:";
             // 
             // DataViewImproved
             // 
@@ -729,8 +801,11 @@
             this.summaryPanel.ResumeLayout(false);
             this.summaryPanel.PerformLayout();
             this.fullDataPanel.ResumeLayout(false);
+            this.intervalsBox.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.chunkM.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -796,5 +871,11 @@
         private System.Windows.Forms.Label TSSLabel;
         private System.Windows.Forms.Label ifLab;
         private System.Windows.Forms.Button revertData;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.GroupBox chunkM;
+        private System.Windows.Forms.FlowLayoutPanel chunkmFlow;
+        private System.Windows.Forms.Label normPower;
+        private System.Windows.Forms.Label normPowerlbl;
     }
 }
