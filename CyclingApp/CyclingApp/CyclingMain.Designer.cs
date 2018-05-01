@@ -30,6 +30,7 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadSingleFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,9 +42,9 @@
             this.loadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareTab = new System.Windows.Forms.TabPage();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.addNewComaprisionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.loadSingleFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadFile1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadFile2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabSelector.SuspendLayout();
             this.singleView.SuspendLayout();
@@ -64,7 +65,7 @@
             this.enterMaximumHeartRateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(17, 2);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(524, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(432, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -75,6 +76,13 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
+            // 
+            // loadSingleFileToolStripMenuItem
+            // 
+            this.loadSingleFileToolStripMenuItem.Name = "loadSingleFileToolStripMenuItem";
+            this.loadSingleFileToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.loadSingleFileToolStripMenuItem.Text = "Load Single File";
+            this.loadSingleFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -163,30 +171,30 @@
             // menuStrip2
             // 
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addNewComaprisionToolStripMenuItem});
+            this.loadFile1ToolStripMenuItem,
+            this.loadFile2ToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(3, 3);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(611, 24);
             this.menuStrip2.TabIndex = 0;
             this.menuStrip2.Text = "menuStrip2";
             // 
-            // addNewComaprisionToolStripMenuItem
-            // 
-            this.addNewComaprisionToolStripMenuItem.Name = "addNewComaprisionToolStripMenuItem";
-            this.addNewComaprisionToolStripMenuItem.Size = new System.Drawing.Size(139, 20);
-            this.addNewComaprisionToolStripMenuItem.Text = "Add New Comaprision";
-            // 
             // fileDialog
             // 
             this.fileDialog.FileName = "FileDialog";
             this.fileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.FileOk);
             // 
-            // loadSingleFileToolStripMenuItem
+            // loadFile1ToolStripMenuItem
             // 
-            this.loadSingleFileToolStripMenuItem.Name = "loadSingleFileToolStripMenuItem";
-            this.loadSingleFileToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-            this.loadSingleFileToolStripMenuItem.Text = "Load Single File";
-            this.loadSingleFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
+            this.loadFile1ToolStripMenuItem.Name = "loadFile1ToolStripMenuItem";
+            this.loadFile1ToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.loadFile1ToolStripMenuItem.Text = "Load File 1";
+            // 
+            // loadFile2ToolStripMenuItem
+            // 
+            this.loadFile2ToolStripMenuItem.Name = "loadFile2ToolStripMenuItem";
+            this.loadFile2ToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.loadFile2ToolStripMenuItem.Text = "Load File 2";
             // 
             // CyclingMain
             // 
@@ -225,13 +233,14 @@
         private System.Windows.Forms.TabPage singleView;
         private System.Windows.Forms.TabPage compareTab;
         private System.Windows.Forms.MenuStrip menuStrip2;
-        private System.Windows.Forms.ToolStripMenuItem addNewComaprisionToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip3;
         private System.Windows.Forms.ToolStripMenuItem loadFileToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog fileDialog;
         private System.Windows.Forms.ToolStripMenuItem ftpMenu;
         private System.Windows.Forms.ToolStripMenuItem enterMaximumHeartRateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadSingleFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadFile1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadFile2ToolStripMenuItem;
     }
 }
 

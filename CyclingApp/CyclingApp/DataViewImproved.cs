@@ -13,7 +13,7 @@ namespace CyclingApp
 {
     public partial class DataViewImproved : UserControl
     {
-        
+
 
         private bool summaryHidden = false;
         private bool selectedUnit;
@@ -111,7 +111,7 @@ namespace CyclingApp
                 altitudeButton.Hide();
                 altitudeLabel.Text = "Offline";
             }
-            
+
 
             this.cyclingMain = cym;
             this.ftp = 1;
@@ -127,11 +127,11 @@ namespace CyclingApp
             selectedDataSet[1] = hrdata.DataUS;
             this.smode = smode;
             selectedUnit = unitType;
-            
+
             AddRideInfo(rideInfo);
 
 
-            
+
 
             if (!unitType)
             {
@@ -156,7 +156,7 @@ namespace CyclingApp
 
             //summaryExpand.Dock = DockStyle.Top
             //assign the data currntly so we can allow for the selection of chunking selected data.........
-           
+
         }
 
 
@@ -202,6 +202,16 @@ namespace CyclingApp
         {
             this.MaxHR = maxHr;
             this.maxHRValue.Text = "" + maxHr;
+        }
+
+        /// <summary>
+        /// Gets the data from this data view
+        /// </summary>
+        /// <returns>the hr data</returns>
+        public HrData GetFullData()
+        {
+
+            return hrdata;
         }
 
         /// <summary>
@@ -348,7 +358,7 @@ namespace CyclingApp
 
             AddFullData();
             AddGraphs();
-            
+
         }
 
         public void loadSummaryOnGraphChange()
@@ -363,14 +373,14 @@ namespace CyclingApp
         /// <param name="end">end time for data selection</param>
         public void GetAndLoadSummary(DateTime start, DateTime end)
         {
-    
-            
+
+
             Dictionary<string, string>[] summary = polar.GetSummaryDataTimeSpecificed(start, end, polar.GetUnit());
             if (smode.Power)
             {
                 NormalisedPower = Convert.ToInt32(summary[0].ElementAt(summary[0].Count - 1).Value.Split(' ')[0]);
             }
-            
+
             if (!selectedUnit)
 
             {
@@ -403,23 +413,63 @@ namespace CyclingApp
         private void GetAdvancedMetrics()
         {
             IntensityFactor = GetIF(NormalisedPower);
-            Console.WriteLine("Norm Power: "+NormalisedPower);
+            Console.WriteLine("Norm Power: " + NormalisedPower);
             //we can then calculate the TSS
-            Console.WriteLine("IF is :"+IntensityFactor);
+            Console.WriteLine("IF is :" + IntensityFactor);
             //we need the number of seconds in the ride
             string temp = lengthOfRide.Text;
             int lengthH = Convert.ToInt32(lengthOfRide.Text.Split(':')[0]);
             int lengthM = Convert.ToInt32(lengthOfRide.Text.Split(':')[1]);
             int lengthS = (int)Convert.ToDouble(lengthOfRide.Text.Split(':')[2]);
-            DateTime startTemp = new DateTime(2018,10,10,0,0,0);
+            DateTime startTemp = new DateTime(2018, 10, 10, 0, 0, 0);
             DateTime tempDateToGetSec = new DateTime(2018, 10, 10, lengthH, lengthM, lengthS);
             TimeSpan t = tempDateToGetSec - startTemp;
-            Console.WriteLine("Total Seconds: "+ t.TotalSeconds);
-            TSS = ((t.TotalSeconds * NormalisedPower * IntensityFactor )/(ftp*3600)*100);
-             Console.WriteLine("TSS = "+TSS);
-            tssData.Text =""+ Math.Round(TSS,0);
+            Console.WriteLine("Total Seconds: " + t.TotalSeconds);
+            TSS = ((t.TotalSeconds * NormalisedPower * IntensityFactor) / (ftp * 3600) * 100);
+            Console.WriteLine("TSS = " + TSS);
+            tssData.Text = "" + Math.Round(TSS, 0);
             ifData.Text = "" + Math.Round(IntensityFactor, 2);
-            normPower.Text = ""+NormalisedPower;
+            normPower.Text = "" + NormalisedPower;
+        }
+
+
+        public DateTime GetEndDateTime()
+        {
+            int lengthH = Convert.ToInt32(lengthOfRide.Text.Split(':')[0]);
+            int lengthM = Convert.ToInt32(lengthOfRide.Text.Split(':')[1]);
+            int lengthS = (int)Convert.ToDouble(lengthOfRide.Text.Split(':')[2]);
+            DateTime endTime = new DateTime(2018, 10, 10, lengthH, lengthM, lengthS);
+            return endTime;
+        }
+
+
+        public Dictionary<string, string>[] GetSummary(DateTime start, DateTime end)
+        {
+
+
+            List<string> data = new List<string>();
+
+
+
+
+            Dictionary<string, string>[] summary = polar.GetSummaryDataTimeSpecificed(start, end, polar.GetUnit());
+            if (smode.Power)
+            {
+                NormalisedPower = Convert.ToInt32(summary[0].ElementAt(summary[0].Count - 1).Value.Split(' ')[0]);
+            }
+            summary[0].Add("Normalised Power", ""+NormalisedPower);
+            summary[1].Add("Normalised Power", "" + NormalisedPower);
+            summary[0].Add("Intensity Factor", "" + GetIF(NormalisedPower));
+            summary[1].Add("Intensity Factor", "" + GetIF(NormalisedPower));
+
+           
+            TimeSpan t = end - start;
+          
+            double tss = ((t.TotalSeconds * NormalisedPower * IntensityFactor) / (ftp * 3600) * 100);
+            summary[0].Add("TSS", "" + tss);
+            summary[1].Add("TSS", "" +tss);
+
+            return summary;
         }
 
         public List<HrDataSingle>[] GetListData(DateTime start, DateTime end)
@@ -466,6 +516,9 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// Called to add the markers for the chunks
+        /// </summary>
         public void AddChunkMarkers()
         {
             chunkmFlow.Controls.Clear();
@@ -600,8 +653,7 @@ namespace CyclingApp
                 xdate.AddSeconds(Convert.ToInt32(recordingInterval.Text.Split(' ')[0]));
                     hr.Add(pointHR);
             }
-            //Console.WriteLine(xdate.DateTime.ToLongTimeString());
-           // Console.WriteLine(power.Count);
+
             graph.YAxisList.Clear();
             graph.Y2AxisList.Clear();
             if (graphHr)
@@ -1643,7 +1695,7 @@ namespace CyclingApp
         /// <param name="e"></param>
         private void hrCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("We have change 2");
+           // Console.WriteLine("We have change 2");
             if (percentHR)
             {
                 percentHR = false;

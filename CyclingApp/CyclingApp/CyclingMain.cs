@@ -27,7 +27,12 @@ namespace CyclingApp
         /// <summary>
         /// Data view used to display and furhter process datra
         /// </summary>
-        DataViewImproved dw1;
+        private DataViewImproved dw1;
+
+        /// <summary>
+        /// List of files loaded
+        /// </summary>
+        List<DataViewImproved> fileLists = new List<DataViewImproved>();
 
         /// <summary>
         /// Constructor for this class

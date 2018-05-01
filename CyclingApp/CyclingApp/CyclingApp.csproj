@@ -53,6 +53,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComparrisonControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ComparrisonControl.Designer.cs">
+      <DependentUpon>ComparrisonControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataViewImproved.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     <Compile Include="UserSelectedDataView.Designer.cs">
       <DependentUpon>UserSelectedDataView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ComparrisonControl.resx">
+      <DependentUpon>ComparrisonControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CyclingMain.resx">
       <DependentUpon>CyclingMain.cs</DependentUpon>
     </EmbeddedResource>

@@ -296,34 +296,28 @@ namespace CyclingApp
             if (PbPedInd.Length >= 4)
             {
                 string binary = "";
-                //we dont know the length of the bits as it is not constant
-                //so convert the number as it is an integer, then get a string with the bit representation
-                //split that into two halves to give the value
+
                 UInt16 temp = Convert.ToUInt16(pbPedInd);
                 binary = Convert.ToString(temp, 2);
                 Console.WriteLine(binary.Length);
-            //  UInt16 pwIndex = Convert.ToUInt16((temp & 0b1111111100000000)>>8);
-             //  UInt16 pwBalance = Convert.ToUInt16((temp & 0b0000000011111111));
+             UInt16 pwIndex = Convert.ToUInt16((temp & 0b1111111100000000)>>8);
+              UInt16 pwBalance = Convert.ToUInt16((temp & 0b0000000011111111));
 
-                //Console.WriteLine(Convert.ToString(temp, 2));
+
                 int half = binary.Length / 2;
-                // var m = pbPedInd.Substring(0, half);
-                //var n = pbPedInd.Substring(half);
-                // UInt32 first = Convert.ToUInt32(binary.Substring(0, half), 2);
-                // UInt32 second = Convert.ToUInt32(binary.Substring(half), 2);
 
 
 
 
-                string pwBalance = "meow";
-                string pwIndex = "meow2";
+
+                //string pwBalance = "meow";
+                //string pwIndex = "meow2";
 
 
 
                 powerBalance = Convert.ToString(pwBalance);
                  powerIndex = Convert.ToString(pwIndex);
-               // powerBalance = "meow";
-                //powerIndex = "meow2";
+
             }
             else
             {
