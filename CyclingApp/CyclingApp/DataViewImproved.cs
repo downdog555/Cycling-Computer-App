@@ -48,6 +48,11 @@ namespace CyclingApp
         public bool MarkerSelected { get { return markerSelected; } set { markerSelected = value; } }
         public List<Marker> MarkerList1 { get { return MarkerList; } set { MarkerList = value; } }
 
+        public Smode GetSmode()
+        {
+            return smode;
+        }
+
 
 
         /// <summary>
@@ -1059,7 +1064,24 @@ namespace CyclingApp
           //  Console.WriteLine("End: "+end);
         }
 
-     
+
+        /// <summary>
+        /// Gets the date time for the ride
+        /// </summary>
+        /// <returns>dat time fo start of ride</returns>
+        public DateTime GetRideTime()
+        {
+            return new DateTime(Convert.ToInt32(dateOfRide.Text.Split('/')[2]), Convert.ToInt32(dateOfRide.Text.Split('/')[1]), Convert.ToInt32(dateOfRide.Text.Split('/')[0]), Convert.ToInt32(timeOfRide.Text.Split(':')[0]), Convert.ToInt32(timeOfRide.Text.Split(':')[1]), Convert.ToInt32(timeOfRide.Text.Split(':')[2].Split('.')[0]));
+        }
+
+        /// <summary>
+        /// Gets the recording interval
+        /// </summary>
+        /// <returns>the recording interval</returns>
+        public int GetInterval()
+        {
+            return Convert.ToInt32(recordingInterval.Text.Split(' ')[0]);
+        }
         /// <summary>
         /// Adds the full set of data to the control
         /// </summary>

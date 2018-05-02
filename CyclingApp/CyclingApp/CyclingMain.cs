@@ -16,6 +16,11 @@ namespace CyclingApp
       /// polar used to reference the polar reader
       /// </summary>
         private Polar polar = new Polar();
+
+        /// <summary>
+        /// used to refernece the polar reader for the second file
+        /// </summary>
+        private Polar polar2 = new Polar();
         /// <summary>
         /// FTP of the user once entered
         /// </summary>
@@ -28,11 +33,17 @@ namespace CyclingApp
         /// Data view used to display and furhter process datra
         /// </summary>
         private DataViewImproved dw1;
+        private DataViewImproved dw2;
 
         /// <summary>
         /// List of files loaded
         /// </summary>
         List<DataViewImproved> fileLists = new List<DataViewImproved>();
+
+        private ComparrisonControl file1;
+        private ComparrisonControl file2;
+
+
 
         /// <summary>
         /// Constructor for this class
@@ -86,7 +97,8 @@ namespace CyclingApp
                 ftpMenu.ShowDropDown();
 
                 //menuStrip3.Hide();
-   
+                file1  = new ComparrisonControl( dw1, this);
+                AddComparison();
             }
         }
         /// <summary>
@@ -99,6 +111,11 @@ namespace CyclingApp
             dw1.SetFTP(ftp);
 
 
+            file1.SetFTP(ftp);
+            if (file2 != null)
+            {
+                file2.SetFTP(ftp);
+            }
         }
         /// <summary>
         /// used to set the heart rate
@@ -109,6 +126,23 @@ namespace CyclingApp
 
             this.maxHr = hr;
             dw1.SetMaxHR(hr);
+
+            file1.SetHR(hr);
+            if (file2 != null)
+            {
+                file2.SetHR(hr);
+            }
+        }
+
+        public string GetValueFromFile2(int row, int column)
+        {
+            string value = "String Value";
+
+
+
+
+
+            return value;
         }
 
         /// <summary>
@@ -149,6 +183,58 @@ namespace CyclingApp
                 MessageBox.Show("Please load a file before setting Max HR", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
            
+        }
+
+        private void loadFile1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fileDialog.ShowDialog();
+        }
+
+        /// <summary>
+        /// Called when load file two dialog is file ok
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void file2Dialog_FileOk(object sender, CancelEventArgs e)
+        {
+            if (file2Dialog.FileName != null || !file2Dialog.FileName.Equals(""))
+            {
+                polar2 = new Polar();
+                polar2.LoadData(file2Dialog.FileName);
+
+                dw2 = new DataViewImproved(polar2.GetUnit(), polar2.GetHrData(), polar2.GetSMODE(), this.polar2, this, polar2.GetRideInfo());
+                //dw1.AddRideInfo(polar.GetRideInfo());
+                dw2.AddFullData();
+                dw2.SetFTP(ftp);
+                dw2.Dock = DockStyle.Fill;
+                //singleView.Controls.Clear();
+                //singleView.Controls.Add(dw2);
+                //enterMaximumHeartRateToolStripMenuItem.ShowDropDown();
+               // ftpMenu.ShowDropDown();
+
+                //menuStrip3.Hide();
+                file2 = new ComparrisonControl(dw2, this);
+                AddComparison();
+            }
+        }
+
+
+
+        private void AddComparison()
+        {
+            comparisonPanel.Controls.Clear();
+            comparisonPanel.Controls.Add(file1);
+
+            if (file2 != null)
+            {
+                comparisonPanel.Controls.Add(file2);
+            }        
+            
+        }
+
+        private void loadFile2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            file2Dialog.ShowDialog();
         }
     }
 }

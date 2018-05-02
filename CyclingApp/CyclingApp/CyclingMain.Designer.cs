@@ -42,9 +42,11 @@
             this.loadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareTab = new System.Windows.Forms.TabPage();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.fileDialog = new System.Windows.Forms.OpenFileDialog();
             this.loadFile1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadFile2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.comparisonPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.file2Dialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.tabSelector.SuspendLayout();
             this.singleView.SuspendLayout();
@@ -159,6 +161,7 @@
             // 
             // compareTab
             // 
+            this.compareTab.Controls.Add(this.comparisonPanel);
             this.compareTab.Controls.Add(this.menuStrip2);
             this.compareTab.Location = new System.Drawing.Point(4, 22);
             this.compareTab.Name = "compareTab";
@@ -179,22 +182,39 @@
             this.menuStrip2.TabIndex = 0;
             this.menuStrip2.Text = "menuStrip2";
             // 
-            // fileDialog
-            // 
-            this.fileDialog.FileName = "FileDialog";
-            this.fileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.FileOk);
-            // 
             // loadFile1ToolStripMenuItem
             // 
             this.loadFile1ToolStripMenuItem.Name = "loadFile1ToolStripMenuItem";
             this.loadFile1ToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.loadFile1ToolStripMenuItem.Text = "Load File 1";
+            this.loadFile1ToolStripMenuItem.Click += new System.EventHandler(this.loadFile1ToolStripMenuItem_Click);
             // 
             // loadFile2ToolStripMenuItem
             // 
             this.loadFile2ToolStripMenuItem.Name = "loadFile2ToolStripMenuItem";
             this.loadFile2ToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.loadFile2ToolStripMenuItem.Text = "Load File 2";
+            this.loadFile2ToolStripMenuItem.Click += new System.EventHandler(this.loadFile2ToolStripMenuItem_Click);
+            // 
+            // fileDialog
+            // 
+            this.fileDialog.FileName = "FileDialog";
+            this.fileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.FileOk);
+            // 
+            // comparisonPanel
+            // 
+            this.comparisonPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comparisonPanel.Location = new System.Drawing.Point(3, 31);
+            this.comparisonPanel.Name = "comparisonPanel";
+            this.comparisonPanel.Size = new System.Drawing.Size(611, 476);
+            this.comparisonPanel.TabIndex = 1;
+            // 
+            // file2Dialog
+            // 
+            this.file2Dialog.FileName = "FileDialog2";
+            this.file2Dialog.FileOk += new System.ComponentModel.CancelEventHandler(this.file2Dialog_FileOk);
             // 
             // CyclingMain
             // 
@@ -241,6 +261,8 @@
         private System.Windows.Forms.ToolStripMenuItem loadSingleFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadFile1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadFile2ToolStripMenuItem;
+        private System.Windows.Forms.FlowLayoutPanel comparisonPanel;
+        private System.Windows.Forms.OpenFileDialog file2Dialog;
     }
 }
 
