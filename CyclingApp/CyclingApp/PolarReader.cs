@@ -127,21 +127,21 @@ namespace CyclingApp
                     //total distance 
                     double distance = 0;
                     distance = GetTotalDistance(tempData);
-                    sumEuro.Add("Total Distance", "" + Math.Round(distance, 2) + "KM");
-                    sumUS.Add("Total Distance", "" + Math.Round((distance * 0.621371), 2) + "Miles");
+                    sumEuro.Add("Total Distance", "" + Math.Round(distance, 2) + " KM");
+                    sumUS.Add("Total Distance", "" + Math.Round((distance * 0.621371), 2) + " Miles");
 
                     //Average Speed
 
                     double averageSpeed = GetAverageSpeed(tempData);
 
-                    sumEuro.Add("Average Speed", "" + Math.Round(averageSpeed) + "KPH");
-                    sumUS.Add("Average Speed", "" + Math.Round((averageSpeed * 0.6213711922), 2) + "MPH");
+                    sumEuro.Add("Average Speed", "" + Math.Round(averageSpeed) + " KPH");
+                    sumUS.Add("Average Speed", "" + Math.Round((averageSpeed * 0.6213711922), 2) + " MPH");
 
                     //maximum speed
                     double speed = GetMaxSpeed(tempData);
 
-                    sumEuro.Add("Maximum Speed", "" + speed + "KPH");
-                    sumUS.Add("Maximum Speed", "" + Math.Round((speed * 0.6213711922), 2) + "MPH");
+                    sumEuro.Add("Maximum Speed", "" + speed + " KPH");
+                    sumUS.Add("Maximum Speed", "" + Math.Round((speed * 0.6213711922), 2) + " MPH");
 
                 }
 
@@ -228,8 +228,8 @@ namespace CyclingApp
                     //total distance not sure if for that trip or the odometer
                     double distance = GetTotalDistance(tempData);
 
-                    sumEuro.Add("Total Distance", "" + Math.Round((distance * 1.60934), 2) + "KM");
-                    sumUS.Add("Total Distance", "" + Math.Round(distance, 2) + "Miles");
+                    sumEuro.Add("Total Distance", "" + Math.Round((distance * 1.60934), 2) + " KM");
+                    sumUS.Add("Total Distance", "" + Math.Round(distance, 2) + " Miles");
 
                     //Average Speed
 
@@ -293,8 +293,8 @@ namespace CyclingApp
 
                     double maxAlt = GetMaxAltitude(tempData);
 
-                    sumEuro.Add("Max Altitude", "" + Math.Round((maxAlt * 0.3048), 2) + "Meters");
-                    sumUS.Add("Max Altitude", "" + Math.Round(maxAlt, 2) + "Feet");
+                    sumEuro.Add("Max Altitude", "" + Math.Round((maxAlt * 0.3048), 2) + " Meters");
+                    sumUS.Add("Max Altitude", "" + Math.Round(maxAlt, 2) + " Feet");
                 }
 
 

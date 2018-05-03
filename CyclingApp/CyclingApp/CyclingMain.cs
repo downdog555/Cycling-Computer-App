@@ -97,7 +97,7 @@ namespace CyclingApp
                 ftpMenu.ShowDropDown();
 
                 //menuStrip3.Hide();
-                file1  = new ComparrisonControl( dw1, this);
+                file1  = new ComparrisonControl( dw1, this, "file1");
                 AddComparison();
             }
         }
@@ -213,7 +213,7 @@ namespace CyclingApp
                // ftpMenu.ShowDropDown();
 
                 //menuStrip3.Hide();
-                file2 = new ComparrisonControl(dw2, this);
+                file2 = new ComparrisonControl(dw2, this, "file2");
                 AddComparison();
             }
         }
@@ -235,6 +235,30 @@ namespace CyclingApp
         private void loadFile2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             file2Dialog.ShowDialog();
+        }
+
+        internal string GetValue(string headerText, int rowIndex, string file, string grid)
+        {
+            ComparrisonControl temp;
+            if (file.Equals("file1"))
+            {
+                temp = file2;
+            }
+            else
+            {
+                temp = file1;
+            }
+            String value = "NOTFOUND";
+            if (temp != null)
+            {
+                value = temp.GetValue(headerText, rowIndex, grid);
+            }
+
+
+           
+           
+            return value;
+
         }
     }
 }

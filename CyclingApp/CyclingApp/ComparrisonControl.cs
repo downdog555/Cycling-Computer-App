@@ -17,41 +17,27 @@ namespace CyclingApp
         private List<HrDataSingle>[] data;
         private Dictionary<string, string>[] summary;
         private DataGridView fullData;
+
+        private DataGridView summaryDataGrid;
         private bool unit;
         private CyclingMain cyMain;
+        private string file;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="dv">dataview for this file</param>
-        public ComparrisonControl(DataViewImproved dv, CyclingMain cyMain )
+        public ComparrisonControl(DataViewImproved dv, CyclingMain cyMain, string file )
         {
             InitializeComponent();
             this.dv = dv;
             this.hrData = dv.GetFullData();
             this.cyMain = cyMain;
             unit = false;
+            this.file = file;
+            
 
-            DateTime start = new DateTime(2018,1,1,0,0,0);
-            DateTime end = dv.GetEndDateTime();
-            summary = dv.GetSummary(start, end);
-            //can get selection of data with get list data
-            //  dv.GetListData(start, end);
-            Dictionary<string, string> summaryData;
-            if (!unit)
-            {
-                summaryData = summary[0];
-            }
-            else
-            {
-                summaryData = summary[1];
-            }
-            foreach (KeyValuePair<string, string> line in summaryData)
-            {
-                summaryBox.Text = summaryBox.Text + line.Key+" "+line.Value+"\n";
-            }
-        
-
+            UpdateSummary();
             FullData();
 
             //just set the data in the view now
@@ -65,11 +51,11 @@ namespace CyclingApp
         public void FullData()
         {
             dataGroupBox.Controls.Clear();
-             fullData = new DataGridView();
+            fullData = new DataGridView();
             fullData.Dock = DockStyle.Fill;
             fullData.Columns.Add("time", "Time");
 
-            fullData.CellMouseMove += dataGridView_CellMouseMove;
+            fullData.CellMouseEnter += dataGridView_CellMouseMove;
             fullData.CellMouseLeave += dataGridView_CellMouseLeave;
             Smode smode = dv.GetSmode();
           
@@ -198,12 +184,25 @@ namespace CyclingApp
 
         public void UpdateSummary()
         {
-            summaryBox.Text = "";
+
+            summaryGroupBox.Controls.Clear();
+            summaryDataGrid = new DataGridView();
+            summaryDataGrid.Dock = DockStyle.Fill;
+           
+
+            summaryDataGrid.CellMouseEnter += summaryDataGrid_CellMouseMove;
+            summaryDataGrid.CellMouseLeave += summaryDataGrid_CellMouseLeave;
+
+            summaryGroupBox.Controls.Add(summaryDataGrid);
+
+            
             DateTime start = new DateTime(2018, 1, 1, 0, 0, 0);
             DateTime end = dv.GetEndDateTime();
             summary = dv.GetSummary(start, end);
             //can get selection of data with get list data
             //  dv.GetListData(start, end);
+            List<string> dataToBeInserted = new List<string>();
+
             Dictionary<string, string> summaryData;
             if (!unit)
             {
@@ -215,10 +214,57 @@ namespace CyclingApp
             }
             foreach (KeyValuePair<string, string> line in summaryData)
             {
-                summaryBox.Text = summaryBox.Text + line.Key + " " + line.Value + "\n";
+                summaryDataGrid.Columns.Add(line.Key, line.Key);
+                dataToBeInserted.Add(line.Value.Split(' ')[0]);
             }
 
+            summaryDataGrid.Rows.Add(dataToBeInserted.ToArray());
+        }
 
+        private void summaryDataGrid_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 1)
+            {
+                summaryDataGrid[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.White;
+            }
+        }
+
+        private void summaryDataGrid_CellMouseMove(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 1)
+            {
+                //we need to call get value from other control
+
+                string value = cyMain.GetValue(summaryDataGrid[e.ColumnIndex, 0].OwningColumn.HeaderText, e.RowIndex, file, "summary");
+
+                if (value == null||!value.Equals("NOTFOUND"))
+                {
+
+                    Console.WriteLine("Value is: " + value);
+                    double valueDoub = Convert.ToDouble(value);
+                    double currentValue = Convert.ToDouble((string)summaryDataGrid[e.ColumnIndex, e.RowIndex].Value);
+                    double sumValue = currentValue - valueDoub;
+
+                    if (sumValue > 0)
+                    {
+                        summaryDataGrid[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Green;
+                        summaryDataGrid[e.ColumnIndex, e.RowIndex].ToolTipText = "+ " + sumValue;
+                    }
+                    else if (sumValue < 0)
+                    {
+                        summaryDataGrid[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Red;
+                        summaryDataGrid[e.ColumnIndex, e.RowIndex].ToolTipText = "" + sumValue;
+                    }
+                    else
+                    {
+                        summaryDataGrid[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Gray;
+                        summaryDataGrid[e.ColumnIndex, e.RowIndex].ToolTipText = "+/- 0";
+                    }
+
+
+                }
+
+            }
         }
 
         public void SetHR(int hr)
@@ -237,19 +283,89 @@ namespace CyclingApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridView_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        private void dataGridView_CellMouseMove(object sender, DataGridViewCellEventArgs e)
         {
-            //we need to call async method so the ui doesnt lag
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 1)
             {
-               fullData[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Black;
+                //we need to call get value from other control
+                
+               string value = cyMain.GetValue(fullData[e.ColumnIndex, 0].OwningColumn.HeaderText, e.RowIndex, file, "full");
+
+                if (!value.Equals("NOTFOUND"))
+                {
+                   
+                    Console.WriteLine("Value is: "+value);
+                    double valueDoub = Convert.ToDouble(value);
+                    double currentValue = Convert.ToDouble((string)fullData[e.ColumnIndex, e.RowIndex].Value);
+                    double sumValue = currentValue - valueDoub;
+
+                    if (sumValue > 0)
+                    {
+                        fullData[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Green;
+                        fullData[e.ColumnIndex, e.RowIndex].ToolTipText = "+ "+sumValue;
+                    }
+                    else if (sumValue < 0)
+                    {
+                        fullData[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Red;
+                        fullData[e.ColumnIndex, e.RowIndex].ToolTipText = "" +sumValue;
+                    }
+                    else
+                    {
+                        fullData[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Gray;
+                        fullData[e.ColumnIndex, e.RowIndex].ToolTipText = "+/- 0";
+                    }
+                    
+
+                }
+              
             }
 
         }
 
+        /// <summary>
+        /// Called by cycling main to get a value of a specific cell
+        /// </summary>
+        /// <param name="headerText">the text of the header of the column to check if it exists in this file</param>
+        /// <param name="rowIndex"></param>
+        /// <returns></returns>
+        internal string GetValue(string headerText, int rowIndex, string grid)
+        {
+            DataGridView temp;
+            if (grid.Equals("full"))
+            {
+                temp = fullData;
+            }
+            else
+            {
+                temp = summaryDataGrid;
+            }
+            string value = "NOTFOUND";
+            int columnNum = 0;
+            bool found = false;
+            for (int i = 0; i < temp.ColumnCount; i++)
+            {
+                if (temp[i, 0].OwningColumn.HeaderText.Equals(headerText))
+                {
+                    found = true;
+                    columnNum = i;
+                }
+
+            }
+
+
+
+            if (found)
+            {
+                value = (string)temp[columnNum, rowIndex].Value;
+            }
+
+            return value;
+        }
+
         private void dataGridView_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 1)
             {
                 fullData[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.White;
             }

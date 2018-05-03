@@ -30,10 +30,8 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.summaryGroupBox = new System.Windows.Forms.GroupBox();
-            this.summaryBox = new System.Windows.Forms.RichTextBox();
             this.dataGroupBox = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
-            this.summaryGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -52,21 +50,12 @@
             // 
             // summaryGroupBox
             // 
-            this.summaryGroupBox.Controls.Add(this.summaryBox);
             this.summaryGroupBox.Location = new System.Drawing.Point(7, 20);
             this.summaryGroupBox.Name = "summaryGroupBox";
             this.summaryGroupBox.Size = new System.Drawing.Size(714, 161);
             this.summaryGroupBox.TabIndex = 1;
             this.summaryGroupBox.TabStop = false;
             this.summaryGroupBox.Text = "summary";
-            // 
-            // summaryBox
-            // 
-            this.summaryBox.Location = new System.Drawing.Point(7, 20);
-            this.summaryBox.Name = "summaryBox";
-            this.summaryBox.Size = new System.Drawing.Size(701, 135);
-            this.summaryBox.TabIndex = 0;
-            this.summaryBox.Text = "";
             // 
             // dataGroupBox
             // 
@@ -88,7 +77,6 @@
             this.Name = "ComparrisonControl";
             this.Size = new System.Drawing.Size(734, 668);
             this.groupBox1.ResumeLayout(false);
-            this.summaryGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -98,6 +86,5 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox summaryGroupBox;
         private System.Windows.Forms.GroupBox dataGroupBox;
-        private System.Windows.Forms.RichTextBox summaryBox;
     }
 }

@@ -351,6 +351,8 @@ namespace CyclingApp
 
         }
 
+
+
         /// <summary>
         /// used to set data when selection is loaded
         /// </summary>
@@ -462,8 +464,7 @@ namespace CyclingApp
             {
                 NormalisedPower = Convert.ToInt32(summary[0].ElementAt(summary[0].Count - 1).Value.Split(' ')[0]);
             }
-            summary[0].Add("Normalised Power", ""+NormalisedPower);
-            summary[1].Add("Normalised Power", "" + NormalisedPower);
+            
             summary[0].Add("Intensity Factor", "" + GetIF(NormalisedPower));
             summary[1].Add("Intensity Factor", "" + GetIF(NormalisedPower));
 
