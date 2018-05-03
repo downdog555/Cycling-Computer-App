@@ -23,10 +23,12 @@ namespace CyclingApp
         private CyclingMain cyMain;
         private string file;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="dv">dataview for this file</param>
+       /// <summary>
+       /// Constructor
+       /// </summary>
+       /// <param name="dv">reference to the dataview for this file</param>
+       /// <param name="cyMain">refrenec to the main window</param>
+       /// <param name="file">file, file 1 or file 2</param>
         public ComparrisonControl(DataViewImproved dv, CyclingMain cyMain, string file )
         {
             InitializeComponent();
@@ -35,7 +37,8 @@ namespace CyclingApp
             this.cyMain = cyMain;
             unit = false;
             this.file = file;
-            
+            groupBox1.Text = file;
+
 
             UpdateSummary();
             FullData();
@@ -231,7 +234,7 @@ namespace CyclingApp
 
         private void summaryDataGrid_CellMouseMove(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 1)
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 //we need to call get value from other control
 
@@ -292,11 +295,13 @@ namespace CyclingApp
                 
                string value = cyMain.GetValue(fullData[e.ColumnIndex, 0].OwningColumn.HeaderText, e.RowIndex, file, "full");
 
-                if (!value.Equals("NOTFOUND"))
+                if (!value.Equals("NOTFOUND") && fullData[e.ColumnIndex, e.RowIndex].Value != null && !fullData[e.ColumnIndex, e.RowIndex].Value.Equals("N/A"))
                 {
                    
                     Console.WriteLine("Value is: "+value);
                     double valueDoub = Convert.ToDouble(value);
+
+                   
                     double currentValue = Convert.ToDouble((string)fullData[e.ColumnIndex, e.RowIndex].Value);
                     double sumValue = currentValue - valueDoub;
 
@@ -357,7 +362,12 @@ namespace CyclingApp
 
             if (found)
             {
-                value = (string)temp[columnNum, rowIndex].Value;
+
+                if (rowIndex < temp.RowCount)
+                {
+                    value = (string)temp[columnNum, rowIndex].Value;
+                }
+               
             }
 
             return value;

@@ -57,6 +57,7 @@ namespace CyclingApp
             ftpMenu.HideDropDown();
             this.Invalidate();
             dw1 = null;
+            chunkSelectionBox.Text = "Full Data";
             
         }
 
@@ -134,16 +135,7 @@ namespace CyclingApp
             }
         }
 
-        public string GetValueFromFile2(int row, int column)
-        {
-            string value = "String Value";
 
-
-
-
-
-            return value;
-        }
 
         /// <summary>
         /// event called when ftpmenu is clicked in turn opening the form to enter the value
@@ -253,7 +245,10 @@ namespace CyclingApp
             {
                 value = temp.GetValue(headerText, rowIndex, grid);
             }
-
+            if (value == null || value.Equals("N/A"))
+            {
+                value = "NOTFOUND";
+            }
 
            
            

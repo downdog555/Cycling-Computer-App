@@ -50,9 +50,9 @@
             // 
             // summaryGroupBox
             // 
-            this.summaryGroupBox.Location = new System.Drawing.Point(7, 20);
+            this.summaryGroupBox.Location = new System.Drawing.Point(7, 19);
             this.summaryGroupBox.Name = "summaryGroupBox";
-            this.summaryGroupBox.Size = new System.Drawing.Size(714, 161);
+            this.summaryGroupBox.Size = new System.Drawing.Size(714, 162);
             this.summaryGroupBox.TabIndex = 1;
             this.summaryGroupBox.TabStop = false;
             this.summaryGroupBox.Text = "summary";
