@@ -41,24 +41,24 @@
             this.menuStrip3 = new System.Windows.Forms.MenuStrip();
             this.loadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareTab = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chunkSelectionBox = new System.Windows.Forms.ComboBox();
+            this.LoadChunkButton = new System.Windows.Forms.Button();
+            this.ChunkSizeBox = new System.Windows.Forms.TextBox();
+            this.ChunkDataButton = new System.Windows.Forms.Button();
             this.comparisonPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.loadFile1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadFile2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileDialog = new System.Windows.Forms.OpenFileDialog();
             this.file2Dialog = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ChunkDataButton = new System.Windows.Forms.Button();
-            this.ChunkSizeBox = new System.Windows.Forms.TextBox();
-            this.LoadChunkButton = new System.Windows.Forms.Button();
-            this.chunkSelectionBox = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.tabSelector.SuspendLayout();
             this.singleView.SuspendLayout();
             this.menuStrip3.SuspendLayout();
             this.compareTab.SuspendLayout();
-            this.menuStrip2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -178,6 +178,53 @@
             this.compareTab.Text = "Compare Details";
             this.compareTab.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.chunkSelectionBox);
+            this.groupBox1.Controls.Add(this.LoadChunkButton);
+            this.groupBox1.Controls.Add(this.ChunkSizeBox);
+            this.groupBox1.Controls.Add(this.ChunkDataButton);
+            this.groupBox1.Location = new System.Drawing.Point(7, 30);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(604, 46);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Chunking Box";
+            // 
+            // chunkSelectionBox
+            // 
+            this.chunkSelectionBox.FormattingEnabled = true;
+            this.chunkSelectionBox.Location = new System.Drawing.Point(396, 19);
+            this.chunkSelectionBox.Name = "chunkSelectionBox";
+            this.chunkSelectionBox.Size = new System.Drawing.Size(121, 21);
+            this.chunkSelectionBox.TabIndex = 3;
+            // 
+            // LoadChunkButton
+            // 
+            this.LoadChunkButton.Location = new System.Drawing.Point(523, 17);
+            this.LoadChunkButton.Name = "LoadChunkButton";
+            this.LoadChunkButton.Size = new System.Drawing.Size(75, 23);
+            this.LoadChunkButton.TabIndex = 2;
+            this.LoadChunkButton.Text = "Load Chunk";
+            this.LoadChunkButton.UseVisualStyleBackColor = true;
+            // 
+            // ChunkSizeBox
+            // 
+            this.ChunkSizeBox.Location = new System.Drawing.Point(7, 17);
+            this.ChunkSizeBox.Name = "ChunkSizeBox";
+            this.ChunkSizeBox.Size = new System.Drawing.Size(100, 20);
+            this.ChunkSizeBox.TabIndex = 1;
+            // 
+            // ChunkDataButton
+            // 
+            this.ChunkDataButton.Location = new System.Drawing.Point(113, 14);
+            this.ChunkDataButton.Name = "ChunkDataButton";
+            this.ChunkDataButton.Size = new System.Drawing.Size(75, 23);
+            this.ChunkDataButton.TabIndex = 0;
+            this.ChunkDataButton.Text = "Chunk";
+            this.ChunkDataButton.UseVisualStyleBackColor = true;
+            this.ChunkDataButton.Click += new System.EventHandler(this.ChunkDataButton_Click);
+            // 
             // comparisonPanel
             // 
             this.comparisonPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -223,52 +270,6 @@
             this.file2Dialog.FileName = "FileDialog2";
             this.file2Dialog.FileOk += new System.ComponentModel.CancelEventHandler(this.file2Dialog_FileOk);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.chunkSelectionBox);
-            this.groupBox1.Controls.Add(this.LoadChunkButton);
-            this.groupBox1.Controls.Add(this.ChunkSizeBox);
-            this.groupBox1.Controls.Add(this.ChunkDataButton);
-            this.groupBox1.Location = new System.Drawing.Point(7, 30);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(604, 46);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Chunking Box";
-            // 
-            // ChunkDataButton
-            // 
-            this.ChunkDataButton.Location = new System.Drawing.Point(113, 14);
-            this.ChunkDataButton.Name = "ChunkDataButton";
-            this.ChunkDataButton.Size = new System.Drawing.Size(75, 23);
-            this.ChunkDataButton.TabIndex = 0;
-            this.ChunkDataButton.Text = "Chunk";
-            this.ChunkDataButton.UseVisualStyleBackColor = true;
-            // 
-            // ChunkSizeBox
-            // 
-            this.ChunkSizeBox.Location = new System.Drawing.Point(7, 17);
-            this.ChunkSizeBox.Name = "ChunkSizeBox";
-            this.ChunkSizeBox.Size = new System.Drawing.Size(100, 20);
-            this.ChunkSizeBox.TabIndex = 1;
-            // 
-            // LoadChunkButton
-            // 
-            this.LoadChunkButton.Location = new System.Drawing.Point(523, 17);
-            this.LoadChunkButton.Name = "LoadChunkButton";
-            this.LoadChunkButton.Size = new System.Drawing.Size(75, 23);
-            this.LoadChunkButton.TabIndex = 2;
-            this.LoadChunkButton.Text = "Load Chunk";
-            this.LoadChunkButton.UseVisualStyleBackColor = true;
-            // 
-            // chunkSelectionBox
-            // 
-            this.chunkSelectionBox.FormattingEnabled = true;
-            this.chunkSelectionBox.Location = new System.Drawing.Point(396, 19);
-            this.chunkSelectionBox.Name = "chunkSelectionBox";
-            this.chunkSelectionBox.Size = new System.Drawing.Size(121, 21);
-            this.chunkSelectionBox.TabIndex = 3;
-            // 
             // CyclingMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -288,10 +289,10 @@
             this.menuStrip3.PerformLayout();
             this.compareTab.ResumeLayout(false);
             this.compareTab.PerformLayout();
-            this.menuStrip2.ResumeLayout(false);
-            this.menuStrip2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.menuStrip2.ResumeLayout(false);
+            this.menuStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

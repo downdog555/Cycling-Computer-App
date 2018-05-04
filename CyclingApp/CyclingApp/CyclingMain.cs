@@ -229,6 +229,14 @@ namespace CyclingApp
             file2Dialog.ShowDialog();
         }
 
+        /// <summary>
+        /// used to get value of opposite file at specified poisition
+        /// </summary>
+        /// <param name="headerText">the header text of the column, used to check if the column exists</param>
+        /// <param name="rowIndex">the index of the row used with colulmn to find cell</param>
+        /// <param name="file">which file has requested the value, used to find which is the opposit</param>
+        /// <param name="grid">which grid we are checking summary or full data</param>
+        /// <returns></returns>
         internal string GetValue(string headerText, int rowIndex, string file, string grid)
         {
             ComparrisonControl temp;
@@ -254,6 +262,46 @@ namespace CyclingApp
            
             return value;
 
+        }
+
+        /// <summary>
+        /// called when chunk button is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChunkDataButton_Click(object sender, EventArgs e)
+        {
+            int chunkSize = 0;
+            int length = 0;
+            try
+            {
+                chunkSize = Convert.ToInt32(ChunkSizeBox.Text);
+                //we need to see if they are of different lengths
+                //if they are the final selection box 
+
+
+
+
+                if (dw1.GetFullData().DataEuro.Count == dw2.GetFullData().DataEuro.Count)
+                {
+                    length = dw1.GetFullData().DataEuro.Count;
+                }
+                else if (dw1.GetFullData().DataEuro.Count > dw2.GetFullData().DataEuro.Count)
+                {
+                    length = dw2.GetFullData().DataEuro.Count;
+                }
+                else if (dw1.GetFullData().DataEuro.Count < dw2.GetFullData().DataEuro.Count)
+                {
+                    length = dw1.GetFullData().DataEuro.Count;
+                }
+
+
+
+            }
+            catch (Exception e1)
+            {
+                MessageBox.Show("Error: Number of Chunks wrong value" + e1.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

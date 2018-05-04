@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace CyclingApp
 {
+    /// <summary>
+    /// Class that represents the comparison control
+    /// </summary>
     public partial class ComparrisonControl : UserControl
     {
         private DataViewImproved dv;
@@ -40,7 +43,7 @@ namespace CyclingApp
             groupBox1.Text = file;
 
 
-            UpdateSummary();
+            UpdateSummaryNoDate();
             FullData();
 
             //just set the data in the view now
@@ -48,9 +51,35 @@ namespace CyclingApp
 
 
 
+        /// <summary>
+        /// Called to get fulldata for a specific time span
+        /// </summary>
+        /// <param name="start">the start time</param>
+        /// <param name="end">the end time</param>
+        private void FullDataDate(DateTime start, DateTime end)
+        {
+            data = dv.GetListData(start, end);
+            hrData.DataEuro = data[0];
+            hrData.DataUS = data[1];
+
+            FullData();
+        }
 
 
+        /// <summary>
+        /// called toadd full data with no date
+        /// </summary>
+        private void FullDataNoDate()
+        {
+            //we use th 
+            //we assgin the data again
+            this.hrData = dv.GetFullData();
+            FullData();
+        }
 
+        /// <summary>
+        /// Adds the full hr data to the display
+        /// </summary>
         public void FullData()
         {
             dataGroupBox.Controls.Clear();
@@ -183,9 +212,34 @@ namespace CyclingApp
             }
         }
 
-       
 
-        public void UpdateSummary()
+        /// <summary>
+        /// Called to update the summary section with a specific span of time
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        public void UpdateSummaryDate(DateTime start, DateTime end)
+        {
+            UpdateSummary(start, end);
+        }
+
+
+        /// <summary>
+        /// Called when summary is needed to be updated, with out a date, meaning that it resets the data selection
+        /// </summary>
+        public void UpdateSummaryNoDate()
+        {
+            DateTime start = new DateTime(2018, 1, 1, 0, 0, 0);
+            DateTime end = dv.GetEndDateTime();
+            UpdateSummary(start, end);
+        }
+
+        /// <summary>
+        /// Function to update the summary grid view with new data
+        /// </summary>
+        /// <param name="start">the start time of the section to load</param>
+        /// <param name="end">end time/date of the section to load</param>
+        private void UpdateSummary(DateTime start, DateTime end)
         {
 
             summaryGroupBox.Controls.Clear();
@@ -193,14 +247,13 @@ namespace CyclingApp
             summaryDataGrid.Dock = DockStyle.Fill;
            
 
-            summaryDataGrid.CellMouseEnter += summaryDataGrid_CellMouseMove;
+            summaryDataGrid.CellMouseEnter += summaryDataGrid_CellMouseEnter;
             summaryDataGrid.CellMouseLeave += summaryDataGrid_CellMouseLeave;
 
             summaryGroupBox.Controls.Add(summaryDataGrid);
 
             
-            DateTime start = new DateTime(2018, 1, 1, 0, 0, 0);
-            DateTime end = dv.GetEndDateTime();
+           
             summary = dv.GetSummary(start, end);
             //can get selection of data with get list data
             //  dv.GetListData(start, end);
@@ -224,6 +277,12 @@ namespace CyclingApp
             summaryDataGrid.Rows.Add(dataToBeInserted.ToArray());
         }
 
+
+        /// <summary>
+        /// Event called when mouse leaves a cell on the summary section, resets background colour
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void summaryDataGrid_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 1)
@@ -232,7 +291,13 @@ namespace CyclingApp
             }
         }
 
-        private void summaryDataGrid_CellMouseMove(object sender, DataGridViewCellEventArgs e)
+
+        /// <summary>
+        /// Event called when mouse enters cell
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void summaryDataGrid_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
@@ -273,16 +338,18 @@ namespace CyclingApp
         public void SetHR(int hr)
         {
             dv.SetMaxHR(hr);
+            UpdateSummaryNoDate();
 
         }
         public void SetFTP(double ftp)
         {
             dv.SetFTP(ftp);
+            UpdateSummaryNoDate();
         }
 
         /// <summary>
         /// called when mouse enters cell,
-        /// need to have timer check if mouse is still in there
+        /// used to calcualte oppostie value if it exists
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
