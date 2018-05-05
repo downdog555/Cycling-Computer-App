@@ -48,7 +48,7 @@ namespace CyclingApp
             HRCC = valuesInt[6] != 0;
             unit = valuesInt[7] != 0;
         }
-
+        #region getters and setters
         public bool Speed { get { return speed; } set { speed = value; } }
         public bool Cadence { get { return cadence; } set { cadence = value; } }
         public bool Altitude { get { return altitude; } set { altitude = value; } }
@@ -58,5 +58,6 @@ namespace CyclingApp
         public bool HRCC1 { get { return HRCC; } set { HRCC = value; } }
         public bool Unit { get { return unit; } set { unit = value; } }
         public bool AirPressure { get { return airPressure; } set { airPressure = value; } }
+        #endregion
     }
 }

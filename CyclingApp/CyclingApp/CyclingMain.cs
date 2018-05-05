@@ -211,7 +211,9 @@ namespace CyclingApp
         }
 
 
-
+        /// <summary>
+        /// Called to add the comparrison controls
+        /// </summary>
         private void AddComparison()
         {
             comparisonPanel.Controls.Clear();
@@ -224,6 +226,11 @@ namespace CyclingApp
             
         }
 
+        /// <summary>
+        /// Called when the load file 2 button is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void loadFile2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             file2Dialog.ShowDialog();
@@ -271,11 +278,16 @@ namespace CyclingApp
         /// <param name="e"></param>
         private void ChunkDataButton_Click(object sender, EventArgs e)
         {
-            int chunkSize = 0;
+            if (dw1 == null || dw2 == null)
+            {
+                MessageBox.Show("Error: Please load both files" , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            int numberOfChunks = 0;
             int length = 0;
             try
             {
-                chunkSize = Convert.ToInt32(ChunkSizeBox.Text);
+                numberOfChunks = Convert.ToInt32(ChunkSizeBox.Text);
                 //we need to see if they are of different lengths
                 //if they are the final selection box 
 
@@ -295,12 +307,49 @@ namespace CyclingApp
                     length = dw1.GetFullData().DataEuro.Count;
                 }
 
+                int chunkSize = length / numberOfChunks;
 
+
+
+                file1.ChunkData(chunkSize, numberOfChunks);
+                file2.ChunkData(chunkSize, numberOfChunks);
+
+                chunkSelectionBox.Items.Clear();
+                chunkSelectionBox.Items.Add("Full Data");
+                for (int i = 1; i <= numberOfChunks; i++)
+                {
+                    chunkSelectionBox.Items.Add("" + i + "/" + numberOfChunks);
+                }
 
             }
             catch (Exception e1)
             {
                 MessageBox.Show("Error: Number of Chunks wrong value" + e1.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// called when load chunk button is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoadChunkButton_Click(object sender, EventArgs e)
+        {
+            //get value from selection box
+            string selectionValue = chunkSelectionBox.Text;
+            if (selectionValue.Equals("Full Data"))
+            {
+                file1.LoadChunk(-1);
+                file2.LoadChunk(-1);
+                
+
+            }
+            else
+            {
+                int selectionValueInt = Convert.ToInt32(selectionValue.Split('/')[0]);
+                file1.LoadChunk(selectionValueInt);
+                file2.LoadChunk(selectionValueInt);
+
             }
         }
     }

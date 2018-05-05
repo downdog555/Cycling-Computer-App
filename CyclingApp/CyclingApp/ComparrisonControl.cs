@@ -17,7 +17,10 @@ namespace CyclingApp
     {
         private DataViewImproved dv;
         private HrData hrData;
-        private List<HrDataSingle>[] data;
+        private List<HrDataSingle>[] data = new List<HrDataSingle>[2];
+
+
+
         private Dictionary<string, string>[] summary;
         private DataGridView fullData;
 
@@ -25,7 +28,8 @@ namespace CyclingApp
         private bool unit;
         private CyclingMain cyMain;
         private string file;
-
+        List<DateTime[]> chunks;
+        private DateTime chunkStart;
        /// <summary>
        /// Constructor
        /// </summary>
@@ -41,15 +45,37 @@ namespace CyclingApp
             unit = false;
             this.file = file;
             groupBox1.Text = file;
+            chunks = new List<DateTime[]>();
+            
+            data[0] = hrData.DataEuro;
+            data[1] = hrData.DataUS;
 
 
             UpdateSummaryNoDate();
-            FullData();
+            FullDataNoDate();
 
             //just set the data in the view now
         }
 
+        /// <summary>
+        /// Called by cycling main to load a specific chunk
+        /// </summary>
+        /// <param name="index">zero base index</param>
+        public void LoadChunk(int index = -1)
+        {
+            if (index == -1)
+            {
+                FullDataNoDate();
+                UpdateSummaryNoDate();
+            }
+            else
+            {
+                DateTime[] temp = chunks.ElementAt(index-1);
+                FullDataDate(temp[0], temp[1]);
+                UpdateSummaryDate(temp[0], temp[1]);
 
+            }
+        }
 
         /// <summary>
         /// Called to get fulldata for a specific time span
@@ -59,10 +85,57 @@ namespace CyclingApp
         private void FullDataDate(DateTime start, DateTime end)
         {
             data = dv.GetListData(start, end);
-            hrData.DataEuro = data[0];
-            hrData.DataUS = data[1];
+            chunkStart = start;
 
-            FullData();
+            FullData("chunk");
+        }
+
+   
+        /// <summary>
+        /// Called to chunk the data
+        /// </summary>
+        /// <param name="sizeOfChunks">the size of each chunk</param>
+        /// <param name="numberOfChunks">the number of requried chunk</param>
+        public void ChunkData(int sizeOfChunks, int numberOfChunks)
+        {
+            chunks.Clear();
+            Console.WriteLine("Number of chunks: "+numberOfChunks);
+            bool start = true;
+            DateTime chunkEnd;
+            for (int i = 1; i <= numberOfChunks ;i++)
+            {
+                DateTime chunkStart = new DateTime(2018, 1, 1, 0, 0, 0);
+                if (start)
+                {
+                    start = false;
+                }
+                else
+                {
+                    chunkStart= chunkStart.AddSeconds((((i-1)*sizeOfChunks) / dv.GetInterval()));
+                   
+                }
+
+                if (i == numberOfChunks)
+                {
+                    chunkEnd = dv.GetEndDateTime();
+                }
+                else
+                {
+                    chunkEnd = new DateTime(2018, 1, 1, 0, 0, 0);
+                    chunkEnd= chunkEnd.AddSeconds(((i * sizeOfChunks) / dv.GetInterval()));
+                }
+                
+
+
+
+
+                chunks.Add(new DateTime[] {chunkStart, chunkEnd });
+            }
+
+            Console.WriteLine(chunks.Count);
+
+            
+
         }
 
 
@@ -73,14 +146,15 @@ namespace CyclingApp
         {
             //we use th 
             //we assgin the data again
-            this.hrData = dv.GetFullData();
-            FullData();
+            data[0] = hrData.DataEuro;
+            data[1] = hrData.DataUS;
+            FullData("full");
         }
 
         /// <summary>
         /// Adds the full hr data to the display
         /// </summary>
-        public void FullData()
+        private void FullData(string type)
         {
             dataGroupBox.Controls.Clear();
             fullData = new DataGridView();
@@ -156,14 +230,24 @@ namespace CyclingApp
             List<HrDataSingle> dataSmall;
             if (unit)
             {
-                dataSmall = hrData.DataUS;
+                dataSmall = data[0];
             }
             else
             {
-                dataSmall = hrData.DataEuro;
+                dataSmall = data[1];
             }
             DateTime dateTimeRide = dv.GetRideTime();
+            if (type.Equals("chunk"))
+            {
+                //add the start time of the chunk
+                DateTime zeroPoint = new DateTime(chunkStart.Year,chunkStart.Month,chunkStart.Day,0,0,0);
+                TimeSpan offset = chunkStart - zeroPoint;
 
+                dateTimeRide = dateTimeRide.AddSeconds(offset.TotalSeconds);
+
+               
+
+            }
             int recordingIntervalInt = dv.GetInterval();
             foreach (HrDataSingle dataLine in dataSmall)
             {
@@ -218,7 +302,7 @@ namespace CyclingApp
         /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        public void UpdateSummaryDate(DateTime start, DateTime end)
+        private void UpdateSummaryDate(DateTime start, DateTime end)
         {
             UpdateSummary(start, end);
         }
@@ -227,7 +311,7 @@ namespace CyclingApp
         /// <summary>
         /// Called when summary is needed to be updated, with out a date, meaning that it resets the data selection
         /// </summary>
-        public void UpdateSummaryNoDate()
+        private void UpdateSummaryNoDate()
         {
             DateTime start = new DateTime(2018, 1, 1, 0, 0, 0);
             DateTime end = dv.GetEndDateTime();
@@ -335,12 +419,20 @@ namespace CyclingApp
             }
         }
 
+        /// <summary>
+        /// Called to set the hr
+        /// </summary>
+        /// <param name="hr">the heart rate to set</param>
         public void SetHR(int hr)
         {
             dv.SetMaxHR(hr);
             UpdateSummaryNoDate();
 
         }
+        /// <summary>
+        /// Called to set the functional threshold power
+        /// </summary>
+        /// <param name="ftp">the power</param>
         public void SetFTP(double ftp)
         {
             dv.SetFTP(ftp);
@@ -440,6 +532,13 @@ namespace CyclingApp
             return value;
         }
 
+
+
+        /// <summary>
+        /// Called when the mouse leaves the cell
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridView_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 1)

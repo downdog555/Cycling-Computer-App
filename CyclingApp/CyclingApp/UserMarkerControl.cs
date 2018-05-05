@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace CyclingApp
 {
+    /// <summary>
+    /// class used to represent eh user marker control
+    /// </summary>
     public partial class UserMarkerControl : UserControl
     {
         private int markerIndex;
@@ -46,6 +49,17 @@ namespace CyclingApp
             }
         }
 
+        /// <summary>
+        /// Constuctor
+        /// </summary>
+        /// <param name="marker">what index the marker is</param>
+        /// <param name="dv">a reference to the data view</param>
+        /// <param name="start">start time</param>
+        /// <param name="end">end time</param>
+        /// <param name="data">the data of this section</param>
+        /// <param name="unit">the unit in this file</param>
+        /// <param name="interval">the recording interval</param>
+        /// <param name="type">true if marker is used for the chunks of data, false if user selection</param>
         public UserMarkerControl(int marker, DataViewImproved dv, DateTime start, DateTime end, List<HrDataSingle>[] data, bool unit, int interval, bool type)
         {
             InitializeComponent();
@@ -68,6 +82,11 @@ namespace CyclingApp
             }
         }
 
+        /// <summary>
+        /// used to remove this marker from the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void remove_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (type)
@@ -82,6 +101,11 @@ namespace CyclingApp
             
         }
 
+        /// <summary>
+        /// called when the load section link is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void loadSectionLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //on click assgin the current data to the selected data
@@ -101,6 +125,11 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// called when the chunk data link is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chunkData_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //we need to load the chunk data form etc and allow for input into the amount of chunks

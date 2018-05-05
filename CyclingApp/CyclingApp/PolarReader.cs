@@ -315,6 +315,11 @@ namespace CyclingApp
             return returnData;
         }
 
+        /// <summary>
+        /// Function used to calculate the normalised power of the data
+        /// </summary>
+        /// <param name="dataList">the list of data to be used</param>
+        /// <returns>the normalised power</returns>
         private int GetNormalisedPower(List<HrDataSingle> dataList)
         {
             /**
@@ -398,6 +403,11 @@ namespace CyclingApp
             return distance;
         }
 
+        /// <summary>
+        /// Gets the average speed from a data set
+        /// </summary>
+        /// <param name="dataList">data set used to calculate</param>
+        /// <returns>average speed</returns>
         private double GetAverageSpeed(List<HrDataSingle> dataList)
         {
             double averageSpeed = 0;
@@ -410,7 +420,11 @@ namespace CyclingApp
             return averageSpeed;
 
         }
-
+        /// <summary>
+        /// Gets the maximum speed from a data set
+        /// </summary>
+        /// <param name="dataList">data set used to calculate</param>
+        /// <returns>maxmimum speed</returns>
         private double GetMaxSpeed(List<HrDataSingle> dataList)
         {
             double speed = 0;
@@ -425,6 +439,12 @@ namespace CyclingApp
 
             return speed;
         }
+
+        /// <summary>
+        /// Gets the max heart rate from a data set
+        /// </summary>
+        /// <param name="dataList">data set used to calculate</param>
+        /// <returns>maxmimum heart rate</returns>
         private int GetMaxHeartRate(List<HrDataSingle> dataList)
         {
             int maxHeartRate = 0;
@@ -453,6 +473,11 @@ namespace CyclingApp
             return IF;
         }
 
+        /// <summary>
+        /// Gets the averaege heart rate from a data set
+        /// </summary>
+        /// <param name="dataList">data set used to calculate</param>
+        /// <returns>average heart rate</returns>
         private int GetAverageHeartRate(List<HrDataSingle> dataList)
         {
             int averageHeartRate = 0;
@@ -465,6 +490,11 @@ namespace CyclingApp
             return averageHeartRate;
         }
 
+        /// <summary>
+        /// Gets the minimum heart rate from a data set
+        /// </summary>
+        /// <param name="dataList">data set used to calculate</param>
+        /// <returns>minimum heart rate</returns>
         private int GetMinHeartRate(List<HrDataSingle> dataList)
         {
             int minHeartRate = restHR;
@@ -478,7 +508,11 @@ namespace CyclingApp
 
             return minHeartRate;
         }
-
+        /// <summary>
+        /// Gets the average power from a data set
+        /// </summary>
+        /// <param name="dataList">data set used to calculate</param>
+        /// <returns>average power</returns>
         private int GetAveragePower(List<HrDataSingle> dataList)
         {
             double PowerAverage = 0;
@@ -490,7 +524,11 @@ namespace CyclingApp
 
             return (int)PowerAverage;
         }
-
+        /// <summary>
+        /// Gets the max power from a data set
+        /// </summary>
+        /// <param name="dataList">data set used to calculate</param>
+        /// <returns>max power</returns>
         private int GetMaxPower(List<HrDataSingle> dataList)
         {
             int maxpower = 0;
@@ -505,7 +543,11 @@ namespace CyclingApp
             }
             return maxpower;
         }
-
+        /// <summary>
+        /// Gets the average altitude from a data set
+        /// </summary>
+        /// <param name="dataList">data set used to calculate</param>
+        /// <returns>average altitude</returns>
         private double GetAverageAltitude(List<HrDataSingle> dataList)
         {
             double averageAlt = 0;
@@ -520,7 +562,11 @@ namespace CyclingApp
 
             return averageAlt;
         }
-
+        /// <summary>
+        /// Gets the max altitude from a data set
+        /// </summary>
+        /// <param name="dataList">data set used to calculate</param>
+        /// <returns>max altitude</returns>
         private double GetMaxAltitude(List<HrDataSingle> dataList)
         {
             double maxAlt = 0; ;
@@ -551,7 +597,11 @@ namespace CyclingApp
             return rideInfo;
         }
 
-       
+       /// <summary>
+       /// used to get the type of cycling computer being used
+       /// </summary>
+       /// <param name="raw">the string that represents the monitor line in the file</param>
+       /// <returns></returns>
         private string GetMonitorType(string raw)
         {
             raw = raw.Split('=')[1];
@@ -712,11 +762,17 @@ namespace CyclingApp
             }
         }
         #endregion
+
+
+        /// <summary>
+        /// Used to read the file
+        /// </summary>
+        /// <param name="filePath">the file path of the file to be read</param>
         public void ReadFile(string filePath)
         {
-            Console.WriteLine("We are in polar reader for read file");
+            //Console.WriteLine("We are in polar reader for read file");
             this.filePath = filePath;
-            Console.WriteLine("We are after asigning file path");
+           // Console.WriteLine("We are after asigning file path");
             SeparateData();
         }
 

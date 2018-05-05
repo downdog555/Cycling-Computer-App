@@ -11,6 +11,9 @@ using ZedGraph;
 
 namespace CyclingApp
 {
+    /// <summary>
+    /// class to represent the single data view of a file, note as impreved as the second version
+    /// </summary>
     public partial class DataViewImproved : UserControl
     {
 
@@ -48,6 +51,10 @@ namespace CyclingApp
         public bool MarkerSelected { get { return markerSelected; } set { markerSelected = value; } }
         public List<Marker> MarkerList1 { get { return MarkerList; } set { MarkerList = value; } }
 
+        /// <summary>
+        /// Used to get the SMODE object
+        /// </summary>
+        /// <returns></returns>
         public Smode GetSmode()
         {
             return smode;

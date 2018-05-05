@@ -27,19 +27,31 @@ namespace CyclingApp
             dataStore = new PolarReader();
         }
 
+        /// <summary>
+        /// Loads the data using the polar reader
+        /// </summary>
+        /// <param name="filePath">the file path of the file to load</param>
         public void LoadData(string filePath)
         {
 
             dataStore.ReadFile(filePath);
         }
 
+
+        /// <summary>
+        /// gets the summary in US data format
+        /// </summary>
+        /// <returns>the summary in a dictionary format</returns>
         public Dictionary<string, string> GetSummaryUS()
         {
             
                 return dataStore.SummaryUS;
             
         }
-
+        /// <summary>
+        /// gets the summary in EURO data format
+        /// </summary>
+        /// <returns>the summary in a dictionary format</returns>
         public Dictionary<string, string> GetSummaryEuro()
         {
             return dataStore.SummaryEuro;
@@ -47,21 +59,37 @@ namespace CyclingApp
         }
 
 
-
+        /// <summary>
+        /// used to get the unit from the polar reader
+        /// </summary>
+        /// <returns></returns>
         public bool GetUnit()
         {
             return dataStore.UnitBool;
         }
 
+        /// <summary>
+        /// used to get the ride info in one list
+        /// </summary>
+        /// <returns>a list of all information relating to the ride</returns>
         public List<string> GetRideInfo()
         {
             return dataStore.GetRideInfo();
         }
+
+        /// <summary>
+        /// used to ge the HR data from the loaded file
+        /// </summary>
+        /// <returns>HrData object</returns>
         public HrData GetHrData()
         {
             return dataStore.HrDataExtended;
         }
 
+        /// <summary>
+        /// Used to get the SMODe
+        /// </summary>
+        /// <returns>Smode object</returns>
         public Smode GetSMODE()
         {
             return dataStore.Smode;

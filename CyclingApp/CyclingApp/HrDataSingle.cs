@@ -39,6 +39,8 @@ namespace CyclingApp
             heartRate = cadence = altitude = power = airPressure  = 0;
             pbPedInd = "";
             speed = 0.0;
+
+            //depending upon which sensors are in use, means data will be pulled from a different position
             if (version == 105)
             {
                 heartRate =(int)Convert.ToDouble(data.ElementAt(0));
@@ -327,7 +329,7 @@ namespace CyclingApp
           
 
         }
-
+        //Getters and setters
         public int HeartRate { get { return heartRate; } set { heartRate = value; } }
         public int Cadence { get { return cadence; } }
         public int Altitude { get { return altitude; } }

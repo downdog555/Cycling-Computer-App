@@ -207,6 +207,7 @@
             this.LoadChunkButton.TabIndex = 2;
             this.LoadChunkButton.Text = "Load Chunk";
             this.LoadChunkButton.UseVisualStyleBackColor = true;
+            this.LoadChunkButton.Click += new System.EventHandler(this.LoadChunkButton_Click);
             // 
             // ChunkSizeBox
             // 

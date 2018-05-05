@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace CyclingApp
 {
+    /// <summary>
+    /// Class to represent the form used to enter the FTP
+    /// </summary>
     public partial class EnterFTP : Form
     {
         private CyclingMain cyclingMain;

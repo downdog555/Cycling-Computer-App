@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace CyclingApp
 {
+    /// <summary>
+    /// Class used to represent the form used to enter the Heart rate
+    /// </summary>
     public partial class EnterHR : Form
     {
         private CyclingMain cyclingMain;

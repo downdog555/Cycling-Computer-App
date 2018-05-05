@@ -111,12 +111,6 @@
     <Compile Include="UserMarkerControl.Designer.cs">
       <DependentUpon>UserMarkerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserSelectedDataView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserSelectedDataView.Designer.cs">
-      <DependentUpon>UserSelectedDataView.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="ComparrisonControl.resx">
       <DependentUpon>ComparrisonControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -150,9 +144,6 @@
     <EmbeddedResource Include="UserMarkerControl.resx">
       <DependentUpon>UserMarkerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserSelectedDataView.resx">
-      <DependentUpon>UserSelectedDataView.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -169,7 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="License-LGPL.txt" />
-    <Content Include="WinFormsExpander.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

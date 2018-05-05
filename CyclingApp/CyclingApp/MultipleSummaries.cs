@@ -11,12 +11,23 @@ using ZedGraph;
 
 namespace CyclingApp
 {
+    /// <summary>
+    /// Class used to represent the form used to allow for chunking on a single file
+    /// </summary>
     public partial class MultipleSummaries : Form
     {
         private List<HrDataSingle>[] data;
         private DataViewImproved dv;
         private List<Marker> markers;
         private int interval;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="data">The list of data, used to create the markers</param>
+        /// <param name="dv">a reference to the corrsiponding data view</param>
+        /// <param name="Unit">the unit the chunks will be in US or Euro</param>
+        /// <param name="interval">the recording interval</param>
         public MultipleSummaries(List<HrDataSingle>[] data, DataViewImproved dv, bool Unit, int interval)
         {
             InitializeComponent();
@@ -115,6 +126,13 @@ namespace CyclingApp
 
         }
 
+
+        /// <summary>
+        /// Called when the form is first loaded
+        /// used in this case to set the location to the middle of the active screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MultipleSummaries_Load(object sender, EventArgs e)
         {
             Screen s = Screen.PrimaryScreen;

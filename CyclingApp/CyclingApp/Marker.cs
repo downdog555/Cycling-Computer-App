@@ -44,12 +44,26 @@ namespace CyclingApp
             c = Color.FromArgb(255, rand.Next(255), rand.Next(255), rand.Next(255));
         }
 
+        /// <summary>
+        /// Getter and setter
+        /// </summary>
         public double Min { get { return min; } set { min = value; } }
+        /// <summary>
+        /// Getter and setter
+        /// </summary>
         public double Max { get { return max; } set { max = value; } }
+        /// <summary>
+        /// Getter and setter
+        /// </summary>
         public Color C { get { return c; } set { c = value; } }
 
+        /// <summary>
+        /// Getter and setter
+        /// </summary>
         public bool DrawMarker { get { return drawMarker; } set { drawMarker = value; } }
-
+        /// <summary>
+        /// Getter and setter
+        /// </summary>
         public bool Selected { get { return selected; } set { selected = value; } }
     }
 }
