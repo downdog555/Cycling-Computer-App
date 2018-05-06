@@ -10,7 +10,7 @@ namespace CyclingApp
     /// <summary>
     /// Class For Reading a Polar type document
     /// </summary>
-    class PolarReader : IFileReader
+    public class PolarReader : IFileReader
     {
 
         private Mode mode;
@@ -780,7 +780,7 @@ namespace CyclingApp
         /// flips the date as it is in incorrect format when supplied
         /// </summary>
         /// <returns>date in correct format</returns>
-        public string FlipDate()
+        private string FlipDate()
         {
             string newDate = "";
 
@@ -1308,5 +1308,7 @@ namespace CyclingApp
 
 
         }
+
+       
     }
 }

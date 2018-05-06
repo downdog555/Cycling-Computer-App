@@ -11,6 +11,7 @@ namespace CyclingApp
     /// </summary>
     public class Smode
     {
+
         int[] valuesInt;
         private bool speed, cadence, altitude, power, powerLeftRightBalance, powerPedallingIndex, HRCC, unit, airPressure; 
 

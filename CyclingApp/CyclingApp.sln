@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyclingApp", "CyclingApp\CyclingApp.csproj", "{F7A9DEF0-FEE5-4F4D-A3B5-A845EDE3B71E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyclingAppTests", "CyclingAppTests\CyclingAppTests.csproj", "{3F154F16-4875-46B3-87EC-3538FC4449D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F7A9DEF0-FEE5-4F4D-A3B5-A845EDE3B71E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7A9DEF0-FEE5-4F4D-A3B5-A845EDE3B71E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7A9DEF0-FEE5-4F4D-A3B5-A845EDE3B71E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F154F16-4875-46B3-87EC-3538FC4449D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F154F16-4875-46B3-87EC-3538FC4449D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F154F16-4875-46B3-87EC-3538FC4449D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F154F16-4875-46B3-87EC-3538FC4449D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

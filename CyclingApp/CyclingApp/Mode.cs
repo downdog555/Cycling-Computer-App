@@ -9,8 +9,9 @@ namespace CyclingApp
     /// <summary>
     /// class representing a mode 
     /// </summary>
-    class Mode
+    public class Mode
     {
+
         private string cadAlt;
         private bool unit, ccData;
         private int cadAltInt;

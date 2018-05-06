@@ -11,6 +11,7 @@ namespace CyclingApp
     /// </summary>
     public class HrData 
     {
+
         private List<HrDataSingle> dataEuro;
         private List<HrDataSingle> dataUS;
         private Smode smode;
