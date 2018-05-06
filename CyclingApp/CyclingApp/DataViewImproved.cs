@@ -424,6 +424,9 @@ namespace CyclingApp
 
             return IF;
         }
+        /// <summary>
+        /// used to get the advenced metrics normalised power, IF and TSS
+        /// </summary>
         private void GetAdvancedMetrics()
         {
             IntensityFactor = GetIF(NormalisedPower);
@@ -446,7 +449,10 @@ namespace CyclingApp
             normPower.Text = "" + NormalisedPower;
         }
 
-
+        /// <summary>
+        /// Used to get the end date tiem of the file
+        /// </summary>
+        /// <returns>the end date time</returns>
         public DateTime GetEndDateTime()
         {
             int lengthH = Convert.ToInt32(lengthOfRide.Text.Split(':')[0]);
@@ -456,7 +462,12 @@ namespace CyclingApp
             return endTime;
         }
 
-
+        /// <summary>
+        /// used to get the summary
+        /// </summary>
+        /// <param name="start">start time of the summary</param>
+        /// <param name="end">end time of the summary</param>
+        /// <returns></returns>
         public Dictionary<string, string>[] GetSummary(DateTime start, DateTime end)
         {
 
@@ -484,7 +495,12 @@ namespace CyclingApp
 
             return summary;
         }
-
+        /// <summary>
+        /// Gets the hrdata
+        /// </summary>
+        /// <param name="start">start date of the section</param>
+        /// <param name="end">end date of the section</param>
+        /// <returns></returns>
         public List<HrDataSingle>[] GetListData(DateTime start, DateTime end)
         {
             List<HrDataSingle>[] data = new List<HrDataSingle>[2];
@@ -919,6 +935,7 @@ namespace CyclingApp
                         startMarker.MajorTic.IsAllTics = false;
                         startMarker.MinorTic.IsAllTics = false;
                         startMarker.MajorTic.PenWidth = 2;
+                        startMarker.CrossAuto = false;
                         startMarker.Cross = marker.Min;
 
                         YAxis endMarker = new YAxis("");
@@ -926,6 +943,7 @@ namespace CyclingApp
                         endMarker.Scale.IsVisible = false;
                         endMarker.MajorTic.IsAllTics = false;
                         endMarker.MinorTic.IsAllTics = false;
+                        endMarker.CrossAuto = false;
                         endMarker.Cross = marker.Max;
                         endMarker.MajorTic.PenWidth = 2;
 
@@ -938,33 +956,50 @@ namespace CyclingApp
             }
 
 
+
+            Console.WriteLine("Chunk markers: " + chunkMarkers.Count);
+            chunkmFlow.Controls.Clear();
+            //Console.WriteLine("Marker list count" + MarkerList.Count);
             if (chunkMarkers.Count > 0)
             {
-
-                foreach (Marker m in chunkMarkers)
+               
+                //we need to draw the markers if we have them 
+                for (int i = 0; i < chunkMarkers.Count; i++)
                 {
-                    //Console.WriteLine("Marker start: "+m.Min+" Marker End: "+m.Max+" Marker Colour: "+m.C.ToString());
-                    YAxis startMarker1 = new YAxis("");
-                    startMarker1.Color = m.C;
-                    startMarker1.Scale.IsVisible = false;
-                    startMarker1.MajorTic.IsAllTics = false;
-                    startMarker1.MinorTic.IsAllTics = false;
-                    startMarker1.Cross = m.Min;
-                    startMarker1.MajorTic.PenWidth = 2;
+                    Marker marker = chunkMarkers.ElementAt(i);
+                    XDate start = new XDate(marker.Min);
+                    XDate endTime = new XDate(marker.Max);
+                    UserMarkerControl u = new UserMarkerControl(i, this, start.DateTime, endTime.DateTime, GetListData(start.DateTime, endTime.DateTime), selectedUnit, Convert.ToInt32(recordingInterval.Text.Split(' ')[0]), true);
+                    chunkmFlow.Controls.Add(u);
 
-                    YAxis endMarker1 = new YAxis("");
-                    endMarker1.Color = m.C;
-                    endMarker1.Scale.IsVisible = false;
-                    endMarker1.MajorTic.IsAllTics = false;
-                    endMarker1.MinorTic.IsAllTics = false;
-                    endMarker1.Cross = m.Max;
-                    endMarker1.MajorTic.PenWidth = 2;
 
-                    graph.YAxisList.Add(startMarker1);
-                    graph.YAxisList.Add(endMarker1);
+                    YAxis startMarker = new YAxis("");
+                    startMarker.Color = marker.C;
+                    startMarker.Scale.IsVisible = false;
+                    startMarker.MajorTic.IsAllTics = false;
+                    startMarker.MinorTic.IsAllTics = false;
+                    startMarker.MajorTic.PenWidth = 2;
+                    startMarker.Cross = marker.Min;
+                    Console.WriteLine("marker Min: "+marker.Min);
+
+                    YAxis endMarker = new YAxis("");
+                    endMarker.Color = marker.C;
+                    endMarker.Scale.IsVisible = false;
+                    endMarker.MajorTic.IsAllTics = false;
+                    endMarker.MinorTic.IsAllTics = false;
+                    endMarker.Cross = marker.Max;
+                    endMarker.MajorTic.PenWidth = 2;
+
+                    graph.YAxisList.Add(startMarker);
+                    graph.YAxisList.Add(endMarker);
+
+
+
                 }
             }
+             Console.WriteLine("min x on graph "+ graphControl.GraphPane.XAxis.Scale.Min);
 
+            
         }
 
         
@@ -1280,6 +1315,11 @@ namespace CyclingApp
 
         }
 
+        /// <summary>
+        /// called when summary button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void summaryButton_Click_1(object sender, EventArgs e)
         {
             if (summaryHidden)
@@ -1526,6 +1566,10 @@ namespace CyclingApp
             AddGraphs();
         }
 
+        /// <summary>
+        /// used to remove a chunk selection
+        /// </summary>
+        /// <param name="index"></param>
         public void RemoveChunkSelection(int index)
         {
             chunkMarkers.RemoveAt(index);
@@ -1577,7 +1621,7 @@ namespace CyclingApp
         /// <summary>
         /// called after the event function to actually apply the smoothing
         /// </summary>
-        /// <param name="windowSize"></param>
+        /// <param name="windowSize">size of the smoothing window</param>
         private void ApplySmooth(int windowSize)
         {
             Console.WriteLine("We are here");
@@ -1661,11 +1705,28 @@ namespace CyclingApp
       
         }
 
+        /// <summary>
+        /// used to revert the selected data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void revertData_Click(object sender, EventArgs e)
         {
             selectedDataSet[0] = hrdata.DataEuro;
             selectedDataSet[1] = hrdata.DataUS;
             markerSelected = false;
+            Marker[] intArrayTemp = MarkerList.ToArray();
+            for (int i = 0; i < MarkerList.Count;i++)
+            {
+                
+                if (intArrayTemp[i].Selected)
+                {
+                    intArrayTemp[i].Selected = false;
+                }
+            }
+            Console.WriteLine("marker list"+ MarkerList.Count);
+            MarkerList = intArrayTemp.ToList();
+
             AddGraphs();
             AddFullData();
 
@@ -1846,10 +1907,7 @@ namespace CyclingApp
 
 
 
-        public void ChunkMarkers(List<Marker> markers)
-        {
-          
-        }
+        
 
     
 

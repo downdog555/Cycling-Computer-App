@@ -66,7 +66,7 @@ namespace CyclingApp
             int chunkSize = data[0].Count / numberChunks;
             //we can then go through and ge thte start and end points or create markers
             Marker m = new Marker();
-            XDate start = new XDate(2018, 1, 1, 0, 0, 0);
+            XDate start = new XDate(2018, 10, 10, 0, 0, 0);
             m.Min = start;
             bool startBool = false;
             int x = 0;
@@ -79,7 +79,7 @@ namespace CyclingApp
                     m.GenColour();
                     markers.Add(m);
                     m = new Marker();
-                    XDate temp = new XDate(2018, 1, 1, 0, 0, 0);
+                    XDate temp = new XDate(2018, 10, 10, 0, 0, 0);
                     temp.AddSeconds(i * interval);
                     m.Min = temp;
                     startBool = false;
@@ -87,7 +87,7 @@ namespace CyclingApp
                 if (x == chunkSize - 1)
                 {
                     startBool = true;
-                    XDate temp = new XDate(2018, 1, 1, 0, 0, 0);
+                    XDate temp = new XDate(2018, 10, 10, 0, 0, 0);
                     temp.AddSeconds(i * interval);
                     m.Max = temp;
                     x = 0;
@@ -117,7 +117,8 @@ namespace CyclingApp
             //we then need the markers to be drawn
 
             dv.AddMarkers(markers);
-            dv.AddChunkMarkers();
+            dv.AddGraphs();
+
             this.Close();
         }
 

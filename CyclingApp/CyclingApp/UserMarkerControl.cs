@@ -121,7 +121,7 @@ namespace CyclingApp
 
 
             dv.SetData(data);
-            dv.AddChunkMarkers();
+            dv.AddGraphs();
 
         }
 
@@ -136,7 +136,7 @@ namespace CyclingApp
             //we then need to show the summaries based on those chunks
             ms = new MultipleSummaries(data, dv, unit, interval);
             ms.Show();
-            dv.AddChunkMarkers();
+          //  dv.AddGraphs();
         }
 
         /// <summary>
