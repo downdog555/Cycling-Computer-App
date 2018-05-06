@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace CyclingApp.Tests
 {
+    /// <summary>
+    /// Test calss for polar reader
+    /// </summary>
     [TestClass()]
     public class PolarReaderTests
     {
@@ -111,7 +114,9 @@ namespace CyclingApp.Tests
             Assert.IsNotNull(p.GetIF(300, 243));
             Assert.IsTrue( (((double)300 / 243) * 100) == p.GetIF(300, 243));
         }
-
+        /// <summary>
+        /// test method for testing th summary retireved via a specific date time
+        /// </summary>
         [TestMethod()]
         public void GetSummaryDataTimeSpecificedTest()
         {

@@ -113,6 +113,9 @@ namespace CyclingApp.Tests
             Assert.IsTrue((((double)300 / 243) * 100) == p.GetIF(300, 243));
         }
 
+        /// <summary>
+        /// test method for testing th summary retireved via a specific date time
+        /// </summary>
         [TestMethod()]
         public void GetSummaryDataTimeSpecificedTest()
         {
