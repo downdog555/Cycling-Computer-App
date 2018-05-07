@@ -86,11 +86,24 @@ namespace CyclingApp
                 }
                 if (x == chunkSize - 1)
                 {
-                    startBool = true;
-                    XDate temp = new XDate(2018, 10, 10, 0, 0, 0);
-                    temp.AddSeconds(i * interval);
-                    m.Max = temp;
-                    x = 0;
+                    if (i == numberChunks - 1)
+                    {
+                        //means final chunk add rest if odd number
+                        startBool = true;
+                        XDate temp = new XDate(2018, 10, 10, 0, 0, 0);
+                        temp.AddSeconds(data[0].Count/interval);
+                        m.Max = temp;
+                        x = 0;
+                    }
+                    else
+                    {
+                        startBool = true;
+                        XDate temp = new XDate(2018, 10, 10, 0, 0, 0);
+                        temp.AddSeconds(i * interval);
+                        m.Max = temp;
+                        x = 0;
+                    }
+                  
 
                 }
 

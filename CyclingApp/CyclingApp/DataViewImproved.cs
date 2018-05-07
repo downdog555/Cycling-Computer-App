@@ -968,6 +968,7 @@ namespace CyclingApp
                 {
                     Marker marker = chunkMarkers.ElementAt(i);
                     XDate start = new XDate(marker.Min);
+                    start.AddMilliseconds(1);
                     XDate endTime = new XDate(marker.Max);
                     UserMarkerControl u = new UserMarkerControl(i, this, start.DateTime, endTime.DateTime, GetListData(start.DateTime, endTime.DateTime), selectedUnit, Convert.ToInt32(recordingInterval.Text.Split(' ')[0]), true);
                     chunkmFlow.Controls.Add(u);
@@ -979,7 +980,7 @@ namespace CyclingApp
                     startMarker.MajorTic.IsAllTics = false;
                     startMarker.MinorTic.IsAllTics = false;
                     startMarker.MajorTic.PenWidth = 2;
-                    startMarker.Cross = marker.Min;
+                    startMarker.Cross = start;
                     Console.WriteLine("marker Min: "+marker.Min);
 
                     YAxis endMarker = new YAxis("");
@@ -987,7 +988,19 @@ namespace CyclingApp
                     endMarker.Scale.IsVisible = false;
                     endMarker.MajorTic.IsAllTics = false;
                     endMarker.MinorTic.IsAllTics = false;
-                    endMarker.Cross = marker.Max;
+
+                    if (i == (chunkMarkers.Count - 1))
+                    {
+                        XDate ends = graph.XAxis.Scale.Max;
+                        ends.AddMilliseconds(-1);
+                        
+                        endMarker.Cross = ends;
+                    }
+                    else
+                    {
+                        endMarker.Cross = marker.Max;
+                    }
+                   
                     endMarker.MajorTic.PenWidth = 2;
 
                     graph.YAxisList.Add(startMarker);
@@ -1455,11 +1468,16 @@ namespace CyclingApp
             bool start = false;
             bool markerDone = false;
             int averageHR = 0;
+            int averagePower = 0;
             foreach (KeyValuePair<string, string> keyData in summaryDataEuro)
             {
                 if (keyData.Key.Equals("Average Heart Rate"))
                 {
                     averageHR = Convert.ToInt32(keyData.Value);
+                }
+                else if (keyData.Key.Equals("Average Power"))
+                {
+                    averagePower = Convert.ToInt32(keyData.Value);
                 }
             }
             Marker intervalMarker = new Marker();
@@ -1513,7 +1531,7 @@ namespace CyclingApp
                         {
                             int hrDiff = past2.HeartRate - data.HeartRate;
                             Console.WriteLine("Average HR: "+averageHR);
-                            if (  (data.HeartRate > past2.HeartRate && data.HeartRate >= averageHR-(((float)averageHR/100 *19))) && (data.Power >= (past2.Power + (past2.Power / 4)) && data.Power > 100) )
+                            if (  (data.HeartRate > past2.HeartRate && data.HeartRate >= averageHR-(((float)averageHR/100 *19))) && (data.Power >= (past2.Power + (past2.Power / 4)) && data.Power > (averagePower-(averagePower/2))) )
                             {
                                 Console.WriteLine("Difference = " + diff);
                                 //means we have marker
@@ -1547,7 +1565,7 @@ namespace CyclingApp
                 }
                 past2 = data;
             }
-            Console.WriteLine("Inteval Marer Count: "+intervalList.Count);
+            Console.WriteLine("Inteval Marker Count: "+intervalList.Count);
 
 
           
@@ -1761,6 +1779,16 @@ namespace CyclingApp
             }
             AddGraphs();
 
+        }
+
+        /// <summary>
+        /// called when load file is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void loadFileToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            cyclingMain.loadFileToolStripMenuItem_Click(sender, e);
         }
 
         private void basePanel_Paint(object sender, PaintEventArgs e)
