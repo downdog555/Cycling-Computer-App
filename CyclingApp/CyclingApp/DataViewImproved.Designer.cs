@@ -142,14 +142,14 @@
             // loadFileToolStripMenuItem
             // 
             this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.loadFileToolStripMenuItem.Text = "Load File";
             this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click_1);
             // 
             // removeFileToolStripMenuItem
             // 
             this.removeFileToolStripMenuItem.Name = "removeFileToolStripMenuItem";
-            this.removeFileToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.removeFileToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.removeFileToolStripMenuItem.Text = "Remove File";
             // 
             // euroSelection
@@ -190,7 +190,7 @@
             this.rideDetailsBox.Controls.Add(this.dateLabel);
             this.rideDetailsBox.Location = new System.Drawing.Point(1582, 159);
             this.rideDetailsBox.Name = "rideDetailsBox";
-            this.rideDetailsBox.Size = new System.Drawing.Size(292, 98);
+            this.rideDetailsBox.Size = new System.Drawing.Size(276, 98);
             this.rideDetailsBox.TabIndex = 9;
             this.rideDetailsBox.TabStop = false;
             this.rideDetailsBox.Text = "Ride Information";
@@ -277,7 +277,7 @@
             this.enterValues.Controls.Add(this.ftpLabel);
             this.enterValues.Location = new System.Drawing.Point(1582, 4);
             this.enterValues.Name = "enterValues";
-            this.enterValues.Size = new System.Drawing.Size(284, 39);
+            this.enterValues.Size = new System.Drawing.Size(268, 39);
             this.enterValues.TabIndex = 10;
             this.enterValues.TabStop = false;
             this.enterValues.Text = "FTP & Max HR";
@@ -347,7 +347,7 @@
             this.chunkM.Controls.Add(this.chunkmFlow);
             this.chunkM.Location = new System.Drawing.Point(1582, 749);
             this.chunkM.Name = "chunkM";
-            this.chunkM.Size = new System.Drawing.Size(284, 140);
+            this.chunkM.Size = new System.Drawing.Size(310, 140);
             this.chunkM.TabIndex = 17;
             this.chunkM.TabStop = false;
             this.chunkM.Text = "Chunk Timings";
@@ -357,7 +357,7 @@
             this.chunkmFlow.AutoScroll = true;
             this.chunkmFlow.Location = new System.Drawing.Point(7, 20);
             this.chunkmFlow.Name = "chunkmFlow";
-            this.chunkmFlow.Size = new System.Drawing.Size(305, 109);
+            this.chunkmFlow.Size = new System.Drawing.Size(255, 109);
             this.chunkmFlow.TabIndex = 0;
             // 
             // groupBox3
@@ -367,7 +367,7 @@
             this.groupBox3.Controls.Add(this.userIntervalsFlow);
             this.groupBox3.Location = new System.Drawing.Point(1582, 473);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(284, 140);
+            this.groupBox3.Size = new System.Drawing.Size(310, 140);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "User Intervals";
@@ -377,7 +377,7 @@
             this.userIntervalsFlow.AutoScroll = true;
             this.userIntervalsFlow.Location = new System.Drawing.Point(7, 20);
             this.userIntervalsFlow.Name = "userIntervalsFlow";
-            this.userIntervalsFlow.Size = new System.Drawing.Size(305, 109);
+            this.userIntervalsFlow.Size = new System.Drawing.Size(255, 109);
             this.userIntervalsFlow.TabIndex = 0;
             // 
             // groupBox2
@@ -531,7 +531,7 @@
             this.summaryPanel.Controls.Add(this.summaryDataBox);
             this.summaryPanel.Location = new System.Drawing.Point(1583, 264);
             this.summaryPanel.Name = "summaryPanel";
-            this.summaryPanel.Size = new System.Drawing.Size(283, 208);
+            this.summaryPanel.Size = new System.Drawing.Size(267, 208);
             this.summaryPanel.TabIndex = 14;
             this.summaryPanel.TabStop = false;
             this.summaryPanel.Text = "Summary Data";
@@ -598,7 +598,7 @@
             this.summaryDataBox.Location = new System.Drawing.Point(9, 20);
             this.summaryDataBox.Name = "summaryDataBox";
             this.summaryDataBox.ReadOnly = true;
-            this.summaryDataBox.Size = new System.Drawing.Size(268, 124);
+            this.summaryDataBox.Size = new System.Drawing.Size(252, 124);
             this.summaryDataBox.TabIndex = 0;
             this.summaryDataBox.Text = "";
             this.summaryDataBox.TextChanged += new System.EventHandler(this.summaryDataBox_TextChanged);
@@ -610,7 +610,7 @@
             this.fullDataPanel.Controls.Add(this.fullDataFlow);
             this.fullDataPanel.Location = new System.Drawing.Point(4, 434);
             this.fullDataPanel.Name = "fullDataPanel";
-            this.fullDataPanel.Size = new System.Drawing.Size(1572, 446);
+            this.fullDataPanel.Size = new System.Drawing.Size(1572, 449);
             this.fullDataPanel.TabIndex = 13;
             this.fullDataPanel.TabStop = false;
             this.fullDataPanel.Text = "Full Data";
@@ -621,7 +621,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.fullDataFlow.Location = new System.Drawing.Point(7, 20);
             this.fullDataFlow.Name = "fullDataFlow";
-            this.fullDataFlow.Size = new System.Drawing.Size(1559, 420);
+            this.fullDataFlow.Size = new System.Drawing.Size(1559, 423);
             this.fullDataFlow.TabIndex = 0;
             // 
             // graphPanel
@@ -641,7 +641,7 @@
             this.intervalsBox.Controls.Add(this.groupBox4);
             this.intervalsBox.Location = new System.Drawing.Point(1583, 619);
             this.intervalsBox.Name = "intervalsBox";
-            this.intervalsBox.Size = new System.Drawing.Size(284, 122);
+            this.intervalsBox.Size = new System.Drawing.Size(309, 122);
             this.intervalsBox.TabIndex = 11;
             this.intervalsBox.TabStop = false;
             this.intervalsBox.Text = "Intevals";
@@ -653,7 +653,7 @@
             this.groupBox4.Controls.Add(this.flowLayoutPanel1);
             this.groupBox4.Location = new System.Drawing.Point(1, 128);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(284, 89);
+            this.groupBox4.Size = new System.Drawing.Size(309, 89);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "User Intervals";
@@ -682,7 +682,7 @@
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Location = new System.Drawing.Point(1582, 49);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(292, 98);
+            this.groupBox1.Size = new System.Drawing.Size(276, 98);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sensors";

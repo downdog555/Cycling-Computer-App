@@ -488,10 +488,10 @@ namespace CyclingApp
 
            
             TimeSpan t = end - start;
-          
+         // tss
             double tss = ((t.TotalSeconds * NormalisedPower * IntensityFactor) / (ftp * 3600) * 100);
-            summary[0].Add("TSS", "" + tss);
-            summary[1].Add("TSS", "" +tss);
+            summary[0].Add("TSS", "" + TSS);
+            summary[1].Add("TSS", "" +TSS);
 
             return summary;
         }
@@ -1461,6 +1461,11 @@ namespace CyclingApp
         private void intervalDetection_Click(object sender, EventArgs e)
         {
             intervalList.Clear();
+            if (!smode.Power)
+            {
+                MessageBox.Show("Error: Cannot detect intervals without power", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
+            }
             int DetectionValue = 110;
             //we need to create the lines
             HrDataSingle past2=new HrDataSingle() ;

@@ -189,16 +189,23 @@ namespace CyclingApp
         /// <param name="e"></param>
         private void file2Dialog_FileOk(object sender, CancelEventArgs e)
         {
-            if (file2Dialog.FileName != null || !file2Dialog.FileName.Equals(""))
+            if (file2Dialog.FileName != null && !file2Dialog.FileName.Equals(""))
             {
                 polar2 = new Polar();
                 polar2.LoadData(file2Dialog.FileName);
-
+                
                 dw2 = new DataViewImproved(polar2.GetUnit(), polar2.GetHrData(), polar2.GetSMODE(), this.polar2, this, polar2.GetRideInfo());
                 //dw1.AddRideInfo(polar.GetRideInfo());
                 dw2.AddFullData();
                 dw2.SetFTP(ftp);
                 dw2.Dock = DockStyle.Fill;
+
+                if (dw2.GetInterval() != dw1.GetInterval())
+                {
+                    MessageBox.Show("Error: Please load a file with the same recording interval", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    dw2 = null;
+                    return;
+                }
                 //singleView.Controls.Clear();
                 //singleView.Controls.Add(dw2);
                 //enterMaximumHeartRateToolStripMenuItem.ShowDropDown();
@@ -340,7 +347,11 @@ namespace CyclingApp
             if (selectionValue.Equals("Full Data"))
             {
                 file1.LoadChunk(-1);
-                file2.LoadChunk(-1);
+                if (file2 != null)
+                {
+                    file2.LoadChunk(-1);
+                }
+                
                 
 
             }
@@ -348,7 +359,11 @@ namespace CyclingApp
             {
                 int selectionValueInt = Convert.ToInt32(selectionValue.Split('/')[0]);
                 file1.LoadChunk(selectionValueInt);
-                file2.LoadChunk(selectionValueInt);
+                if (file2 != null)
+                {
+                    file2.LoadChunk(selectionValueInt);
+                }
+                
 
             }
         }

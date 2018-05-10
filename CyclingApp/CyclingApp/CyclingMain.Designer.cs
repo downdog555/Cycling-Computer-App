@@ -73,7 +73,7 @@
             this.enterMaximumHeartRateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(17, 2);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(432, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(401, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -82,45 +82,45 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadSingleFileToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // loadSingleFileToolStripMenuItem
             // 
             this.loadSingleFileToolStripMenuItem.Name = "loadSingleFileToolStripMenuItem";
-            this.loadSingleFileToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.loadSingleFileToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.loadSingleFileToolStripMenuItem.Text = "Load Single File";
             this.loadSingleFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // ftpMenu
             // 
             this.ftpMenu.Name = "ftpMenu";
-            this.ftpMenu.Size = new System.Drawing.Size(69, 20);
+            this.ftpMenu.Size = new System.Drawing.Size(66, 20);
             this.ftpMenu.Text = "Enter FTP";
             this.ftpMenu.Click += new System.EventHandler(this.ftpMenu_Click);
             // 
             // enterMaximumHeartRateToolStripMenuItem
             // 
             this.enterMaximumHeartRateToolStripMenuItem.Name = "enterMaximumHeartRateToolStripMenuItem";
-            this.enterMaximumHeartRateToolStripMenuItem.Size = new System.Drawing.Size(161, 20);
+            this.enterMaximumHeartRateToolStripMenuItem.Size = new System.Drawing.Size(148, 20);
             this.enterMaximumHeartRateToolStripMenuItem.Text = "Enter Maximum Heart Rate";
             this.enterMaximumHeartRateToolStripMenuItem.Click += new System.EventHandler(this.enterMaximumHeartRateToolStripMenuItem_Click);
             // 
@@ -139,6 +139,7 @@
             // 
             // singleView
             // 
+            this.singleView.AutoScroll = true;
             this.singleView.Controls.Add(this.menuStrip3);
             this.singleView.Location = new System.Drawing.Point(4, 22);
             this.singleView.Name = "singleView";
@@ -161,7 +162,7 @@
             // loadFileToolStripMenuItem
             // 
             this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.loadFileToolStripMenuItem.Text = "Load File";
             this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
             // 
@@ -250,14 +251,14 @@
             // loadFile1ToolStripMenuItem
             // 
             this.loadFile1ToolStripMenuItem.Name = "loadFile1ToolStripMenuItem";
-            this.loadFile1ToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.loadFile1ToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.loadFile1ToolStripMenuItem.Text = "Load File 1";
             this.loadFile1ToolStripMenuItem.Click += new System.EventHandler(this.loadFile1ToolStripMenuItem_Click);
             // 
             // loadFile2ToolStripMenuItem
             // 
             this.loadFile2ToolStripMenuItem.Name = "loadFile2ToolStripMenuItem";
-            this.loadFile2ToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.loadFile2ToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.loadFile2ToolStripMenuItem.Text = "Load File 2";
             this.loadFile2ToolStripMenuItem.Click += new System.EventHandler(this.loadFile2ToolStripMenuItem_Click);
             // 

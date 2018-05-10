@@ -22,7 +22,7 @@ namespace CyclingApp.Tests
         public void LoadDataTest()
         {
             Polar p = new Polar();
-            p.LoadData(@"C:\Users\Reec\Downloads\ASDBExampleCycleComputerData.hrm");
+            p.LoadData(@"C:\Users\DaveL\Downloads\ASDBExampleCycleComputerData.hrm");
             HrData hrdata = p.GetHrData();
             Assert.IsNotNull(hrdata);
 
@@ -35,7 +35,7 @@ namespace CyclingApp.Tests
         public void GetSummaryUSTest()
         {
             Polar p = new Polar();
-            p.LoadData(@"C:\Users\Reec\Downloads\ASDBExampleCycleComputerData.hrm");
+            p.LoadData(@"C:\Users\DaveL\Downloads\ASDBExampleCycleComputerData.hrm");
             
             Assert.IsNotNull(p.GetSummaryUS());
         }
@@ -47,7 +47,7 @@ namespace CyclingApp.Tests
         public void GetSummaryEuroTest()
         {
             Polar p = new Polar();
-            p.LoadData(@"C:\Users\Reec\Downloads\ASDBExampleCycleComputerData.hrm");
+            p.LoadData(@"C:\Users\DaveL\Downloads\ASDBExampleCycleComputerData.hrm");
 
             Assert.IsNotNull(p.GetSummaryEuro());
         }
@@ -59,7 +59,7 @@ namespace CyclingApp.Tests
         public void GetUnitTest()
         {
             Polar p = new Polar();
-            p.LoadData(@"C:\Users\Reec\Downloads\ASDBExampleCycleComputerData.hrm");
+            p.LoadData(@"C:\Users\DaveL\Downloads\ASDBExampleCycleComputerData.hrm");
 
             Assert.IsNotNull(p.GetUnit());
         }
@@ -71,7 +71,7 @@ namespace CyclingApp.Tests
         public void GetRideInfoTest()
         {
             Polar p = new Polar();
-            p.LoadData(@"C:\Users\Reec\Downloads\ASDBExampleCycleComputerData.hrm");
+            p.LoadData(@"C:\Users\DaveL\Downloads\ASDBExampleCycleComputerData.hrm");
 
             Assert.IsNotNull(p.GetRideInfo());
         }
@@ -83,7 +83,7 @@ namespace CyclingApp.Tests
         public void GetHrDataTest()
         {
             Polar p = new Polar();
-            p.LoadData(@"C:\Users\Reec\Downloads\ASDBExampleCycleComputerData.hrm");
+            p.LoadData(@"C:\Users\DaveL\Downloads\ASDBExampleCycleComputerData.hrm");
 
             Assert.IsNotNull(p.GetHrData());
         }
@@ -95,7 +95,7 @@ namespace CyclingApp.Tests
         public void GetSMODETest()
         {
             Polar p = new Polar();
-            p.LoadData(@"C:\Users\Reec\Downloads\ASDBExampleCycleComputerData.hrm");
+            p.LoadData(@"C:\Users\DaveL\Downloads\ASDBExampleCycleComputerData.hrm");
 
             Assert.IsNotNull(p.GetSMODE());
         }
@@ -107,7 +107,7 @@ namespace CyclingApp.Tests
         public void GetIFTest()
         {
             Polar p = new Polar();
-            p.LoadData(@"C:\Users\Reec\Downloads\ASDBExampleCycleComputerData.hrm");
+            p.LoadData(@"C:\Users\DaveL\Downloads\ASDBExampleCycleComputerData.hrm");
 
             Assert.IsNotNull(p.GetIF(300, 243));
             Assert.IsTrue((((double)300 / 243) * 100) == p.GetIF(300, 243));
@@ -120,7 +120,7 @@ namespace CyclingApp.Tests
         public void GetSummaryDataTimeSpecificedTest()
         {
             Polar p = new Polar();
-            p.LoadData(@"C:\Users\Reec\Downloads\ASDBExampleCycleComputerData.hrm");
+            p.LoadData(@"C:\Users\DaveL\Downloads\ASDBExampleCycleComputerData.hrm");
             DateTime start = new DateTime(2018,1,1,0,0,0);
             DateTime end = new DateTime(2018, 1, 1, 0, 50, 5);
             Assert.IsNotNull(p.GetSummaryDataTimeSpecificed(start, end, false));

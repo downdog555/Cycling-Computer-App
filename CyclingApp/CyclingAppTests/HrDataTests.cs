@@ -21,7 +21,7 @@ namespace CyclingApp.Tests
         public void HrDataTest()
         {
             Polar p = new Polar();
-            p.LoadData(@"C:\Users\Reec\Downloads\ASDBExampleCycleComputerData.hrm");
+            p.LoadData(@"C:\Users\DaveL\Downloads\ASDBExampleCycleComputerData.hrm");
             HrData hrdata = p.GetHrData();
             
             
